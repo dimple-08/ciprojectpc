@@ -1,0 +1,509 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    width: 100%;
+    padding: 1.8%;
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    color: #F88634;
+    opacity: 1;
+}
+
+.lstpass {
+    text-decoration: none;
+    opacity: 1;
+}
+
+.txtcolour {
+    color: #414141;
+}
+
+.privacy {
+    margin-top: 29.9%;
+}
+
+.privacy1 {
+    margin-top: 12.9%;
+}
+
+.img {
+    height: 100vh;
+}
+
+    .img img {
+        height: 100vh;
+    }
+
+.carousel-indicators button {
+    height: 10px !important;
+    width: 10px !important;
+    margin: 0 10px !important;
+    border-radius: 100% !important;
+}
+
+.cont {
+    margin-left: 15%;
+}
+
+.usrDetail {
+    display: flex;
+    justify-content: center;
+}
+
+.cont2 {
+    display: flex;
+}
+
+.usrDetail img {
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 50% !important;
+}
+
+@media screen and (max-width:992px) {
+    .img {
+        height: auto
+    }
+
+        .img img {
+            height: auto;
+        }
+
+    .smscreen {
+        margin-top: 10%;
+    }
+
+    .cont {
+        margin-top: 2%;
+        margin-left: 2%;
+    }
+
+    .usrDetail {
+        display: flex;
+        justify-content: left;
+    }
+
+        .usrDetail img {
+            margin-left: 2%;
+            height: 40px !important;
+            width: 40px !important;
+            border-radius: 50% !important;
+        }
+
+    .cont2 {
+        flex-direction: column;
+        margin-top: 2%;
+        margin-left: 2%;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1263px) {
+    .crtAccount {
+        flex-direction: column;
+    }
+
+    .crtAccount1 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .crtAccount2 {
+        display: flex;
+        justify-content: center;
+    }
+
+    .nav1 {
+        margin-left: 20%;
+    }
+}
+
+@media screen and (min-width:993px) {
+    .filBtn {
+        display: none;
+    }
+}
+
+.crdLocation {
+    margin-top: -59%;
+    margin-left: 74%;
+    opacity: 0.45;
+    position: absolute;
+}
+
+.crdLike {
+    margin-top: -26%;
+    margin-left: 88%;
+    opacity: 0.45;
+    position: absolute;
+}
+
+.crdAddUser {
+    margin-top: -16%;
+    margin-left: 88%;
+    opacity: 0.45;
+    position: absolute;
+}
+
+.timeDuretion {
+    width: 80%;
+    padding: 0.5%;
+    background: white 0% 0% no-repeat padding-box;
+    border: 2px solid #F1F1F1;
+    color: #808080;
+    border-radius: 24px;
+    opacity: 1;
+    background-color: white !important;
+}
+
+.timeduretionStyle {
+    margin-top: -2.6%;
+}
+
+.card {
+    margin-bottom: 1rem;
+}
+
+.list-view .row > [class*=col-] {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.list-view .card {
+    flex-direction: row;
+}
+
+@media (max-width: 575.98px) {
+    .list-view .card {
+        flex-direction: column;
+    }
+}
+
+.list-view .card > .card-img-top {
+    width: auto;
+}
+
+.list-view .card .card-body {
+    display: inline-block;
+}
+
+.filter-list {
+    /* padding:6px 10px; */
+    background-color: white;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
+.filter-close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 5px;
+    color: #888;
+}
+
+.filters-section {
+    margin-top: 2%;
+}
+
+.list-view .crdLocation {
+    margin-top: -68%;
+    margin-left: 74%;
+    opacity: 0.45;
+    position: absolute;
+}
+
+
+
+
+/*  ------------- Mission Page -------------- */
+
+section {
+    background: white;
+}
+
+.container {
+    width: 86%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.carousel {
+    display: block;
+    text-align: left;
+    position: relative;
+    margin-bottom: 22px;
+}
+
+    .carousel > input {
+        clip: rect(1px, 1px, 1px, 1px);
+        clip-path: inset(50%);
+        height: 1px;
+        width: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+    }
+
+
+
+        .carousel > input:nth-of-type(4):checked ~ .carousel__slides .carousel__slide:first-of-type {
+            margin-left: -300%;
+        }
+
+        .carousel > input:nth-of-type(3):checked ~ .carousel__slides .carousel__slide:first-of-type {
+            margin-left: -200%;
+        }
+
+        .carousel > input:nth-of-type(2):checked ~ .carousel__slides .carousel__slide:first-of-type {
+            margin-left: -100%;
+        }
+
+        .carousel > input:nth-of-type(1):checked ~ .carousel__slides .carousel__slide:first-of-type {
+            margin-left: 0%;
+        }
+
+        .carousel > input:nth-of-type(1):checked ~ .carousel__thumbnails li:nth-of-type(1) {
+            box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
+        }
+
+        .carousel > input:nth-of-type(2):checked ~ .carousel__thumbnails li:nth-of-type(2) {
+            box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
+        }
+
+        .carousel > input:nth-of-type(3):checked ~ .carousel__thumbnails li:nth-of-type(3) {
+            box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
+        }
+
+        .carousel > input:nth-of-type(4):checked ~ .carousel__thumbnails li:nth-of-type(4) {
+            box-shadow: 0px 0px 0px 5px rgba(0, 0, 255, 0.5);
+        }
+
+
+.carousel__slides {
+    position: relative;
+    z-index: 1;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.carousel__slide {
+    position: relative;
+    display: block;
+    flex: 1 0 100%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 300ms ease-out;
+    vertical-align: top;
+    box-sizing: border-box;
+    white-space: normal;
+}
+
+    .carousel__slide figure {
+        display: flex;
+        margin: 0;
+    }
+
+    .carousel__slide div {
+        position: relative;
+        width: 100%;
+    }
+
+        .carousel__slide div:before {
+            display: block;
+            content: "";
+            width: 100%;
+            padding-top: 66.6666666667%;
+        }
+
+        .carousel__slide div > img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    .carousel__slide img {
+        display: block;
+        flex: 1 1 auto;
+        object-fit: cover;
+    }
+
+    .carousel__slide figcaption {
+        align-self: flex-end;
+        padding: 20px 20px 0 20px;
+        flex: 0 0 auto;
+        width: 25%;
+        min-width: 150px;
+    }
+
+    .carousel__slide .credit {
+        margin-top: 1rem;
+        color: rgba(0, 0, 0, 0.5);
+        display: block;
+    }
+
+    .carousel__slide.scrollable {
+        overflow-y: scroll;
+    }
+
+.carousel__thumbnails {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.carousel__slides + .carousel__thumbnails {
+    margin-top: 6px;
+}
+
+.carousel__thumbnails li {
+    flex: 1 1 auto;
+    max-width: 100%;
+    margin: 0 3px;
+    transition: all 300ms ease-in-out;
+}
+
+.carousel__thumbnails label {
+    display: block;
+    position: relative;
+}
+
+    .carousel__thumbnails label:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 100%;
+    }
+
+    .carousel__thumbnails label > img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .carousel__thumbnails label:hover, .carousel__thumbnails label:focus {
+        cursor: pointer;
+    }
+
+        .carousel__thumbnails label:hover img, .carousel__thumbnails label:focus img {
+            box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.25);
+            transition: all 300ms ease-in-out;
+        }
+
+.carousel__thumbnails img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scrollButton {
+    width: 100%;
+    padding: 1.8%;
+    background: #F8863400 0% 0% no-repeat padding-box;
+    color: #F88634;
+    opacity: 1;
+}
+
+.documentAdd {
+    padding: 0.5%;
+    background: white 0% 0% no-repeat padding-box;
+    border: 2px solid #F1F1F1;
+    color: #808080;
+    border-radius: 24px;
+    opacity: 1;
+    background-color: white !important;
+}
+
+.nav .nav-item .active {
+    border-bottom: 3px solid black !important;
+}
+
+
+/* Story Listning Page*/
+
+
+#banner {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    object-position: 100% 33%;
+    opacity: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+}
+
+.cont:hover .overlay {
+    display: block;
+    background: rgba(0, 0, 0, .6);
+}
+
+.txtForHover {
+    margin-top: 150px;
+    position: absolute;
+    opacity: 0;
+}
+
+.cont:hover .txtForHover {
+    opacity: 1;
+    color: white !important;
+}
+
+.buttonForHover {
+    margin-top: 30%;
+    position: absolute;
+    opacity: 0;
+}
+
+    .buttonForHover span {
+        z-index: 1;
+    }
+
+.cont:hover .buttonForHover {
+    opacity: 1;
+    color: black !important;
+}
+
+.hoverText {
+    color: white
+}
+
+.cont:hover .buttonForHover:hover .hoverText {
+    color: black;
+}
+
+
+
+
+
+

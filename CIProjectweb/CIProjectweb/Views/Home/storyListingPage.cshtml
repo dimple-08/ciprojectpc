@@ -1,0 +1,502 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    var list = ViewBag.list;
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+}
+@{
+   
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<style>
+    .nav{
+        margin-bottom:0;
+    }
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .cardbtn {
+        border: 1px solid #fd7e14;
+        border-radius: 22px;
+    }
+
+        .cardbtn span {
+            color: #fd7e14;
+        }
+
+    .star {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .rule {
+        display: flex;
+        flex-direction: row;
+    }
+
+
+    hr {
+        flex: 1;
+        border: none;
+        height: 2px;
+        background: black;
+    }
+
+    .seat {
+        font-size: 0.7rem;
+    }
+
+    .hrbtn-img {
+        background-color: white !important;
+        border: none;
+        border-radius: 22px;
+        color: #414141;
+        z-index: 1;
+    }
+
+    .hrbtn {
+        background-color: white !important;
+        border: 0.1rem solid rgb(184, 184, 184);
+        border-radius: 22px;
+        color: #414141;
+        font-size: .8rem;
+    }
+
+    .img-btn {
+        background: #000000 0% 0% no-repeat padding-box;
+        opacity: 0.5;
+        border-radius: 18px;
+        width: fit-content;
+        padding: 0 6px;
+        width: 7.5rem;
+        height: 2rem;
+        margin-left: -8rem;
+        margin-top: 1rem !important;
+    }
+
+        .img-btn p {
+            color: #FFFFFF;
+        }
+
+    .img-btn-2 {
+        background: #000000 0% 0% no-repeat padding-box;
+        opacity: 0.5;
+        border-radius: 50%;
+        width: fit-content;
+        margin-left: -3rem;
+        margin-top: 4rem !important;
+    }
+
+    .img-btn-3 {
+        background: #000000 0% 0% no-repeat padding-box;
+        opacity: 0.5;
+        border-radius: 50%;
+        width: fit-content;
+        margin-left: -3rem;
+        margin-top: 8rem !important;
+    }
+</style>
+
+<div class="hero-image">
+
+    <div class="hero-text">
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <div class="text-center">
+            <a  class="btn storybtn mx-auto" asp-action="ShareYourStory" asp-controller="Home">
+                <span style="color:#f8f9fa;">Share Your Story</span> <img class="ms-1"
+                                                                          src="~/lib/images/right-arrow.png">
+            </a>
+        </div>
+    </div>
+</div>
+<div class="container grid-container mt-5">
+    <div class="row">
+        @foreach (var item in list)
+        {
+             <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="@item.image" class="card-img-top image"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a asp-controller="Home" asp-action="StoryDetailPage" asp-route-storyid="@item.StoryId"  class="btn button storybtn mx-auto">
+                            <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+                
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">@item.Theme</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text text-secondary">
+                     @Html.Raw(@item.Description.Substring(0,90))...
+                     
+                    </p>
+
+
+
+
+
+
+                    <div class="  d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="@item.Avtar" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">@item.UserName</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        }
+       @* <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top image"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                            <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+                
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class="  d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer1.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        <@*/div>
+         <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/image1.png" class="card-img-top"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                             <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class=" d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer2.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/img1.png" class="card-img-top"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                             <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class=" d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/img3.png" class="card-img-top"
+                         alt="Mission Image">
+                     <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                             <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class="  d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer4.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                             <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class="  d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer1.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card">
+                <div class="d-inline card-image position-relative">
+                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability.png" class="card-img-top"
+                         alt="Mission Image">
+                    <div class="overlay"></div>
+                    <div class="text-center">
+                        <a href="#" class="btn button storybtn mx-auto">
+                            <span style="color:#f8f9fa;">View Details</span> <img class="ms-1"
+                                                                                      src="~/lib/images/right-arrow.png">
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="rule" style="margin-top:-20px !important;">
+                    <hr>
+                    <button class="hrbtn-img" id="hrbtn">Enviroment</button>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Grow Trees-On the path to environment sustainability</h5>
+                    <p class="card-text text-secondary">
+                        Some quick example text to build on the card title and make up
+                        the bulk
+                        of the card's content.
+                    </p>
+
+
+
+
+
+
+                    <div class="  d-flex flex-row align-items-center">
+                        <div class="border-0 rounded-circle">
+                            <img id="recent-volunteer-id" class="rounded-circle"
+                                 style=" height:54px;width:54px;" src="~/lib/images/volunteer1.png" alt="">
+                        </div>
+                        <div>
+                            <span id="recent-volunteer-name" class="ms-2">Andrew Johnson</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>*@
+    </div>
+
+</div>
+<nav aria-label="Page navigation example mt-5 mb-5">
+
+        @if (pager.TotalPages > 0)
+        {
+            <ul class="pagination justify-content-center">
+
+                @if (pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="storyListingPage" asp-route-pg="1">First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="storyListingPage" asp-route-pg="@(pager.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                {
+                    <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-controller="Home" asp-action="storyListingPage" asp-route-pg="@pge">@pge</a>
+                    </li>
+                }
+
+                @if (pager.CurrentPage < pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="storyListingPage" asp-route-pg="@(pager.CurrentPage + 1)">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Home" asp-action="storyListingPage" asp-route-pg="@(pager.TotalPages)">Last</a>
+                    </li>
+                }
+            </ul>
+        }
+    </nav>
+<script>
+//    const element = document.querySelector("#searchnav");
+//element.classList.remove("mb-2");
+</script>

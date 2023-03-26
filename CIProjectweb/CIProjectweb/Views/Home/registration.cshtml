@@ -1,0 +1,90 @@
+﻿@model CIProjectweb.Entities.ViewModels.RegistrationViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Registration Page";
+    Layout = "~/Views/Shared/_noone.cshtml";
+}
+<body>
+
+    <div class="col-sm-12 col-md-4 col-lg-4 " id="formContainer1">
+
+        <div id="form1">
+            <div>
+                <form asp-route="registration" method="post">
+                    <div class="d-flex" id="formElement">
+                        <div class="mb-1">
+                                 <span id="Textinput_">FirstName</span>
+                                <input type="text" class="form-control" id="first_name" aria-describedby="emailHelp" placeholder="Enter Firstname" asp-for="FirstName" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                                
+                            </div>
+
+                            <div class="mb-1">
+                                <span id="Textinput_">LastName</span>
+                                <input type="text" class="form-control" id="Last_name"  asp-for="LastName" aria-describedby="emailHelp" placeholder="Enter Lastname" asp-for="LastName"  />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-1">
+                               <span id="Textinput_">PhoneNumber</span>
+                               <input type="tel" class="form-control" id="phoneNumber"  asp-for="PhoneNumber" aria-describedby="emailHelp" placeholder="Enter Phone Number" pattern="^[0-9]{10,12}$"
+                           title="Please enter a valid 10-12 digit phone number"  >
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+							
+							
+                            <div class="mb-1">
+                                <span id="Textinput_">Email</span>
+                                <input type="text" class="form-control" id="Email" aria-describedby="emailHelp" asp-for="Email" placeholder="Enter email"  >
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-1">
+                                 <span id="Textinput_">Password</span>
+                                <input type="password" class="form-control" id="Password" placeholder="Password" asp-for="Password"  >
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-1">
+                                <span id="Textinput_">Confirm Passowrd</span>
+                                <input type="password" class="form-control" id="confirm_Password" placeholder="Reenter Password" asp-for="ConfirmPassowrd"  >
+                                <span asp-validation-for="ConfirmPassowrd" class="text-danger"></span>
+                            </div>
+                           
+                    </div>
+                    <br>
+                    <div id="loginbtndiv">
+
+                        <button id="btnlogin" type="submit">Register</button>
+
+                        <br>
+                        <a id="passwordlink1" asp-controller="Home" asp-action="ForgotPAasword">Lost Your Passwpord?</a>
+                        <br>
+                        <span id="registrationinfo1">Already Registered? <a asp-controller="Home" asp-action="Login">Login now</a></span>
+
+                    </div>
+                </form>
+            </div>
+            <br />
+
+            <a id="policylink1">Privacy Policy</a>
+
+        </div>
+
+    </div>
+     @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
+
+    <script>
+        function openWin() {
+            window.open("CIForgotPassword.html");
+        }
+    </script>
+    <script src="~/js/ClientValidation.js"></script>
+</body>
+

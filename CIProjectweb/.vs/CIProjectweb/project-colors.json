@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "96c62a4a-1f4a-4a0e-9c56-43b750ac563e": {
+      "ProjectGuid": "96c62a4a-1f4a-4a0e-9c56-43b750ac563e",
+      "DisplayName": "CIProjectweb.Repository",
+      "ColorIndex": 0
+    },
+    "4dfa30b6-f8d0-4b48-8846-5faca4af34ee": {
+      "ProjectGuid": "4dfa30b6-f8d0-4b48-8846-5faca4af34ee",
+      "DisplayName": "CIProjectweb",
+      "ColorIndex": 1
+    },
+    "08239f09-5ecd-4fa5-961e-7699eadae9d9": {
+      "ProjectGuid": "08239f09-5ecd-4fa5-961e-7699eadae9d9",
+      "DisplayName": "CIProjectweb.Entities",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 3
+}

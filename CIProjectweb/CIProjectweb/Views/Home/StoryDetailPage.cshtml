@@ -1,0 +1,251 @@
+﻿@using CIProjectweb.Entities.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+    ViewData["Title"] = "Story_Detail";
+
+}
+<script src="~/js/relatedmission.js"></script>
+@model storyListingViewModel
+
+<div class="container main mt-3">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="" style="height:100%;">
+
+                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">1 / 4</div>
+                    <img src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                </div>
+                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">2 / 4</div>
+                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-3.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                </div>
+                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">3 / 4</div>
+                    <img src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                </div>
+                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">4 / 4</div>
+                    <img src="~/lib/images/image2.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                </div>
+
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+
+                <div class="row padding-row mt-2">
+
+                    <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" style="width:100%;height:100%;" onclick="currentSlide(1)" alt="The Woods">
+                    </div>
+                    <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%;height:100%;" onclick="currentSlide(2)" alt="Cinque Terre">
+                    </div>
+                    <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%;height:100%;" onclick="currentSlide(3)" alt="Mountains and fjords">
+                    </div>
+                    <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/image1.png" style="width:100%;height:100%;" onclick="currentSlide(4)" alt="Northern Lights">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="sidestory d-flex">
+                <div>
+                    <img src="@Model.Avtar" alt="" class="sidestoryimage">
+                    <p>@Model.UserName</p>
+                </div>
+                <div class="views d-flex mt-4">
+                    <img src="~/images/eye.png" alt="" class="eyeimg mt-2 ms-4">
+                    <p class="mt-1">12,000 views</p>
+                </div>
+            </div>
+            <div class="storyshortdesc">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore. <br><br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</p>
+            </div>
+            @*   <div class="favandinvibtn container row mt-4">
+                <div class="col-md-6 col-sm-12 mb-2 text-center">
+                <button type="button" class="btn btn-outline-secondary border-3" id="myBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius:20px;">
+                <img src="~/images/heart1.png" alt="" class="bg-secondary">
+                Recommend to a Co-Worker
+                </button>
+                <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                <div class="modal-header">
+                <h2>Select Co-workers</h2>
+                <span class="close">&times;</span>
+
+                </div>
+                <div class="modal-body">
+
+                <ul style="list-style-type:none">
+                @foreach (var items in @ViewBag.Users)
+                {
+                <li class="dropdown-item">
+                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+                </li>
+                }
+                </ul>
+
+                </div>
+                <div class="modal-footer">
+
+                <button type="button" class="btn cardbtn" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+                </div>
+                </div>
+
+                </div>
+                @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modaltext">
+                <ul style="list-style-type:none" class="ps-0">
+                @foreach (var items in @ViewBag.AllUsers)
+                {
+                <li class="dropdown-item">
+                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+                </li>
+                }
+                </ul>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.StoryDetail.MissionId);">Send</button>
+                </div>
+                </div>
+                </div>
+                </div>*@
+            @* </div>
+                <div class="col-md-6 col-sm-12 text-center">
+                <a asp-controller="Home" asp-action="RelatedMissionPage" asp-route-id="@Model.MissionId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="~/images/right-arrow.png" alt=""> </a>
+                </div>
+                </div>*@
+            <div class="d-flex">
+                <button type="button" class="btn btn-outline-secondary border-3 rounded-pill" style="width: 62%;" id="myBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="~/images/heart1.png" alt="" class="bg-secondary">
+                    Recommend to a Co-Worker
+                </button>
+                <a asp-controller="Home" asp-action="RelatedMissionPage" asp-route-id="@Model.MissionId" class="btn border-3 rounded-pill ms-auto" style="border-color: #F88634;width: 34%;"><span style="color: #F88634;">Open Mission</span><img src="~/images/right-arrow.png" alt=""> </a>
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Select Co-workers</h2>
+                            <span class="close">&times;</span>
+
+                        </div>
+                        <div class="modal-body">
+
+                            <ul style="list-style-type:none">
+                                @foreach (var items in @ViewBag.Users)
+                                {
+                                    <li class="dropdown-item">
+                                        <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+                                    </li>
+                                }
+                            </ul>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn cardbtn" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<div class="container p-0 mt-3">
+    <div class="row">
+        <h3>@Model.Title</h3>
+        <hr>
+        <p>@Html.Raw(@Model.Description)</p>
+    </div>
+</div>
+<hr>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+
+    }
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+<script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../JS/Favourite.js"></script>

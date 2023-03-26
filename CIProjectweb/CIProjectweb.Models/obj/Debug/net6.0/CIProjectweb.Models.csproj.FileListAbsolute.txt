@@ -1,0 +1,14 @@
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\bin\Debug\net6.0\CIProjectweb.Models.deps.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\bin\Debug\net6.0\CIProjectweb.Models.runtimeconfig.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\bin\Debug\net6.0\CIProjectweb.Models.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\bin\Debug\net6.0\CIProjectweb.Models.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.csproj.AssemblyReference.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.AssemblyInfoInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.AssemblyInfo.cs
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.csproj.CoreCompileInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\refint\CIProjectweb.Models.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\CIProjectweb.Models.genruntimeconfig.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Models\obj\Debug\net6.0\ref\CIProjectweb.Models.dll
