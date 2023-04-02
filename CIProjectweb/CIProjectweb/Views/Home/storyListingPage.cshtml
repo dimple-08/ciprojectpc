@@ -127,10 +127,10 @@
     <div class="row">
         @foreach (var item in list)
         {
-             <div class="col-12 col-md-6 col-lg-4">
-            <div class="card">
+             <div class="col-12 col-md-6 col-lg-4" style="width:98%; height:100%;">
+            <div class="card" style="height:95%">
                 <div class="d-inline card-image position-relative">
-                    <img src="@item.image" class="card-img-top image"
+                    <img src="@item.image" id="cardBanner" class="card-img-top image"
                          alt="Mission Image">
                     <div class="overlay"></div>
                     <div class="text-center">
@@ -151,7 +151,7 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Title</h5>
                     <p class="card-text text-secondary">
-                     @Html.Raw(@item.Description.Substring(0,90))...
+                     @Html.Raw(@item.Description.Substring(0,25))...
                      
                     </p>
 

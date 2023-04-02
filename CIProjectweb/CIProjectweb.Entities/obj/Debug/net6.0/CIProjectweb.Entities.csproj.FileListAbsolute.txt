@@ -54,3 +54,17 @@ E:\PC\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\refint\CIProjectweb.En
 E:\PC\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.pdb
 E:\PC\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.genruntimeconfig.cache
 E:\PC\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\ref\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\bin\Debug\net6.0\CIProjectweb.Entities.deps.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\bin\Debug\net6.0\CIProjectweb.Entities.runtimeconfig.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\bin\Debug\net6.0\ref\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.csproj.AssemblyReference.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.AssemblyInfoInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.AssemblyInfo.cs
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.csproj.CoreCompileInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\ref\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Entities\obj\Debug\net6.0\CIProjectweb.Entities.genruntimeconfig.cache

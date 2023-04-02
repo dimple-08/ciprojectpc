@@ -82,6 +82,7 @@ namespace CI_Plateform.Controllers
             model.skills = listSkills;
             #endregion Fill Skills Drop-down
 
+
             var cardData = new List<MissionCardModel>();
 
             var tempMission = _db.Missions.Where(m => m.DeletedAt == null && m.Status == true).ToList();
@@ -98,7 +99,7 @@ namespace CI_Plateform.Controllers
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
             User user = _objILogin.GetUsers(u_id);
-           
+            
             ViewBag.user = user;
             var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
             model.missionsCard = data;
@@ -106,6 +107,8 @@ namespace CI_Plateform.Controllers
             this.ViewBag.count = recsCount;
             return View(model);
         }
+
+
         [HttpPost]
         public IActionResult LandingPage(int? id, int pg = 1)
         {
@@ -242,6 +245,109 @@ namespace CI_Plateform.Controllers
             }
             #endregion Filter Country
 
+            #region Filter skills
+            if (SkillId.Count != 0)
+            {
+                foreach (var skill in SkillId)
+                {
+                    var themes = _db.MissionSkills.FirstOrDefault(ms => ms.SkillId == skill);
+                    var missions = _db.Missions.Where(x => x.DeletedAt == null && x.Status == true && x.MissionId == themes.MissionId).ToList();
+                    foreach (var t in missions)
+                    {
+                        bool temp = tempMission.Any(x => x.MissionId == t.MissionId);
+                        if (temp == false)
+                        {
+                            tempMission.Add(t);
+                        }
+                    }
+                }
+            }
+            #endregion Filter Country
+
+
+
+
+            #region Combined Missions
+
+            var missionsToAdd = new List<Mission>();
+
+            if (CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count == 0)
+            {
+                foreach (int country in CountryId)
+                {
+                    foreach (int city in CityId)
+                    {
+                        var countriesANDcities = tempMission.Where(x => x.DeletedAt == null && x.Status == true && x.CountryId == country && x.CityId == city).ToList();
+                        foreach (var c in countriesANDcities)
+                        {
+                            bool temp = missionsToAdd.Any(x => x.MissionId == c.MissionId);
+                            if (temp == false)
+                            {
+                                missionsToAdd.Add(c);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (CountryId.Count == 0 && CityId.Count > 0 && ThemeId.Count > 0)
+            {
+                foreach (int theme in ThemeId)
+                {
+                    foreach (int city in CityId)
+                    {
+                        var themesANDcities = tempMission.Where(x => x.DeletedAt == null && x.Status == true && x.ThemeId == theme && x.CityId == city).ToList();
+                        foreach (var t in themesANDcities)
+                        {
+                            bool temp = missionsToAdd.Any(x => x.MissionId == t.MissionId);
+                            if (temp == false)
+                            {
+                                missionsToAdd.Add(t);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (CountryId.Count > 0 && CityId.Count == 0 && ThemeId.Count > 0)
+            {
+                foreach (int country in CountryId)
+                {
+                    foreach (int theme in ThemeId)
+                    {
+                        var themesANDcountries = tempMission.Where(x => x.DeletedAt == null && x.Status == true && x.ThemeId == theme && x.CountryId == country ).ToList();
+                        foreach (var t in themesANDcountries)
+                        {
+                            bool temp = missionsToAdd.Any(x => x.MissionId == t.MissionId);
+                            if (temp == false)
+                            {
+                                missionsToAdd.Add(t);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count > 0)
+            {
+                foreach (int country in CountryId)
+                {
+                    foreach (int city in CityId)
+                    {
+                        foreach (int theme in ThemeId)
+                        {
+                            var themesANDcountries = tempMission.Where(x => x.DeletedAt == null && x.Status == true && x.ThemeId == theme && x.CountryId == country && x.CityId == city).ToList();
+                            foreach (var t in themesANDcountries)
+                            {
+                                bool temp = missionsToAdd.Any(x => x.MissionId == t.MissionId);
+                                if (temp == false)
+                                {
+                                    missionsToAdd.Add(t);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+
             #region Default Mission
             if (CountryId.Count == 0 && CityId.Count == 0 && ThemeId.Count == 0 && SkillId.Count == 0 && searchText == null )
             {
@@ -250,10 +356,23 @@ namespace CI_Plateform.Controllers
             #endregion Default Mission
 
             #region Create Card
-            foreach (var item in tempMission)
+            if ((CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count == 0) ||
+               (CountryId.Count == 0 && CityId.Count > 0 && ThemeId.Count > 0) ||
+               (CountryId.Count > 0 && CityId.Count == 0 && ThemeId.Count > 0) ||
+               (CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count > 0))
             {
-                cardData.Add(CreateCard(item));
+                foreach (var item in missionsToAdd)
+                {
+                    cardData.Add(CreateCard(item));
+                }
             }
+            else {
+                foreach (var item in tempMission)
+                {
+                    cardData.Add(CreateCard(item));
+                }
+            }
+            
             #endregion Create Card
 
             #region Sort Data
@@ -283,18 +402,42 @@ namespace CI_Plateform.Controllers
             }
             #endregion Sort Data
 
+
+           
+          
+
             const int pageSize = 9;
             int recsCount = tempMission.Count();
             var pager = new Pager(recsCount, int.Parse(pg), pageSize);
             int recSkip = (int.Parse(pg) - 1) * pageSize;
+           // MailViewModel listOfMail = _objUserInterface.fillMailmodel();
+           //ViewBag.Mail = listOfMail;
             List<User> userlist = _objILogin.Users(u_id);
-           
+            
             ViewBag.Users = userlist;
+            // replace with your logic to get the users
+
+           
 
             var data = cardData.Skip(recSkip).Take(pager.PageSize).ToList();
             cardData = data;
             this.ViewBag.Pager = pager;
-            this.ViewBag.count = recsCount;
+
+            int tempMissionCount;
+            if ((CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count == 0) ||
+               (CountryId.Count == 0 && CityId.Count > 0 && ThemeId.Count > 0) ||
+               (CountryId.Count > 0 && CityId.Count == 0 && ThemeId.Count > 0) ||
+               (CountryId.Count > 0 && CityId.Count > 0 && ThemeId.Count > 0))
+            {
+                tempMissionCount = missionsToAdd.Count(); 
+            }
+            else
+            {
+                tempMissionCount = tempMission.Count();
+            }
+
+            this.ViewBag.count = tempMissionCount;
+            
 
             return PartialView("_MissionGridPartial", cardData);
         }
@@ -309,14 +452,19 @@ namespace CI_Plateform.Controllers
             card.mission = mission;
             var img = _db.MissionMedia.FirstOrDefault(x => x.MissionId == mission.MissionId);
             card.CardImg = img != null ? img.MediaPath : "~/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png";
-            card.seatsLeft = (int)(int.Parse(mission.SeatAvailable) - (_db.MissionApplications.Where(x => x.MissionId == mission.MissionId).Count()));
+
+            card.alreadyVolunteered = (_db.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus=="ACCEPT").Count());
+            if (int.Parse(mission.SeatAvailable) > 0)
+            {
+                card.seatsLeft = (int)(int.Parse(mission.SeatAvailable) - card.alreadyVolunteered);
+            }
             card.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == mission.MissionId);
             if (card.goalMission != null)
             {
                 float totalGoal = card.goalMission.GoalValue;
                 card.progressBar = totalGoal;
             }
-            card.missionApplied = _db.MissionApplications.FirstOrDefault(x => x.MissionId == mission.MissionId && x.UserId == u_id) != null ? 1 : 0;
+            card.missionApplied = _db.MissionApplications.FirstOrDefault(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.ApprovalStatus=="ACCEPT") != null ? 1 : 0;
             card.approvalPending = _db.MissionApplications.FirstOrDefault(x => x.MissionId == mission.MissionId && x.UserId == u_id
 && x.ApprovalStatus == "PENDING") != null ? 1 : 0;
             var id = HttpContext.Session.GetString("UserId");

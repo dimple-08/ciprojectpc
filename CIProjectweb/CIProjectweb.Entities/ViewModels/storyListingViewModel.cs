@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CIProjectweb.Entities.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,10 +29,13 @@ namespace CIProjectweb.Entities.ViewModels
 
         public DateTime? DeletedAt { get; set; }
 
+        public List<StoryMedium> Media { get; set; }
        public string? Theme { get; set; }
         public string? why_i_volunteer { get; set; }
         public string? image { get; set; }
         public string? Avtar { get; set; }
         public string? UserName { get; set; }
+        public List<String?> MediaPaths { get; set; }
+        public long Views { get; set; }
     }
 }

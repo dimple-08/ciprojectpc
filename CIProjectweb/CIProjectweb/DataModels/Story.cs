@@ -25,7 +25,9 @@ public partial class Story
 
     public DateTime? DeletedAt { get; set; }
 
-    public virtual User Mission { get; set; } = null!;
+    public long? Views { get; set; }
+
+    public virtual Mission Mission { get; set; } = null!;
 
     public virtual ICollection<StoryMedium> StoryMedia { get; } = new List<StoryMedium>();
 

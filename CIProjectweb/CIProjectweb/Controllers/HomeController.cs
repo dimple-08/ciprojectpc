@@ -67,6 +67,7 @@ namespace CIProjectweb.Controllers
             return View();
         }
 
+        #region Login
         [HttpPost]
         public IActionResult Login(LoginViewModel objlogin)
         {
@@ -112,6 +113,9 @@ namespace CIProjectweb.Controllers
             }
             return View();
         }
+        #endregion
+
+        #region LogOut
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -126,12 +130,13 @@ namespace CIProjectweb.Controllers
             }
             return RedirectToAction("Login");
         }
+        #endregion
 
         public IActionResult ForgotPAasword()
         {
             return View();
         }
-
+        #region forgot Password post
         [HttpPost]
         public IActionResult ForgotPAasword(ForgotPasswordViewModel objFpvm)
         {
@@ -175,12 +180,13 @@ namespace CIProjectweb.Controllers
             }
             return View();
         }
-
+        #endregion
         public IActionResult registration()
         {
             return View();
         }
 
+        #region registartion post
         [HttpPost]
         public IActionResult registration(RegistrationViewModel objredistervm)
         {
@@ -205,7 +211,9 @@ namespace CIProjectweb.Controllers
             }
             return View(objredistervm);
         }
+        #endregion
 
+        #region Reset Password get
         [HttpGet]
         public IActionResult ResetPAssword(string email, string token)
         {
@@ -223,7 +231,9 @@ namespace CIProjectweb.Controllers
 
 
         }
+        #endregion
 
+        #region ResetPassword Post
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -249,6 +259,8 @@ namespace CIProjectweb.Controllers
             }
             return View();
         }
+
+        #endregion
         public IActionResult LandingPage()
         {
             //var userId = HttpContext.Session.GetString("UserId");
@@ -322,7 +334,9 @@ namespace CIProjectweb.Controllers
         public IActionResult NotFoundPage()
         {
             return View();
-        } 
+        }
+
+        #region RelatedMission
         public IActionResult RelatedMissionPage(int id,int? usersid,int? pageIndex=1)
         {
            
@@ -342,7 +356,7 @@ namespace CIProjectweb.Controllers
                     var volunteeringModel = new RecentVolunteerVM();
                     var user1 = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
                     volunteeringModel.missions = user1.FirstName + " " + user1.LastName;
-                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "~/images/user1.png";
+                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "/images/user1.png";
                     listVolunteering.Add(volunteeringModel);
                 }
                
@@ -353,12 +367,13 @@ namespace CIProjectweb.Controllers
                 ViewBag.user=user;
                 ViewBag.documents=missiondocument;
                 ViewBag.RelatedMission = relatedmission;
-                int pageSize = 1; // Set the page size to 9
+                int pageSize = 2; // Set the page size to 9
                 var volunteers = listVolunteering; // Retrieve all volunteers from data source
                 int totalCount = volunteers.Count(); // Get the total number of volunteers
                 int skip = (int)((pageIndex - 1) * pageSize);
                 var volunteersOnPage = volunteers.Skip(skip).Take(pageSize).ToList(); // Get the volunteers for the current page
-
+                ViewBag.count = volunteersOnPage.Count;
+                ViewBag.skip = (skip + 1);
                 ViewBag.TotalCount = totalCount;
                 ViewBag.PageSize = pageSize;
                 ViewBag.PageIndex = pageIndex;
@@ -383,7 +398,7 @@ namespace CIProjectweb.Controllers
                     var volunteeringModel = new RecentVolunteerVM();
                     var user1 = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
                     volunteeringModel.missions = user1.FirstName + " " + user1.LastName;
-                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "~/images/user1.png";
+                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "/images/user1.png";
                     listVolunteering.Add(volunteeringModel);
                 }
                 ViewBag.user = user;
@@ -421,7 +436,7 @@ namespace CIProjectweb.Controllers
                     var volunteeringModel = new RecentVolunteerVM();
                     var user1 = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
                     volunteeringModel.missions = user1.FirstName + " " + user1.LastName;
-                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "~/images/user1.png";
+                    volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "/images/user1.png";
                     listVolunteering.Add(volunteeringModel);
                 }
 
@@ -430,12 +445,13 @@ namespace CIProjectweb.Controllers
                 ViewBag.Users = userlist;
                 ViewBag.comment = commentList;
                 ViewBag.RelatedMission = relatedmission;
-                int pageSize = 9; // Set the page size to 9
+                int pageSize = 2; // Set the page size to 9
                 var volunteers = listVolunteering; // Retrieve all volunteers from data source
                 int totalCount = volunteers.Count(); // Get the total number of volunteers
                 int skip = (int)((pageIndex - 1) * pageSize);
                 var volunteersOnPage = volunteers.Skip(skip).Take(pageSize).ToList(); // Get the volunteers for the current page
-
+                ViewBag.count = volunteersOnPage.Count;
+                ViewBag.skip = (skip + 1);
                 ViewBag.TotalCount = totalCount;
                 ViewBag.PageSize = pageSize;
                 ViewBag.PageIndex = pageIndex;
@@ -445,7 +461,64 @@ namespace CIProjectweb.Controllers
             }
            
         }
+
+
+        #endregion
+
+        [HttpPost]
+        public async Task<IActionResult> SendRecStory(long StoryId, string[] ToMail)
+        {
+            var u_id = HttpContext.Session.GetString("UserId");
+            if (u_id != null)
+            {
+                int uIds = int.Parse(u_id);
+                var FromUser = _objILogin.GetUsers(uIds);
+                foreach (var item in ToMail)
+                {
+                    var uId = _objUserInterface.getuserEmail(item);
+
+                    var resetLink = "https://localhost:44357" + Url.Action("StoryDetailPage", "Home", new { storyid = StoryId, usersid = uId.UserId });
+                    var fromAddress = new MailAddress(FromUser.Email, FromUser.FirstName);
+                    var toAddress = new MailAddress(item);
+                    ;
+                    var subject = "Message For Recommand Mission";
+                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                    var message = new MailMessage(fromAddress, toAddress)
+                    {
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true
+                    };
+                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                    {
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                        EnableSsl = true
+                    };
+                    smtpClient.Send(message);
+
+
+                    StoryInvite storyInviteExists = _objUserInterface.storyInviteExists((int)FromUser.UserId, (int)uId.UserId, StoryId);
+                    bool ADDInvite = _objUserInterface.ADDstoryInvite(storyInviteExists, (int)FromUser.UserId, (int)uId.UserId, StoryId);
+
+
+
+
+                }
+
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+
+        }
+
+
         #region multiple mail
+
+
         [HttpPost]
         public async Task<IActionResult> SendRec(int missionId, string[] ToMail )
         {
@@ -476,8 +549,13 @@ namespace CIProjectweb.Controllers
                         EnableSsl = true
                     };
                     smtpClient.Send(message);
-                    MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)uId.UserId, missionId);
-                    bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)uId.UserId, missionId);  
+                   
+                    
+                        MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)uId.UserId, missionId);
+                        bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)uId.UserId, missionId);
+                    
+                   
+                    
                     
                 }
 
@@ -497,61 +575,98 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult RecomandUser(string EmailId, int MissionId)
         {
-
-            var recomandUser = _objUserInterface.getuserEmail(EmailId);
-            if (recomandUser != null)
+            var u_id = HttpContext.Session.GetString("UserId");
+            if (u_id != null)
             {
-
-                
-                var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
-                var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
-                var toAddress = new MailAddress(EmailId)
-    ;
-                var subject = "Message For Recommand Mission";
-                var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                var message = new MailMessage(fromAddress, toAddress)
+                int uIds = int.Parse(u_id);
+                var FromUser = _objILogin.GetUsers(uIds);
+                var recomandUser = _objUserInterface.getuserEmail(EmailId);
+                if (recomandUser != null)
                 {
-                    Subject = subject,
-                    Body = body,
-                    IsBodyHtml = true
-                };
-                var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                {
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                    EnableSsl = true
-                };
-                smtpClient.Send(message);
-                return Json(new { success = true });
 
+
+                    var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
+                    var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
+                    var toAddress = new MailAddress(EmailId)
+        ;
+                    var subject = "Message For Recommand Mission";
+                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                    var message = new MailMessage(fromAddress, toAddress)
+                    {
+                        Subject = subject,
+                        Body = body,
+                        IsBodyHtml = true
+                    };
+                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                    {
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                        EnableSsl = true
+                    };
+                    smtpClient.Send(message);
+                    MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                    bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                    return Json(new { success = true });
+
+                }
+                else
+                {
+                    return Json(new { success = false });
+                }
+            }
+            else
+            {
+                return Json(new { success = false });
+            }   
+
+             
+        }
+
+        #endregion
+        [HttpPost]
+        public IActionResult Share_Story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrls,string value)
+        {
+            var story = _objUserInterface.getstory(Image, MissionId, Title, Date, Description, UserId, videoUrls,value);
+            if (story != null && story.Status == "DRAFT")
+            {
+                return Json(new { success = true, storyid = story.StoryId });
             }
             else
             {
                 return Json(new { success = false });
             }
         }
-
-        #endregion
-
         #region ShareStory saveto database
         [HttpPost]
 
 
-        public IActionResult Share_Story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId,string[] videoUrls)
-        {
-            var alreadyshare = _objUserInterface.alreadystory(MissionId, UserId);
-            if (alreadyshare)
-            {
-                _objUserInterface.story(Image, MissionId, Title, Date, Description, UserId,videoUrls);
-                return Json(new { success = true });
-            }
-            else
-            {
-                return Json(new { success = false });
-            }
-        }
+        //public IActionResult Share_Story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId,string[] videoUrls)
+        //{
+        //    var alreadyshare = _objUserInterface.alreadystory(MissionId, UserId);
+        //    if (alreadyshare)
+        //    {
+        //        long storyId=_objUserInterface.story(Image, MissionId, Title, Date, Description, UserId,videoUrls);
+        //        return Json(new { success = true , storyid = storyId });
+        //    }
+        //    else
+        //    {
+        //        return Json(new { success = false });
+        //    }
+        //}
 
         #endregion
+        [HttpPost]
+
+
+        public IActionResult Share_StorySubmit(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrls)
+        {
+            
+            
+                long storyId = _objUserInterface.storySubmit(Image, MissionId, Title, Date, Description, UserId, videoUrls);
+                return Json(new { success = true, storyid = storyId });
+            
+            
+        }
 
 
         #region addtoFav
@@ -588,7 +703,7 @@ namespace CIProjectweb.Controllers
                
 
                 MissionRating ratingExists = _objUserInterface.Rating(u_id, missionId);
-                MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId);
+                MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT");
                 if (Applied != null)
                 {
                     if (ratingExists != null)
@@ -761,6 +876,8 @@ namespace CIProjectweb.Controllers
 
             return card;
         }
+
+        #region StoryListing
         public IActionResult storyListingPage(int pg = 1)
         {
             List<storyListingViewModel> list = new List<storyListingViewModel>();
@@ -773,8 +890,17 @@ namespace CIProjectweb.Controllers
                 
                 var mission=_db.Missions.Where(x => x.MissionId==data.MissionId).FirstOrDefault();
                 var themeName=_db.MissionThemes.Where(x => x.MissionThemeId==mission.ThemeId).FirstOrDefault();
-                var image= _db.MissionMedia.Where(x => x.MissionId == data.MissionId).FirstOrDefault();
-                listView.image = image.MediaPath;
+                var imageNull = _db.MissionMedia.Where(x => x.MissionId == data.MissionId).FirstOrDefault();
+                var image= _db.StoryMedia.Where(x => x.StoryId == data.StoryId).FirstOrDefault();
+                if (image!=null)
+                {
+                    listView.image = image.Path;
+                }
+                else
+                {
+                    listView.image = imageNull.MediaPath;
+                }
+               
                 listView.Theme = themeName.Title;
                 listView.StoryId = data.StoryId;
                 listView.MissionId=data.MissionId;
@@ -784,7 +910,7 @@ namespace CIProjectweb.Controllers
                 list.Add(listView);
             }
             ViewBag.list= list;
-            const int pageSize = 3;
+            const int pageSize = 6;
             int recsCount = list.Count();
             var pager = new Pager(recsCount, pg, pageSize);
             int recSkip = (pg - 1) * pageSize;
@@ -798,43 +924,192 @@ namespace CIProjectweb.Controllers
             return View();
         
         }
-        [Authorize]
-        public IActionResult StoryDetailPage(int storyid)
+
+        #endregion
+
+        #region recentVolunteer
+
+        public ActionResult GetRecentVolunteers(long id,int page = 1)
         {
-            var id = HttpContext.Session.GetString("UserId");
-          
+            int pageSize = 2; // Number of items per page
+            var temp = _db.MissionApplications.Where(x => x.MissionId == id).ToList();
+            var listVolunteering = new List<RecentVolunteerVM>();
+            foreach (var u in temp)
+            {
+                var volunteeringModel = new RecentVolunteerVM();
+                var user1 = _db.Users.FirstOrDefault(x => x.UserId == u.UserId);
+                volunteeringModel.missions = user1.FirstName + " " + user1.LastName;
+                volunteeringModel.users = user1.Avatar != null ? user1.Avatar : "/images/user1.png";
+                listVolunteering.Add(volunteeringModel);
+            } // Get the items from the database
+
+            int totalItems = listVolunteering.Count(); // Get the total number of items
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize); // Calculate the total number of pages
+
+            var pagedItems = listVolunteering.Skip((page - 1) * pageSize).Take(pageSize).ToList(); ; // Get the items for the current page
+
+            var model = new RecentVolPagination
+            {
+                Items = pagedItems,
+                CurrentPage = page,
+                TotalPages = totalPages // Add the total number of pages to the model
+            };
+
+
+            return View(model); // Return the partial view with the paged items
+        }
+        #endregion
+
+
+        #region storydDetail
+        [Authorize]
+        public IActionResult StoryDetailPage(int storyid, int? usersid)
+        {
+            if (usersid==null)
+            {
+                var id = HttpContext.Session.GetString("UserId");
+
                 int u_id = int.Parse(id);
                 storyListingViewModel list = new storyListingViewModel();
-            Story stories = _db.Stories.Where(st=>st.StoryId== storyid).FirstOrDefault();
-            List<User> userlist = _objILogin.Users(u_id);
-            storyListingViewModel listView = new storyListingViewModel();
+                Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
+                List<User> userlist = _objILogin.Users(u_id);
+                storyListingViewModel listView = new storyListingViewModel();
+                listView.Title = stories.Title;
+                listView.StoryId = stories.StoryId;
+                listView.Description = stories.Description;
+                var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
+                var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
+                listView.Theme = themeName.Title;
+                var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
+                var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
+                if (images != null)
+                {
+                    var mediaPaths = new List<string>();
+                    foreach (var image1 in images)
+                    {
+                        mediaPaths.Add(image1.Path);
+                    }
+                    listView.MediaPaths = mediaPaths;
+                }
+                listView.Media = media;
+                listView.Views = (long)(stories.Views + 1);
+                listView.MissionId = stories.MissionId;
+                var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
+                listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
+                listView.UserName = user.FirstName;
+                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
+                ViewBag.Users = userlist;
+                stories.Views = listView.Views;
+                _db.Stories.Update(stories);
+                _db.SaveChanges();
+
+                return View(listView);
+            }
+            else
+            {
+                int u_id = (int)usersid;
+                storyListingViewModel list = new storyListingViewModel();
+                Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
+                List<User> userlist = _objILogin.Users(u_id);
+                storyListingViewModel listView = new storyListingViewModel();
                 listView.Title = stories.Title;
                 listView.Description = stories.Description;
                 var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
                 var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
                 listView.Theme = themeName.Title;
+                var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
+                var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
+                if (images != null)
+                {
+                    var mediaPaths = new List<string>();
+                    foreach (var image1 in images)
+                    {
+                        mediaPaths.Add(image1.Path);
+                    }
+                    listView.MediaPaths = mediaPaths;
+                }
+                listView.Media = media;
+                listView.Views = (long)(stories.Views + 1);
                 listView.MissionId = stories.MissionId;
                 var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
+                listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
                 listView.UserName = user.FirstName;
-                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar; 
+                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
                 ViewBag.Users = userlist;
+                stories.Views = listView.Views;
+                _db.Stories.Update(stories);
+                _db.SaveChanges();
+
+                return View(listView);
+            }
             
-         
-            return View(listView);
         }
+
+        #endregion
+
+    
+        #region Share Story
 
         [Authorize]
         public IActionResult ShareYourStory()
         {
-           ShareStoryViewModel sharestory = _objUserInterface.getsharestory();
+            var U_Id = HttpContext.Session.GetString("UserId");
+           ShareStoryViewModel sharestory = _objUserInterface.getsharestory(int.Parse(U_Id));
             return View(sharestory);
         }
+
+        #endregion
+
+        #region PostShareStory
         [HttpPost]
         public IActionResult ShareYourStory(int i)
         {
 
             return View();
         }
+        #endregion
+
+        #region storyPreview
+        [HttpPost]
+        public JsonResult StoryPreview(long missionId)
+        {
+            //if (story != null && story.Status == "DRAFT")
+            //{
+            //    List<StoryMedium> media = _objStoryListing.searchmedia(story.StoryId);
+            //    var mediaObjects = media.Select(m => new { Path = m.Path }).ToArray();
+            //    return Json(new { success = true, story = story, storyimage = mediaObjects });
+            //}
+            //else if (story != null && story.Status == "pending")
+            //{
+            //    return Json(new { success = false });
+            //}
+            //else
+            //{
+            //    return Json(new { success = "notadded" });
+            //}
+
+            var userId=HttpContext.Session.GetString("UserId");
+            Story storypreview = _db.Stories.FirstOrDefault(st => st.UserId == int.Parse(userId) && st.MissionId == missionId);
+            if (storypreview==null)
+            {
+                return Json(new { success = "notadded" }); 
+            }
+            else if (storypreview.Status == "DRAFT" && storypreview != null)
+            {
+                List<StoryMedium> media = _db.StoryMedia.Where(sm => sm.StoryId == storypreview.StoryId && sm.Type == "image").ToList();
+                List<string> pathList = media.Select(m => m.Path).ToList();
+                List<StoryMedium> mediaVideo = _db.StoryMedia.Where(sm => sm.StoryId == storypreview.StoryId && sm.Type == "Video").ToList();
+                List<string> VideoPath = mediaVideo.Select(m => m.Path).ToList();
+                var data = new { success = true, storypreview, pathList, VideoPath };
+                return Json(data);
+            }
+            else
+            {
+                return Json(new { success = false });
+
+            }
+        }
+        #endregion
         public IActionResult dummy()
         {
             return View();

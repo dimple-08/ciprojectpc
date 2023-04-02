@@ -112,7 +112,7 @@
         <div class="row ms-1">
             <div class="form-group col-lg-4 col-md-4 col-sm-12">
                 <label for="exampleFormControlSelect1">Select Mission</label>
-                <select class="form-control" id="exampleFormControlSelect1" required>
+                <select class="form-control" onchange="searchStoryByMission();" id="exampleFormControlSelect1" required>
                     <option hidden>Select Your Mission</option>
                     @foreach(var item in Model.missionsList){
                         <option value="@item.MissionId">@item.Title</option>
@@ -152,13 +152,14 @@
         <div class="form-group">
                 <div class="d-flex justify-content-between">
                    <div >
-                       <button class="cancelbtn" >Close</button>
+                       <button class="cancelbtn" onclick="location.href='@Url.Action("storyListingPage", "Home")'" >Close</button>
+                       <a class="btn canclebtn previewbtn d-none" id="" target="_blank">Preview</a>
                    </div>
                    <div>
-                       <button class="submitbtn">
+                       <button class="submitbtn" value="save" onclick="shareStory(@int.Parse(@Context.Session.GetString("UserId")),this.value)">
                            Save
                        </button>
-                       <button  class="submitbtn" onclick="shareStory(@int.Parse(@Context.Session.GetString("UserId")))">Submit</button>
+                       <button  class="submitbtn" value="submit" onclick="shareStory(@int.Parse(@Context.Session.GetString("UserId")),this.value)">Submit</button>
                    </div>
                 </div>
         </div>
@@ -270,4 +271,5 @@
     removeFile();
 
 </script>*@
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/shareStory.js"></script>

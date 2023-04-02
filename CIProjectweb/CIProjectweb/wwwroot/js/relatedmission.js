@@ -1,4 +1,22 @@
-﻿function ratemission(starId, missionId) {
+﻿
+
+function loadItems(page, missionId) {
+  
+    $.ajax({
+        url: '/Home/RelatedMissionPage',
+        type: 'POST',
+        data: { pageIndex: page, id: missionId },
+        success: function (result) {
+            $('.recentvol').html($(result).find('.recentvol').html());
+        }
+    });
+}
+
+
+
+
+
+function ratemission(starId, missionId) {
     $.ajax({
         url: '/Home/AddRating',
         type: 'POST',
@@ -102,6 +120,7 @@ function likeMissionLanding(missionId) {
 }
 function comment(missionId) {
     var text = document.getElementById("exampleFormControlTextarea1").value;
+   
     
     $.ajax({
         url: '/Home/Addcomment',
@@ -110,17 +129,6 @@ function comment(missionId) {
         success: function (result) {
             $("#commentDiv").empty();
             $("#commentDiv").html(result);
-            //if (result.isCommented) {
-                
-               
-            //    $('#myTabLink').attr('href', '#C');
-
-            //    // Reload the page after the tab is opened
-                
-            //        location.reload();
-               
-               
-            //}
         },
         error: function () {
             // Handle error response from the server, e.g. show an error message to the user
@@ -128,43 +136,75 @@ function comment(missionId) {
            
         }
     });
+    document.getElementById("exampleFormControlTextarea1").value = " ";
 }
 
 function sendRec(missionId) {
     $("#emailLoader").removeClass('d-none');
     $("#emaillist").addClass('d-none');
     const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
-    $.ajax({
-        url: '/Home/SendRec',
-        type: 'POST',
-        data: { missionId: missionId, ToMail: toMail },
-        success: function (result) {
-            
-            $("#emailLoader").addClass('d-none');
-            $("#emaillist").removeClass('d-none');
-            var send = document.getElementById('sent1').innerText = "Sent";
+    if (toMail.length > 0) {
+        $.ajax({
+            url: '/Home/SendRec',
+            type: 'POST',
+            data: { missionId: missionId, ToMail: toMail },
+            success: function (result) {
 
-            setTimeout(() => {
+                $("#emailLoader").addClass('d-none');
+                $("#emaillist").removeClass('d-none');
+                var send = document.getElementById('sent1').innerText = "Sent";
+
+                setTimeout(() => {
 
 
-                var send = document.getElementById('sent1').innerText = "Send Email";
+                    var send = document.getElementById('sent1').innerText = "Send Email";
 
-            }, 4000);
-            Swal.fire('send');
-        }
-    })
+                }, 4000);
+                Swal.fire('send');
+            }
+        });
+    }
+    else {
+        $("#emailLoader").addClass('d-none');
+        $("#emaillist").removeClass('d-none');
+        Swal.fire('Select Co-worker');
+    }
+   
 }
 
-function sendRec1(email, missionId, userId) {
- 
-    $.ajax({
-        url: '/Home/SendRec',
-        type: 'POST',
-        data: { email: email, missionId: missionId, userId: userId },
-        success: function (result) {
-            Swal.fire('send');
-        }
-    })
+function sendRec1() {
+    var missionId = document.getElementById('missionId').innerHTML;
+    
+
+    $("#emailLoader").removeClass('d-none');
+    $("#emaillist").addClass('d-none');
+    const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
+    if (toMail.length > 0) {
+        $.ajax({
+            url: '/Home/SendRec',
+            type: 'POST',
+            data: { missionId: missionId, ToMail: toMail },
+            success: function (result) {
+
+                $("#emailLoader").addClass('d-none');
+                $("#emaillist").removeClass('d-none');
+                var send = document.getElementById('sent1').innerText = "Sent";
+
+                setTimeout(() => {
+
+
+                    var send = document.getElementById('sent1').innerText = "Send Email";
+
+                }, 4000);
+                Swal.fire('send');
+            }
+        });
+    }
+    else {
+        $("#emailLoader").addClass('d-none');
+        $("#emaillist").removeClass('d-none');
+        Swal.fire('Select Co-worker');
+    }
 }
 
 function ApplyMission(MissionId) {
@@ -190,6 +230,35 @@ function recomand(Email, MI) {
         url: '/Home/RecomandUser',
         type: 'POST',
         data: { EmailId: Email, MissionId: MI },
+        success: function (result) {
+            $("#emailLoader").addClass('d-none');
+            $("#emaillist").removeClass('d-none');
+            var send = document.getElementById('sent').innerText = "Sent";
+
+            setTimeout(() => {
+
+
+                var send = document.getElementById('sent').innerText = "Send Email";
+
+            }, 4000);
+            Swal.fire('send');
+
+        }
+
+
+    });
+}
+
+function recomand1(Email) {
+    var missionId = document.getElementById('missionId').innerHTML;
+             alert(missionId);
+
+    $("#emailLoader").removeClass('d-none');
+    $("#emaillist").addClass('d-none');
+    $.ajax({
+        url: '/Home/RecomandUser',
+        type: 'POST',
+        data: { EmailId: Email, MissionId: missionId },
         success: function (result) {
             $("#emailLoader").addClass('d-none');
             $("#emaillist").removeClass('d-none');

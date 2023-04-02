@@ -161,8 +161,8 @@
                             <button class="hrbtn">@Model.GoalObjectiveText</button>
                             <hr>
                         </div>
-
-                        <div class="ms-5 d-flex flex-row justify-content-between">
+                        if(int.Parse(Model.SeatAvailable)>0){
+                             <div class="ms-5 d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row align-items-center">
                                 <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
                                 <div class="d-flex flex-column ms-2">
@@ -184,7 +184,29 @@
 
                             </div>
 
-                        </div>
+                            </div>
+                        }
+                        else
+                        {
+                                                         <div class="ms-5 d-flex flex-row justify-content-between me-auto">
+
+                            <div class="d-flex flex-row align-items-center" style="width:53%">
+                                <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                                <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                                    <div class="progress" style="width:284% !important">
+                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <p class="seat">@((@Model.GoalValue)*100) achived</p>
+                                     
+                                </div>
+
+                            </div>
+
+                            </div>
+                        }
+
                     }
                     else
                     {
@@ -196,15 +218,28 @@
                             </button>
                             <hr>
                         </div>
-
+                         
                         <div class="ms-5 d-flex flex-row justify-content-between">
+                            @if(int.Parse(@Model.SeatAvailable) > 0)
+                        {
                             <div class="d-flex flex-row align-items-center">
-                                <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
-                                <div class="d-flex flex-column ms-2">
-                                    <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>
-                                    <p class="seat">Seats Left</p>
-                                </div>
+                            <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                            <div class="d-flex flex-column ms-2">
+                                <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>
+                                <p class="seat">Seats Left</p>
                             </div>
+                            </div>
+                        }
+                        else 
+                        {
+                            <div class="d-flex flex-row align-items-center">
+                            <img src="~/lib/images/Already-volunteered.png" alt="" class="" height="25px" width="25px">
+                            <div class="d-flex flex-column ms-2">
+                                <p class="d-inline mb-0 pt-2">@Model.alreadyVolunteered</p>
+                                <p class="seat">Already Volunteered</p>
+                            </div>
+                            </div>
+                        }
 
                             <div class="d-flex flex-row align-items-center" style="width:53%">
                                 <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
@@ -324,9 +359,9 @@
                                         {
                                             <li class="dropdown-item">
                                                 <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
-                                                <button class="btn btn-success me-1" onclick="recomand('@items.Email',@Model.MissionId)" style="position:absolute; right:6px;" id="sent">
+                                               @* <button class="btn btn-success me-1" onclick="recomand('@items.Email',@Model.MissionId)" style="position:absolute; right:6px;" id="sent">
                                                         Send Email
-                                                    </button>
+                                                    </button>*@
                                             </li>
                                               
                                         }
@@ -386,7 +421,7 @@
                     </div>
                     <div class="row d-flex justify-content-between mt-3">
                         <div class="col-3 col-3-margin">
-                            <div class="card">
+                            <div class="card card-height">
                                 <div class="card-body p-0 ms-2 mt-1">
                                     <img src="~/lib/images/pin1.png" height="17" width="13">
                                     <div class="d-flex flex-column mt-4">
@@ -398,7 +433,7 @@
                             </div>
                         </div>
                         <div class="col-3 col-3-margin">
-                            <div class="card">
+                            <div class="card card-height">
                                 <div class="card-body p-0 ms-2 mt-1">
                                     <img src="~/lib/images/web.png" height="17" width="13">
                                     <div class="d-flex flex-column mt-4">
@@ -410,7 +445,7 @@
                             </div>
                         </div>
                         <div class="col-3 col-3-margin">
-                            <div class="card">
+                            <div class="card card-height">
                                 <div class="card-body p-0 ms-2 mt-1">
                                     <img src="~/lib/images/calender.png" height="17" width="13">
                                     <div class="d-flex flex-column mt-4">
@@ -430,7 +465,7 @@
                             </div>
                         </div>
                         <div class="col-3 col-3-margin">
-                            <div class="card">
+                            <div class="card card-height">
                                 <div class="card-body p-0 ms-2 mt-1">
                                     <img src="~/lib/images/organization.png" height="17" width="13">
                                     <div class="d-flex flex-column mt-4">
@@ -470,7 +505,7 @@
                                     }
                                 }
 
-                                else if (Model.MissionType == "Goal" && int.Parse(Model.SeatAvailable) > 0 && Model.GoalValue < 100)
+                                else if (Model.MissionType == "Goal" && int.Parse(Model.SeatAvailable) > 0 && Model.GoalValue < 100 && Model.deadline > DateTime.Now)
                                 {
                                     if (Model.isPending)
                                     {
@@ -753,7 +788,10 @@
                                     <span>Skill</span>
                                 </div>
                                 <div class="col-9">
-                                    <span>Cool,Easy going,Math,Computer</span>
+                                    @foreach(var skills in @Model.skill){
+                                        <span>@skills</span>
+                                    }
+                                    
                                 </div>
 
                             </div>
@@ -805,7 +843,7 @@
                                 </span>
 
                             </div>
-                            <div class="row">
+                            <div class="row recentvol">
 
                                 @foreach (var theme in @ViewBag.RecentVolunteers)
                                 {
@@ -832,7 +870,7 @@
                         <div id="recent-volunteer-pageination mt-5"
                              class=" d-flex border align-items-center justify-content-between">
                             
-                                    <a class="bg-transparent border py-2 px-3" href="@Url.Action("RelatedMissionPage", new { pageIndex = @ViewBag.PageIndex - 1 , id = @Model.MissionId})"><img src="~/Images/left.png" alt=""></a>
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@ViewBag.PageIndex-1,@Model.MissionId)"><img src="~/Images/left.png" alt=""></a>
                                 @if(@ViewBag.PageIndex==1){
                                     <div> 1-@ViewBag.count Recent Volunteers of @ViewBag.TotalCount</div>
                                 }
@@ -841,7 +879,7 @@
                                 }
                             
                             
-                                    <a class="bg-transparent border py-2 px-3" href="@Url.Action("RelatedMissionPage", new { pageIndex = @ViewBag.PageIndex + 1 , id = @Model.MissionId})"><img src="~/Images/right-arrow1.png" alt=""></a>
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@ViewBag.PageIndex+1,@Model.MissionId)"><img src="~/Images/right-arrow1.png" alt=""></a>
                                 
                         </div>
                     </div>

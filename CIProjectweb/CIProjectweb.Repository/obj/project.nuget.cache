@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "u37/bR8OFZegnXofkTZ3MxRdxSP8fgxnv+65gL9eoipYIaeklEKGVtycCbwBlSS0iT+gtXqlDj2DAr4Rpn+/JQ==",
+  "dgSpecHash": "NDqADEkieou7Yrj7Kgka6jGea0U/LZjdSRwNNu5w6nqi4RyNf/IwFBBFfS0RqWN3CyGI0OPZ+suetz86c7KOCw==",
   "success": true,
   "projectFilePath": "E:\\PC\\CIProjectweb\\CIProjectweb.Repository\\CIProjectweb.Repository.csproj",
   "expectedPackageFiles": [
@@ -30,7 +30,7 @@
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.analyzers\\2.2.0\\microsoft.aspnetcore.mvc.analyzers.2.2.0.nupkg.sha512",
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.apiexplorer\\2.2.0\\microsoft.aspnetcore.mvc.apiexplorer.2.2.0.nupkg.sha512",
-    "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.0\\microsoft.aspnetcore.mvc.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.core\\2.2.5\\microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512",
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.cors\\2.2.0\\microsoft.aspnetcore.mvc.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.dataannotations\\2.2.0\\microsoft.aspnetcore.mvc.dataannotations.2.2.0.nupkg.sha512",
     "C:\\Users\\dimpl\\.nuget\\packages\\microsoft.aspnetcore.mvc.formatters.json\\2.2.0\\microsoft.aspnetcore.mvc.formatters.json.2.2.0.nupkg.sha512",

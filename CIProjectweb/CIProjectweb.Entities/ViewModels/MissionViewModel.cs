@@ -64,5 +64,9 @@ namespace CIProjectweb.Entities.ViewModels
         public int Rating { get; set; }
         public float? avgRating { get; set; }
         public DateTime? deadline { get; set; }
+
+        public List<String?> skill { get; set; }
+
+        public int? alreadyVolunteered { get; set; }
     }
 }

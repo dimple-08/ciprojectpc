@@ -13,6 +13,8 @@ namespace CIProjectweb.Entities.ViewModels
         public int? missionRating { get; set; }
 
         public int? seatsLeft { get; set; }
+        public int? alreadyVolunteered { get; set; }
+
         public int? missionApplied { get; set; }
 
         public int? approvalPending { get; set; }

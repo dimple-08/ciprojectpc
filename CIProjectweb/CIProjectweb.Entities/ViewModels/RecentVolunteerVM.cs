@@ -11,5 +11,7 @@ namespace CIProjectweb.Entities.ViewModels
     {
         public string? missions { get; set; }
         public string? users { get; set;}
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
     }
 }

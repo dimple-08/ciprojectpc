@@ -41,6 +41,8 @@ public partial class Mission
 
     public string? SeatAvailable { get; set; }
 
+    public DateTime? Deadline { get; set; }
+
     public virtual City City { get; set; } = null!;
 
     public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
@@ -62,6 +64,8 @@ public partial class Mission
     public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
 
     public virtual ICollection<MissionSkill> MissionSkills { get; } = new List<MissionSkill>();
+
+    public virtual ICollection<Story> Stories { get; } = new List<Story>();
 
     public virtual MissionTheme Theme { get; set; } = null!;
 

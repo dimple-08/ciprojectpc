@@ -55,10 +55,16 @@ namespace CIProjectweb.Repository.Repository.Interface
 
         public User getuserEmail(string mail);
         public List<MissionDocument> getmissionDocument(int missionid);
-        public ShareStoryViewModel getsharestory();
+        public ShareStoryViewModel getsharestory(int id);
         public bool alreadystory(int MissionId, int UserId);
-        public void story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl);
+        public long story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl);
         public MissionInvite missionInviteExists(int fromUserid, int ToUserId, long missionId);
         public bool ADDMissionInvite(MissionInvite InviteExixts, int fomUserId, int ToUserId, long missionId);
+        public long storySubmit(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl);
+
+        public Story getstory(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl,string value);
+        //public MailViewModel fillMailmodel();
+        public bool ADDstoryInvite(StoryInvite InviteExixts, int fomUserId, int ToUserId, long storyId);
+        public StoryInvite storyInviteExists(int fromUserid, int ToUserId, long storyId);
     }
 }

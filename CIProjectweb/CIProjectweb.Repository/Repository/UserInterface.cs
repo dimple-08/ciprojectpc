@@ -384,7 +384,20 @@ namespace CIProjectweb.Repository.Repository
                 }
                 missionView.MediaPaths = mediaPaths;
             }
-
+            var skill = _objdb.MissionSkills.Where(t => t.MissionId == mission.MissionId).ToList();
+            if (skill!=null)
+            {    var name=new List<string>();
+                foreach (var skills in skill)
+                {
+                    var skill_name = _objdb.Skills.FirstOrDefault(t => t.SkillId == skills.SkillId);
+                    if (skill_name != null)
+                    {
+                        name.Add(skill_name.SkillName);
+                    }
+                }
+                missionView.skill = name;
+                
+            }
             var UserName = _objdb.MissionApplications.Where(t => t.MissionId == mission.MissionId).ToList();
             if (UserName != null)
             {
@@ -488,8 +501,17 @@ namespace CIProjectweb.Repository.Repository
                 missionView.MissionId = mission.MissionId;
                 missionView.StartDate = mission.StartDate;
                 missionView.EndDate = mission.EndDate;
-            var seats = (int.Parse(mission.SeatAvailable) - (_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId).Count()));
-            missionView.SeatAvailable = seats.ToString();
+            var seats = (int.Parse(mission.SeatAvailable) - (_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus=="ACCEPT").Count()));
+            
+            if (int.Parse(mission.SeatAvailable) > 0)
+            {
+                missionView.SeatAvailable = seats.ToString();
+            }
+            else
+            {
+                missionView.SeatAvailable=mission.SeatAvailable;
+            }
+            missionView.alreadyVolunteered=(_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus == "ACCEPT").Count());
             missionView.ThemeId = mission.ThemeId;
                 missionView.Status = mission.Status;
                 missionView.MissionType = mission.MissionType;
@@ -634,6 +656,39 @@ namespace CIProjectweb.Repository.Repository
             return missionInviteExists;
         }
 
+        public StoryInvite storyInviteExists(int fromUserid, int ToUserId, long storyId)
+        {
+            StoryInvite storyInviteExists = _objdb.StoryInvites.FirstOrDefault(t => t.FromUserId == fromUserid && t.ToUserId == ToUserId && t.StoryId == storyId);
+            return storyInviteExists;
+        }
+
+        public bool ADDstoryInvite(StoryInvite InviteExixts, int fomUserId, int ToUserId, long storyId)
+        {
+            if (InviteExixts != null)
+            {
+                InviteExixts.StoryId = storyId;
+                InviteExixts.UpdatedAt = DateTime.Now;
+
+                _objdb.StoryInvites.Update(InviteExixts);
+                _objdb.SaveChanges();
+                return true;
+
+            }
+            else
+            {
+                StoryInvite Story_Invite = new StoryInvite();
+                Story_Invite.StoryId = storyId;
+                Story_Invite.FromUserId = fomUserId;
+                Story_Invite.ToUserId = ToUserId;
+                _objdb.StoryInvites.Add(Story_Invite);
+                _objdb.SaveChanges();
+                return true;
+            }
+        }
+
+
+
+
         public bool Update_favourite(FavouriteMission favoriteMission,long missionId,int u_id)
         {
             if (favoriteMission != null)
@@ -670,7 +725,16 @@ namespace CIProjectweb.Repository.Repository
                 return true;
             }
         }
+        #region fill MailviewModel
+        //public MailViewModel fillMailmodel()
+        //{
+        //    MailViewModel mailViewModel = new MailViewModel();
+        //    mailViewModel.users = _objdb.Users.ToList();
+        //    mailViewModel.missions = _objdb.Missions.ToList();
+        //    return (mailViewModel);
+        //}
 
+        #endregion
         public bool ADDMissionInvite(MissionInvite InviteExixts, int fomUserId, int ToUserId, long missionId)
         {
             if (InviteExixts != null)
@@ -959,11 +1023,17 @@ namespace CIProjectweb.Repository.Repository
             return _objdb.MissionDocuments.Where(t=>t.MissionId==missionid).ToList();
         }
 
-        public ShareStoryViewModel getsharestory()
+        public ShareStoryViewModel getsharestory(int id)
         {
-           
-           ShareStoryViewModel shareStory=new ShareStoryViewModel();
-            shareStory.missionsList=_objdb.Missions.ToList();
+            var tempMission = _objdb.MissionApplications.Where(x => x.UserId == id && x.ApprovalStatus == "ACCEPT").Select(x => x.MissionId).ToList();
+            List<Mission>list=  new List<Mission>();
+            foreach (var item in tempMission)
+            {
+                var mission = _objdb.Missions.FirstOrDefault(x => x.MissionId == item);
+                list.Add(mission);
+            }
+            ShareStoryViewModel shareStory=new ShareStoryViewModel();
+            shareStory.missionsList = list;
             
             return shareStory;
         }
@@ -979,7 +1049,7 @@ namespace CIProjectweb.Repository.Repository
                 return false;
             }
         }
-        public void story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId,string[] videoUrl)
+        public long story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId,string[] videoUrl)
         {
             Story story = new Story();
             story.Title = Title;
@@ -987,10 +1057,11 @@ namespace CIProjectweb.Repository.Repository
             story.UserId = UserId;
             story.PublichedAt = Date;
             story.Description = Description;
+            story.Views = 0;
             _objdb.Stories.Add(story);
             _objdb.SaveChanges();
             var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
-
+            var storyid = matchstory.StoryId;
 
             foreach (var item in Image)
             {
@@ -1011,6 +1082,337 @@ namespace CIProjectweb.Repository.Repository
                 _objdb.StoryMedia.Add(storymedium);
                 _objdb.SaveChanges();
             }
+            return storyid; 
+        }
+
+        public long storySubmit(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl)
+        {
+            var story1 = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
+            
+            if (story1 != null)
+            {
+                long storyid = story1.StoryId;
+                story1.Views = 0;
+                story1.Title = Title;
+                story1.MissionId = MissionId;
+                story1.UserId = UserId;
+                story1.PublichedAt = Date;
+                story1.Description = Description;
+                _objdb.Update(story1);
+                _objdb.SaveChanges();
+                var media = _objdb.StoryMedia.Where(sm => sm.StoryId == story1.StoryId).ToList();
+                foreach (var medias in media)
+                {
+                    if (medias.Type=="image")
+                    {
+                        foreach (var item in Image)
+                        {
+                            medias.StoryId = story1.StoryId;
+                            medias.Type = "image";
+                            medias.Path = item;
+                            _objdb.StoryMedia.Update(medias);
+                            _objdb.SaveChanges();
+                        }
+                        
+                    }
+                    else
+                    {
+                        foreach (var item in videoUrl)
+                        {
+                            medias.StoryId = story1.StoryId;
+                            medias.Type = "Video";
+                            medias.Path = item;
+                            _objdb.StoryMedia.Update(medias);
+                            _objdb.SaveChanges();
+                        }
+                    }
+                }
+                
+                return storyid;
+            }
+            else
+            {
+                Story story = new Story();
+                story.Title = Title;
+                story.MissionId = MissionId;
+                story.UserId = UserId;
+                story.PublichedAt = Date;
+                story.Description = Description;
+                story.Views = 0;
+                _objdb.Stories.Add(story);
+                _objdb.SaveChanges();
+                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+                var storyid = matchstory.StoryId;
+
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "image";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+
+                foreach (var item in videoUrl)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "Video";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+                return storyid;
+            }
+            
+        }
+        //public Story story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string Value)
+        //{
+        //    var story = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
+
+        //    if (story == null && Value == "save")
+        //    {
+        //        Story storys = new Story();
+        //        storys.Title = Title;
+        //        storys.MissionId = MissionId;
+        //        storys.UserId = UserId;
+        //        storys.PublishedAt = Date;
+        //        storys.StoryDescription = Description;
+        //        _objdb.Stories.Add(storys);
+        //        _objdb.SaveChanges();
+        //        var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+        //        foreach (var item in Image)
+        //        {
+        //            StoryMedium storymedium = new StoryMedium();
+        //            storymedium.StoryId = matchstory.StoryId;
+        //            storymedium.Path = item;
+        //            _objdb.StoryMedia.Add(storymedium);
+        //        }
+        //        _objdb.SaveChanges();
+        //        return matchstory;
+        //    }
+        //    else if (story == null && Value == "submit")
+        //    {
+        //        Story storys = new Story();
+        //        storys.Title = Title;
+        //        storys.MissionId = MissionId;
+        //        storys.UserId = UserId;
+        //        storys.PublishedAt = Date;
+        //        storys.Status = "pending";
+        //        storys.StoryDescription = Description;
+        //        _objdb.Stories.Add(storys);
+        //        _objdb.SaveChanges();
+        //        var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+        //        foreach (var item in Image)
+        //        {
+        //            StoryMedium storymedium = new StoryMedium();
+        //            storymedium.StoryId = matchstory.StoryId;
+        //            storymedium.Path = item;
+        //            _objdb.StoryMedia.Add(storymedium);
+        //        }
+        //        _objdb.SaveChanges();
+        //        return matchstory;
+        //    }
+
+        //    else if (story != null && Value == "save")
+        //    {
+        //        story.MissionId = MissionId;
+        //        story.UserId = UserId;
+        //        story.Title = Title;
+        //        story.PublishedAt = Date;
+        //        story.StoryDescription = Description;
+        //        _objdb.Stories.Update(story);
+        //        var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+        //        foreach (var item in Image)
+        //        {
+
+        //            storymediums.StoryId = story.StoryId;
+        //            storymediums.Path = item;
+        //            _objdb.StoryMedia.Update(storymediums);
+        //        }
+        //        _objdb.SaveChanges();
+        //        return story;
+        //    }
+        //    else
+        //    {
+        //        story.MissionId = MissionId;
+        //        story.UserId = UserId;
+        //        story.Title = Title;
+        //        story.PublishedAt = Date;
+        //        story.Status = "pending";
+        //        story.StoryDescription = Description;
+        //        _objdb.Stories.Update(story);
+        //        var storymediums = _objdb.StoryMedia.FirstOrDefault(sm => sm.StoryId == story.StoryId);
+        //        foreach (var item in Image)
+        //        {
+
+        //            storymediums.StoryId = story.StoryId;
+        //            storymediums.Path = item;
+        //            _objdb.StoryMedia.Update(storymediums);
+        //        }
+        //        _objdb.SaveChanges();
+        //        return story;
+        //    }
+        //}
+        public Story getstory(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl, string value)
+        {
+            var story1 = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);
+            if (story1 == null && value == "save")
+            {
+                Story storys = new Story();
+                storys.Title = Title;
+                storys.MissionId = MissionId;
+                storys.UserId = UserId;
+                storys.PublichedAt = Date;
+                storys.Views = 0;
+                storys.Description = Description;
+                _objdb.Stories.Add(storys);
+                _objdb.SaveChanges();
+                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "image";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+
+                foreach (var item in videoUrl)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "Video";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+                return matchstory;
+            }
+            else if (story1 == null && value == "submit")
+            {
+                Story storys = new Story();
+                storys.Title = Title;
+                storys.MissionId = MissionId;
+                storys.UserId = UserId;
+                storys.PublichedAt = Date;
+                storys.Views = 0;
+                storys.Status = "PENDING";
+                storys.Description = Description;
+                _objdb.Stories.Add(storys);
+                _objdb.SaveChanges();
+                var matchstory = _objdb.Stories.FirstOrDefault(s => s.UserId == UserId && s.MissionId == MissionId);
+
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "image";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+
+                foreach (var item in videoUrl)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = matchstory.StoryId;
+                    storymedium.Type = "Video";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+                return matchstory;
+            }
+            else if (story1 != null && value == "save")
+            {
+                story1.MissionId = MissionId;
+                story1.UserId = UserId;
+                story1.MissionId = MissionId;
+                story1.UserId = UserId;
+                story1.PublichedAt = Date;
+                story1.Description = Description;
+                _objdb.Update(story1);
+                _objdb.SaveChanges();
+                var media = _objdb.StoryMedia.Where(sm => sm.StoryId == story1.StoryId).ToList();
+                
+                foreach (var item in media)
+                {
+                    _objdb.Remove(item);
+                    _objdb.SaveChanges();
+
+                }
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story1.StoryId;
+                    storymedium.Type = "image";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+                foreach (var item in videoUrl)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story1.StoryId;
+                    storymedium.Type = "Video";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+
+
+                return story1;
+            }
+            else
+            {
+                story1.MissionId = MissionId;
+                story1.UserId = UserId;
+                story1.MissionId = MissionId;
+                story1.UserId = UserId;
+                story1.Status = "PENDING";
+                story1.PublichedAt = Date;
+                story1.Description = Description;
+                _objdb.Update(story1);
+                _objdb.SaveChanges();
+                var media = _objdb.StoryMedia.Where(sm => sm.StoryId == story1.StoryId).ToList();
+
+                foreach (var item in media)
+                {
+                    _objdb.Remove(item);
+                    _objdb.SaveChanges();
+
+                }
+                foreach (var item in Image)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story1.StoryId;
+                    storymedium.Type = "image";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+                foreach (var item in videoUrl)
+                {
+                    StoryMedium storymedium = new StoryMedium();
+                    storymedium.StoryId = story1.StoryId;
+                    storymedium.Type = "Video";
+                    storymedium.Path = item;
+                    _objdb.StoryMedia.Add(storymedium);
+                    _objdb.SaveChanges();
+                }
+
+
+                return story1;
+            }
+
+
+           
         }
     }
 }

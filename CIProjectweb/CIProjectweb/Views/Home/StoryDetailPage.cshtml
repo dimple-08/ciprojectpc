@@ -10,7 +10,7 @@
     ViewData["Title"] = "Story_Detail";
 
 }
-<script src="~/js/relatedmission.js"></script>
+
 @model storyListingViewModel
 
 <div class="container main mt-3">
@@ -18,41 +18,86 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="" style="height:100%;">
 
-                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                    <div class="numbertext">1 / 4</div>
-                    <img src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                </div>
-                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                    <div class="numbertext">2 / 4</div>
-                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-3.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                </div>
-                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                    <div class="numbertext">3 / 4</div>
-                    <img src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                </div>
-                <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                    <div class="numbertext">4 / 4</div>
-                    <img src="~/lib/images/image2.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                </div>
+                @{
+                    var count = Model.Media.Count;
+                    int i = 1;
+                }
+                @foreach (var theme in Model.Media)
+                {
+                    if (theme != null)
+                    {
+                        if (theme.Type == "image")
+                        {
+                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                                <div class="numbertext">@i/@count </div>
+                                <img src="@theme.Path" style="height:100%;object-fit:cover;width:100%" class="border border-5 border-primary" />
+                            </div>
+                            i++;
+                        }
+                        if (theme.Type == "Video")
+                        {
+                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                                <div class="numbertext">@i/@count</div>
+                                <iframe class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%" src="@theme.Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                            i++;
+                        }
+                        @* i = i + 1;
+
+                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                            <div class="numbertext">@i / @count</div>
+                            <img src="@theme" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                            </div>*@
+                    }
+                }
 
 
                 <a class="prev" onclick="plusSlides(-1)">❮</a>
                 <a class="next" onclick="plusSlides(1)">❯</a>
 
-                <div class="row padding-row mt-2">
+                <div class="row padding-row mt-2" style="height:60px;overflow-y:scroll;">
+                    @{
 
-                    <div class="column1" style="width:25%">
+                        int d = 0;
+                    }
+                    @foreach (var theme in Model.Media)
+                    {
+                        if (theme != null)
+                        {
+                            d = d + 1;
+                            if (theme.Type == "image")
+                            {
+                                <div class="column">
+                                    <img class="demo cursor" src="@theme.Path" style="width: 100%" onclick="currentSlide(@d)"
+                             alt="The Wood" />
+                                </div>
+
+                            }
+                            if (theme.Type == "Video")
+                            {
+                                <div class="column">
+                                    <iframe class="demo cursor" src="@theme.Path" style="width: 100%" onclick="currentSlide(@d)"></iframe>
+
+                                </div>
+
+                            }
+                            @* <div class="column1" style="width:25%">
+                                <img class="demo cursor" src="@theme" style="width:100%;height:100%;" onclick="currentSlide(@d)" alt="The Woods">
+                                </div>*@
+                        }
+                    }@*
+                        <div class="column1" style="width:25%">
                         <img class="demo cursor" src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" style="width:100%;height:100%;" onclick="currentSlide(1)" alt="The Woods">
-                    </div>
-                    <div class="column1" style="width:25%">
+                        </div>
+                        <div class="column1" style="width:25%">
                         <img class="demo cursor" src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%;height:100%;" onclick="currentSlide(2)" alt="Cinque Terre">
-                    </div>
-                    <div class="column1" style="width:25%">
+                        </div>
+                        <div class="column1" style="width:25%">
                         <img class="demo cursor" src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%;height:100%;" onclick="currentSlide(3)" alt="Mountains and fjords">
-                    </div>
-                    <div class="column1" style="width:25%">
+                        </div>
+                        <div class="column1" style="width:25%">
                         <img class="demo cursor" src="~/lib/images/image1.png" style="width:100%;height:100%;" onclick="currentSlide(4)" alt="Northern Lights">
-                    </div>
+                        </div>*@
 
                 </div>
             </div>
@@ -65,11 +110,11 @@
                 </div>
                 <div class="views d-flex mt-4">
                     <img src="~/images/eye.png" alt="" class="eyeimg mt-2 ms-4">
-                    <p class="mt-1">12,000 views</p>
+                    <p class="mt-1">@Model.Views views</p>
                 </div>
             </div>
             <div class="storyshortdesc">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. <br><br> Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore. <br><br> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</p>
+                <p>@Model.why_i_volunteer</p>
             </div>
             @*   <div class="favandinvibtn container row mt-4">
                 <div class="col-md-6 col-sm-12 mb-2 text-center">
@@ -150,8 +195,10 @@
 
                         </div>
                         <div class="modal-body">
-
-                            <ul style="list-style-type:none">
+                            <div class="spinner-border text-success d-none" role="status" id="emailLoader">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                            <ul style="list-style-type:none" id="emaillist">
                                 @foreach (var items in @ViewBag.Users)
                                 {
                                     <li class="dropdown-item">
@@ -163,7 +210,7 @@
                         </div>
                         <div class="modal-footer">
 
-                            <button type="button" class="btn cardbtn" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+                            <button type="button" class="btn cardbtn" id="sent1" onclick="sendRec(@Model.StoryId);">Send Mail</button>
                         </div>
                     </div>
 
@@ -247,5 +294,39 @@
       }
     }
 </script>
-<script src="../Bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../JS/Favourite.js"></script>
+<script>
+    function sendRec(storyId) {
+        console.log(storyId);
+    $("#emailLoader").removeClass('d-none');
+    $("#emaillist").addClass('d-none');
+    const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
+    if (toMail.length > 0) {
+        $.ajax({
+            url: '/Home/SendRecStory',
+            type: 'POST',
+            data: {StoryId: storyId, ToMail: toMail },
+            success: function (result) {
+
+                $("#emailLoader").addClass('d-none');
+                $("#emaillist").removeClass('d-none');
+                var send = document.getElementById('sent1').innerText = "Sent";
+
+                setTimeout(() => {
+
+
+                    var send = document.getElementById('sent1').innerText = "Send Email";
+
+                }, 4000);
+                Swal.fire('send');
+            }
+        });
+    }
+    else {
+        $("#emailLoader").addClass('d-none');
+        $("#emaillist").removeClass('d-none');
+        Swal.fire('Select Co-worker');
+    }
+   
+}
+</script>
+

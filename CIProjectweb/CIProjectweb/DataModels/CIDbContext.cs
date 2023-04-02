@@ -319,6 +319,7 @@ public partial class CIDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+            entity.Property(e => e.Deadline).HasColumnType("datetime");
             entity.Property(e => e.DeletedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
@@ -678,12 +679,12 @@ public partial class CIDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.Mission).WithMany(p => p.StoryMissions)
+            entity.HasOne(d => d.Mission).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.MissionId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_story_user1");
 
-            entity.HasOne(d => d.User).WithMany(p => p.StoryUsers)
+            entity.HasOne(d => d.User).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_story_user");
