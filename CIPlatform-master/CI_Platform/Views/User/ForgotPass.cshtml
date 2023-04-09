@@ -1,0 +1,53 @@
+﻿@model CI_Platform.Entity.ViewModels.ForgotModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS\bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="JavaScript\bootstrap.bundle.min.js"></script>
+    <title>ForgotPassword</title>
+</head>
+<body>
+
+<div class="card ms-5 me-4 border-0 centerForgotPass">
+    <div class="card-body mt-5">
+        <h4 class="d-flex justify-content-center mt-4">Forgot Password</h4>
+        <p class="d-flex justify-content-center mt-3" class="createacc">
+            Enter your email address you've using for your account below and we
+            will send you a password reset link
+        </p>
+            <div class="text-danger" id="text-danger">
+                @ViewBag.RegError
+            </div>
+        <form asp-controller="User" asp-action="ForgotPass">
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label mt-3">Email address</label>
+                <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1"
+                       placeholder="Enter your email address.." aria-describedby="emailHelp" name="Email" onkeyup="emailexist()">
+                <span asp-validation-for="Email" class="text-danger-error"></span>
+            </div>
+            @*<button type="button" onClick="location.href='ResetPassword.html'" class="button mt-3">Reset my Password </button>
+            <button type="button" class="button mt-3" onclick="location.href='@Url.Action("resetpassword", "Login")'">Reset my Password</button>*@
+            <button type="submit" class="button mt-3">Reset my Password</button>
+
+            <p class="d-flex justify-content-center mt-4">
+                <a asp-action="Login" asp-controller="User" class="link1">
+                    Login
+                </a>
+            </p>
+        </form>
+        <p class="d-flex justify-content-center mt-5 pp">Privacy Policy</p>
+    </div>
+</div>
+<script>+
+       function emailexist(){
+           document.getElementById("text-danger").style.display="none";
+       }
+</script>
+
+</body>
+</html>

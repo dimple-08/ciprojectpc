@@ -1,0 +1,453 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+
+    <title>PlatFormLandingPage</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+@{
+    var userid = Context.Session.GetString("UserId");
+}
+<div class="d-flex p-1">
+    <div class="d-flex ms-1 mt-2 storiesPolicy">
+        @if (userid != null)
+        {
+            <a class="nav-link" asp-action="StoryListingPage" asp-controller="Home">Stories</a>
+        }
+        else
+        {
+            <a class="nav-link" onclick="pleaseLogin()">Stories</a>
+        }
+        <a class="nav-link ms-4" href="#" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false">
+            Policy<i class="bi bi-chevron-down ms-1 mt-2"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li>
+            <li>
+                <a class="dropdown-item">Log Out</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-flex ms-auto profile-photo-name">
+        @{
+            var firstname = Context.Session.GetString("UserName");
+        }
+
+        @if (firstname != null)
+        {
+            <img src="~/images/user-img.png" style="border-radius: 50%; height: 40px; width: 40px"
+             class="profilePhoto" />
+            <div class="dropdown mx-3 my-auto">
+                <a class="nav-link profileName" href="#" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false" style="font-family: Roboto">
+
+                    @firstname
+                    <i class="bi bi-chevron-down ms-1 mt-2 profileContent"></i>
+                </a>
+                <ul class="dropdown-menu profileContent">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another </a></li>
+                    <li><a class="dropdown-item" asp-controller="User" asp-action="Login">Logout </a></li>
+                </ul>
+            </div>
+
+        }
+        else
+        {
+            <a type="button" class="btn btn-primary me-3" href="/User/Login">Login</a>
+            <a type="button" class="btn btn-primary" href="/User/Register">Register</a>
+        }
+    </div>
+</div>
+
+<div class="d-flex justify-content-between border-top border-bottom header2">
+    <div class="">
+        <nav class="navbar">
+            <div class="container-fluid me-auto">
+                @*<form class="d-flex" role="search"  asp-action="PlatformLanding">
+                    <i class="bi bi-search my-auto"  style="opacity: 50%"></i>
+                    <input class="form-control ms-2 border-0" value=@ViewBag.SearchTerm asp-for="searchTerm" type="search" placeholder="Search mission.."
+                    aria-label="Search" />
+                    </form>*@
+
+                <form role="search" class="d-flex">
+                    <i class="bi bi-search my-auto" style="opacity: 50%"></i>
+                    <input class="form-control ms-2 border-0" type="search" placeholder="Search mission....." aria-label="Search "
+                           value="@ViewBag.SearchQuery" class="searchbox" name="searchinput" id="search">
+                </form>
+            </div>
+        </nav>
+    </div>
+
+    <div class=" my-auto d-flex m-0 ms-auto">
+        <div class="me-0 ms-5 border-end">
+            <div class="dropdown ">
+                <a class="nav-link filter-lg" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="font-family: Roboto">
+                    Country <i class="bi bi-chevron-down ms-2 me-3 mt-2 my-auto"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-start dropdownlist" id="countryList" aria-labelledby="navbarDropdownMenuLink">
+
+                    @*  @foreach(var item in ViewBag.Country)
+                        {
+                        <li class="dropdown-checkbox">
+                        <input type="checkbox" value="@item.Name" name="@item.Name" id="city-filter"
+                        class="checkbox ritu ms-3  ">@item.Name
+                        </li>
+                        }*@
+
+
+
+
+
+                    @foreach (var country in Model.Country)
+                    {
+                        <li>
+                            <a class="dropdown-item dd-color" href="#">
+                                <div class="form-check">
+                                    <input class="form-check-input checkbox" name="countries" type="checkbox" value="@country.Name"
+                                       id="@country.CountryId" />
+                                    <label class="form-check-label" for=@country.Name>@country.Name</label>
+                                </div>
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="me-0 ms-3 border-end">
+            <div class="dropdown my-auto">
+                <a class="nav-link filter-lg" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="font-family: Roboto">
+                    City <i class="bi bi-chevron-down ms-2 me-3 mt-2"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-start dropdownlist" id="cityList" aria-labelledby="navbarDropdownMenuLink">
+                    @* @foreach(var item in ViewBag.City)
+                        {
+                        <li class="dropdown-checkbox">
+                        <input type="checkbox" value="@item.Name" name="@item.Name" id="city-filter"
+                        class="checkbox ritu ms-3  ">@item.Name
+                        </li>
+                        }*@
+
+                    @if (Model.Country == null)
+                    {
+                        <p>Please select a Country</p>
+                    }
+                    @if (Model.City != null)
+                    {
+                        @foreach (var city in Model.City)
+                        {
+                            <li>
+                                <a class="dropdown-item dd-color" href="#">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" name="cities" type="checkbox" value="@city.Name" id=@city.CityId />
+                                        <label class="form-check-label" for=@city.CityId>@city.Name</label>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="me-0 ms-3 border-end">
+            <div class="dropdown my-auto">
+                <a class="nav-link filter-lg" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="font-family: Roboto">
+                    Theme <i class="bi bi-chevron-down ms-2 me-3 mt-2"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-start dropdownlist" id="themeList" aria-labelledby="navbarDropdownMenuLink">
+                    @* @foreach(var item in ViewBag.Theme)
+                        {
+                        <li class="dropdown-checkbox">
+                        <input type="checkbox" value="@item.Title" name="@item.Title" id="city-filter"
+                        class="checkbox ritu ms-3  ">@item.Title
+                        </li>
+                        }*@
+
+                    @foreach (var theme in Model.MissionThemes)
+                    {
+                        <li>
+                            <a class="dropdown-item dd-color" href="#">
+                                <div class="form-check">
+                                    <input class="form-check-input checkbox" name="themes" type="checkbox" value="@theme.Title" id=@theme.MissionThemeId />
+                                    <label class="form-check-label" for=@theme.MissionThemeId>@theme.Title</label>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="me-0 ms-3 border-end">
+            <div class="dropdown my-auto">
+                <a class="nav-link filter-lg" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="font-family: Roboto">
+                    Skill <i class="bi bi-chevron-down ms-3 me-5 mt-2"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+                    <li class="dropdown-checkbox">
+                        <input type="checkbox" value="mathematics" name="mathematics" id="city-filter"
+                               class="checkbox ms-3  ">mathematics
+                    </li>
+                    <li class="dropdown-checkbox">
+                        <input type="checkbox" value="agriculture" name="agriculture"
+                               class="ms-3 checkbox ">agriculture
+                    </li>
+                    <li class="dropdown-checkbox">
+                        <input type="checkbox" value="reading" name="reading"
+                               class="ms-3 checkbox ">reading
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn filter-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+        <img src="~/images/filter.png" />
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+         aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Country <i class="bi bi-chevron-down ms-1 mt-2 my-auto"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start dropdownlist" aria-labelledby="navbarDropdownMenuLink">
+                            @*@foreach(var item in ViewBag.Country)
+                                {
+                                <li class="dropdown-checkbox">
+                                <input type="checkbox" value="@item.Name" name="@item.Name" id="city-filter"
+                                class="checkbox ritu ms-3  ">@item.Name
+                                </li>
+
+                                }*@
+
+                            @foreach (var country in Model.Country)
+                            {
+                                <li>
+                                    <a class="dropdown-item dd-color" href="#">
+                                        <div class="form-check">
+                                            <input class="form-check-input checkbox" name="countries" type="checkbox" value="@country.Name"
+                                               id="@country.CountryId" />
+                                            <label class="form-check-label" for=@country.Name>@country.Name</label>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mt-2">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            City <i class="bi bi-chevron-down ms-1 mt-2 my-auto"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start dropdownlist" aria-labelledby="navbarDropdownMenuLink">
+                            @*@foreach(var item in ViewBag.City)
+                                {
+                                <li class="dropdown-checkbox">
+                                <input type="checkbox" value="@item.Name" name="@item.Name" id="city-filter"
+                                class="checkbox ritu ms-3  ">@item.Name
+                                </li>
+                                }*@
+
+                            @if (Model.City == null)
+                            {
+                                <p>Please select a Country</p>
+                            }
+                            @if (Model.City != null)
+                            {
+                                @foreach (var city in Model.City)
+                                {
+                                    <li>
+                                        <a class="dropdown-item dd-color" href="#">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkbox" name="cities" type="checkbox" value="@city.Name" id=@city.CityId />
+                                                <label class="form-check-label" for=@city.CityId>@city.Name</label>
+                                            </div>
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mt-2">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Theme <i class="bi bi-chevron-down ms-1 mt-2 my-auto"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start dropdownlist" aria-labelledby="navbarDropdownMenuLink">
+                            @* @foreach(var item in ViewBag.Theme)
+                                {
+                                <li class="dropdown-checkbox">
+                                <input type="checkbox" value="@item.Title" name="@item.Title" id="city-filter"
+                                class="checkbox ritu ms-3  ">@item.Title
+                                </li>
+                                }*@
+
+                            @foreach (var theme in Model.MissionThemes)
+                            {
+                                <li>
+                                    <a class="dropdown-item dd-color" href="#">
+                                        <div class="form-check">
+                                            <input class="form-check-input checkbox" name="themes" type="checkbox" value="@theme.Title" id=@theme.MissionThemeId />
+                                            <label class="form-check-label" for=@theme.MissionThemeId>@theme.Title</label>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item dropdown mt-2">
+                    <div class="btn-group dropend">
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                            Skill <i class="bi bi-chevron-down ms-1 mt-2 my-auto"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="navbarDropdownMenuLink">
+                            <li class="dropdown-checkbox">
+                                <input type="checkbox" value="mathematics" name="mathematics" id="city-filter"
+                                       class="checkbox ritu ms-3  ">mathematics
+                            </li>
+                            <li class="dropdown-checkbox">
+                                <input type="checkbox" value="agriculture" name="agriculture"
+                                       class="ms-3 checkbox ">agriculture
+                            </li>
+                            <li class="dropdown-checkbox">
+                                <input type="checkbox" value="reading" name="reading"
+                                       class="ms-3 checkbox ">reading
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let close = document.querySelector("#close-btn");
+    var checkboxes = document.querySelectorAll(".checkbox");
+    let filtersSection = document.querySelector(".filters-section");
+
+    var filterList = document.querySelector(".filter-list");
+
+
+
+
+
+
+
+    for (var checkbox of checkboxes) {
+    checkbox.addEventListener("click", function () {
+    if (this.checked == true) {
+
+    addElement(this, this.value);
+
+    }
+    else {
+
+    removeElement(this.value);
+
+    }
+    })
+    }
+
+    /*this function will add filters*/
+
+
+
+    function addElement(current, value) {
+    let filtersSection = document.querySelector(".filters-section");
+
+    let createdTag = document.createElement('span');
+    createdTag.classList.add('filter-list');
+    createdTag.classList.add('ps-3');
+    createdTag.classList.add('pe-1');
+    createdTag.classList.add('me-2');
+    createdTag.innerHTML = value;
+
+    createdTag.setAttribute('id', value);
+    let crossButton = document.createElement('button');
+    crossButton.classList.add("filter-close-button");
+    let cross = '&times;'
+
+    crossButton.addEventListener('click', function () {
+    let elementToBeRemoved = document.getElementById(value);
+
+    console.log(elementToBeRemoved);
+    console.log(current);
+    elementToBeRemoved.remove();
+
+    current.checked = false;
+    LoadMission();
+    })
+
+    crossButton.innerHTML = cross;
+
+    createdTag.appendChild(crossButton);
+    filtersSection.appendChild(createdTag);
+    LoadMission();
+
+    }
+
+    function removeElement(value) {
+
+    let filtersSection = document.querySelector(".filters-section");
+
+    let elementToBeRemoved = document.getElementById(value);
+    filtersSection.removeChild(elementToBeRemoved);
+    LoadMission();
+
+    }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

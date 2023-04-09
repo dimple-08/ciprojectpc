@@ -1,0 +1,62 @@
+﻿@model CI_Platform.Entity.ViewModels.LoginModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="JavaScript\bootstrap.bundle.min.js"></script>
+    <title>LoginPage</title>
+</head> 
+<body>
+<div class="card ms-5 me-4 border-0 centerLogin">
+    @if(TempData["Sessonerrormsg"] != null)
+        {
+            <span>please login again</span>
+        }
+        <div class="card-body mt-5">
+        <form asp-controller="User" asp-action="Login" method="post">
+            <div class="mb-3">
+                <div class="mb-5 text-danger" id="text-danger">
+                     @ViewBag.LoginError
+                </div>
+                <label asp-for="Email" class="form-label">Email address</label>
+                    <input asp-for="Email" type="email" onkeyup="emailempty()" class="form-control" id="exampleInputEmail1"
+                       placeholder="name@gmail.com" aria-describedby="emailHelp">
+                    <span asp-validation-for="Email" id="emailerr"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for="Password" type="password" onkeyup="passempty()" class="form-control" id="exampleInputPassword1"
+                       placeholder="EnterPassword">
+                <span asp-validation-for="Password" id="passerr"></span>
+            </div>
+            <button type="submit" class="button mt-3">Login</button>
+            <p class="d-flex justify-content-center mt-4">
+                <a asp-action="ForgotPass" asp-controller="User" class="link1">
+                    Lost your Password?
+                </a>
+            </p>
+            <p class="d-flex justify-content-center mt-4 createacc">
+                Don't have an account?
+                <a asp-action="Register" asp-controller="User" class="link2 ms-1 ">Create an account</a>
+            </p>
+        </form>
+        <p class="d-flex justify-content-center mt-5 pp">Privacy Policy</p>
+    </div>
+</div>
+
+    <script>
+        function emailempty() {
+            document.getElementById("emailerr").style.display = "none";
+            document.getElementById("text-danger").style.display = "none";
+        }
+        function passempty() {
+            document.getElementById("passerr").style.display = "none";
+            document.getElementById("text-danger").style.display = "none";
+        }
+    </script>
+</body>
+</html>

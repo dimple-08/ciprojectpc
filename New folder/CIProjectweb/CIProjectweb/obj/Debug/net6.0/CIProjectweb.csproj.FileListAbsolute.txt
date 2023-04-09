@@ -1,0 +1,649 @@
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\refint\CIProjectweb.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\ref\CIProjectweb.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+D:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+D:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\ref\CIProjectweb.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cs
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+C:\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+E:\PC\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cs
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\refint\CIProjectweb.dll
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+E:\PC\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.Development.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\appsettings.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.staticwebassets.runtime.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.exe
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.deps.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.runtimeconfig.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Core.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Azure.Identity.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Humanizer.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Mono.TextTemplating.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.CodeDom.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Drawing.Common.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Memory.Data.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Runtime.Caching.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Security.Permissions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Text.Json.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\System.Windows.Extensions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.AssemblyReference.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.GeneratedMSBuildEditorConfig.editorconfig
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfoInputs.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.AssemblyInfo.cs
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CoreCompileInputs.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cs
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.MvcApplicationPartsAssemblyInfo.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.RazorAssemblyInfo.cs
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.build.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\staticwebassets.development.json
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\bundle\CIProjectweb.styles.css
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\scopedcss\projectbundle\CIProjectweb.bundle.scp.css
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.csproj.CopyComplete
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\refint\CIProjectweb.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\CIProjectweb.genruntimeconfig.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb\obj\Debug\net6.0\ref\CIProjectweb.dll

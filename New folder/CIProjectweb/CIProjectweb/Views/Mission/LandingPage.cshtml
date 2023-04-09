@@ -1,0 +1,368 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login Page";
+}
+@{
+    var Count = ViewBag.count;
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+ <link rel="stylesheet" href="~/css/custom.css"  />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+@model CIProjectweb.Entities.ViewModels.MissionListingModel
+
+<div class="mt-md-3 mb-md-3 d-flex justify-content-center">
+
+    <div id="divCountryDiv"></div>
+    <div id="divCityDiv"></div>
+    <div id="divThemeDiv"></div>
+    <div id="divSkillDiv"></div>
+
+    <a class="ms-2 d-none clearAllFilter" style="text-decoration: none; color:black;" asp-controller="Mission" asp-action="LandingPage">
+        Clear all
+    </a>
+</div>
+<br />
+<form asp-action="LandingPage" asp-controller="Home" method="post">
+
+    <div class="container-lg grid-container" id="card">
+        <div id="missionGrid">
+            <div class="row mb-5" id="missionpartialView">
+
+              
+
+            </div>
+        </div>
+
+    </div>
+
+    
+</form>
+
+
+
+<script>
+        $(function () {
+        var PlaceHolderElement = $('#PlaceHolderHere');
+        $('button[data-toggle="ajax-modal"]').click(function (event) {
+
+            var url = $(this).data('url');
+            var decodeUrl = decodeURIComponent(url);
+            console.log(url);
+            $.get(decodeUrl).done(function (data) {
+                PlaceHolderElement.html(data);
+                PlaceHolderElement.find('.modal').modal('show');
+            })
+        })
+
+        PlaceHolderElement.on('click', '[data-bs-save="modal"]', function (event) {
+
+            var formData = new FormData($('#modalForm').get(0));
+            var form = $(this).parents('.modal').find('form');
+            var actionUrl = form.attr('action');
+            $.ajax({
+                url: "/Mission/" + actionUrl,
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (data) {
+                    PlaceHolderElement.find('.modal').modal('hide');
+                }
+
+            })
+            PlaceHolderElement.find('.modal').modal('hide');
+        })
+
+    })
+</script>
+
+<script>
+
+    function showList() {
+
+  var $gridCont = $(".grid-container");
+  $(".hrbtn-img").addClass("hr-btn");
+  $(".card-img-top").addClass("card-img-top-listview");
+  $gridCont.addClass("list-view");
+}
+
+function gridList() {
+  
+  var $gridCont = $(".grid-container");
+  $(".hrbtn-img").removeClass("hr-btn");
+  $(".card-img-top").removeClass("card-img-top-listview");
+  $gridCont.removeClass("list-view");
+}
+
+$(document).on("click", ".btn-grid", gridList);
+$(document).on("click", ".btn-list", showList);
+
+ //Check if there is a preference set in local storage
+
+    
+////function showList(e) {
+////    var $gridCont = $(".grid-container");
+    
+////        $gridCont.addClass("list-view");
+  
+         
+////    }
+////        function gridList(e) {
+////        var $gridCont = $(".grid-container");
+////        e.preventDefault();
+
+////        $gridCont.removeClass("list-view");
+////    }
+
+////        $(document).on("click", ".btn-grid", gridList);
+////        $(document).on("click", ".btn-list", showList);
+//var viewPreference = localStorage.getItem('viewPreference');
+
+//if (viewPreference === 'list') {
+//  showList();
+//} else if (viewPreference === 'grid') {
+//  gridList();
+//}
+//    function showList(e) {
+//       localStorage.setItem('viewPreference', 'List');
+//        var $gridCont = $(".grid-container");
+
+//        // e.preventDefault();
+//        $(".hrbtn-img").addClass("hr-btn");
+//        $(".card-img-top").addClass("card-img-top-listview");
+//          $gridCont.addClass("list-view");
+//    }
+//    function gridList(e) {
+//          localStorage.setItem('viewPreference', 'grid');
+//        var $gridCont = $(".grid-container");
+//        e.preventDefault();
+//        $(".hrbtn-img").removeClass("hr-btn");
+//        $(".card-img-top").removeClass("card-img-top-listview");
+//        $gridCont.removeClass("list-view");
+//    }
+    
+//    $(document).on("click", ".btn-grid", gridList);
+//    $(document).on("click", ".btn-list", showList);
+
+
+</script>
+<script type="text/javascript">
+    function PagerClick(index) {
+        document.getElementById("hfCurrentPageIndex").value = index;
+        document.forms[0].submit();
+    }
+</script>
+<script>
+
+
+    function redirectToMission(id) {
+        window.location.href = `/home/RelatedMissionPage/${id}`;
+    }
+
+</script>
+<script src="~/js/relatedmission.js"></script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+     function modalcall(e) {
+           var abc = e.id;
+            var missionElement = document.getElementById('missionId');
+            missionElement.innerHTML = abc;
+          
+         document.getElementById("myModal").style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    document.getElementsByClassName("close").onclick = function() {
+         document.getElementById("myModal").style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target ==  document.getElementById("myModal")) {
+            document.getElementById("myModal").style.display = "none";
+        }
+    }
+</script>
+  <script>
+
+      setTimeout(alertFunc, 1000);
+    function alertFunc() {
+        VirtualSelect.init({
+            ele: '#divCountry',
+            dropboxWidth: '170px'
+        });
+        VirtualSelect.init({
+            ele: '#divCity',
+            dropboxWidth: '170px'
+        });
+        VirtualSelect.init({
+            ele: '#divTheme',
+            dropboxWidth: '170px'
+        });
+        VirtualSelect.init({
+            ele: '#divSkill',
+            dropboxWidth: '170px'
+        });
+    }
+
+    $(document).ready(function () {
+
+        $("#countryDiv").change(function () {
+            FilterTag("#divCountry");
+            Filter();
+        });
+        $("#cityDiv").change(function () {
+            FilterTag("#divCity");
+            Filter();
+        });
+        $("#themeDiv").change(function () {
+            FilterTag("#divTheme");
+            Filter();
+        });
+        $("#skillDiv").change(function () {
+            FilterTag("#divSkill");
+            Filter();
+        });
+        $("#divSort").change(function () {
+            Filter();
+        });
+    });
+
+    function Search() {
+        Filter();
+    }
+
+    function favMission(Missionid, Missionfav) {
+        $.ajax({
+            url: '/Mission/FavMission',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: Missionid, fav: Missionfav },
+            success: function (d) {
+                Filter();
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    }
+
+    function ApplyMission(MissionId) {
+        $.ajax({
+            url: '/Mission/ApplyMission',
+            type: 'POST',
+            dataType: 'json',
+            data: { id: MissionId },
+            success: function (d) {
+                Filter();
+                alert(d);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    }
+   
+
+    function FilterTag(str) {
+       
+       console.log(str);
+        var selectElement = document.querySelector(str);
+        var selectedOptions = selectElement.getSelectedOptions();
+       
+        var containerElement = $(str + "Div");
+        containerElement.empty();
+        // Append new tags
+        $.each(selectedOptions, function (i, text) {
+            containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+        });
+        
+
+
+        containerElement.on('click', 'button i.bi-x', function () {
+            // Get the index of the option to remove
+            var index = $(this).parent().attr('id').split('-')[1];
+            // Remove the button element
+            $(this).parent().remove();
+           
+        
+           // Deselect the corresponding option from the selected options list
+    selectElement.options[index].selected = false;
+    document.querySelector(str).reset();
+   Filter();
+            
+        });
+
+    }
+
+
+    function Filter() {
+         var buttonId;
+    $('.toggle').click(function() {
+        buttonId = $(this).attr('id');
+      // Move the alert inside the click event handler
+        if (buttonId == 'list') {
+            $(".hrbtn-img").addClass("hr-btn");
+            $(".card-img-top").addClass("card-img-top-listview");
+        } else {
+            $(".hrbtn-img").removeClass("hr-btn");
+            $(".card-img-top").removeClass("card-img-top-listview");
+        }
+    });
+        
+        let searchParams = new URLSearchParams(window.location.search)
+        let param = searchParams.get('pg');
+        var country = $("#divCountry").val();
+        var city = $("#divCity").val();
+        var theme = $("#divTheme").val();
+        var skill = $("#divSkill").val();
+        var search = $("#box").val();
+        var Sort = $("#divSort").val();
+        $.ajax({
+            url: '/Mission/Filter',
+            type: 'POST',
+            dataType: 'html',
+            data: { CountryId:country, CityId: city, ThemeId: theme, SkillId: skill, searchText: search, sort: Sort, pg: param},
+            success: function (d) {
+                $("#missionpartialView").empty();
+                $("#missionpartialView").html(d);
+                
+
+                if(country.length > 0 || city.length>0 || theme.length>0)
+                {
+                    document.querySelector(".clearAllFilter").classList.remove("d-none");
+                }
+                else {
+                    document.querySelector(".clearAllFilter").classList.add("d-none");
+                }
+
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+

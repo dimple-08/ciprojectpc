@@ -1,0 +1,113 @@
+﻿@model CI_Platform.Entity.DataModels.User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS\bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="JavaScript\bootstrap.bundle.min.js"></script>
+    <title>RegistrationForm</title>
+    <script>
+
+    </script>
+</head>
+<body>
+
+    <div class="card mx-5 border-0 centerRegistrationForm">
+        <div class="card-body p-0">
+            <form asp-controller="User" asp-action="Register" method="post">
+                <div class="mb-1">
+                    <label asp-for="FirstName" class="form-label">First Name</label>
+                    <input asp-for="FirstName" type="text" class="form-control" id="validationCustom01"
+                           required placeholder="Enter your FirstName" type="text">
+                </div>
+                <div class="mb-1">
+                    <label asp-for="LastName" class="form-label">Last Name</label>
+                    <input asp-for="LastName" type="text" class="form-control" id="validationCustom01"
+                           required placeholder="Enter your LastNmae">
+                </div>
+                <div class="mb-1">
+                    <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+                    <input asp-for="PhoneNumber" type="tel" class="form-control" id="validationCustom01"
+                           required placeholder="Enter your PhoneNo." pattern="^[0-9]{10,12}$"
+                           title="Please enter a valid 10-12 digit phone number" value="">
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Email" class="form-label">Email Address</label>
+                    <div class="text-danger" id="text-danger">
+                        @ViewBag.EmailExists
+                    </div>
+                    <input asp-for="Email" type="email" class="form-control" onkeyup="emailexist()" id="exampleInputEmail1"
+                           required placeholder="name@gmail.com" aria-describedby="emailHelp">
+                    <span asp-validation-for="Email"></span>
+                </div>
+
+                <div class="mb-1">
+                    <label asp-for="Password" class="form-label">Password</label>
+                    <input asp-for="Password" type="password" name="Password" class="form-control" id="reg-pass"
+                           required placeholder="EnterPassword">
+                </div>
+                <div class="mb-1">
+                    <label asp-for="Password" class="form-label">Confirm Password</label>
+                    <input asp-for="Password" type="password" onfocusout="validatePassword()" onkeyup="confirmpass()" name="ConfirmPassword" class="form-control" id="reg-con-pass"
+                           required placeholder="EnterPassword">
+                </div>
+                <input type="hidden" asp-for="CreatedAt" value="@DateTime.Now" />
+                <span class="text-danger" style="display:none;" id="pass-conf-err">Password and Confirm Password must be same </span>
+                <button type="submit" class="button mt-4" id="reg-btn">Register</button>
+                <p class="d-flex justify-content-center mt-3">
+                    <a asp-action="Forgetpass" asp-controller="ResetPassword" class="link1">
+                        Lost your Password?
+                    </a>
+                </p>
+                <p class="d-flex justify-content-center mt-1 createacc">
+                    Aready Registered?
+                    <a asp-action="Login" asp-controller="Login" class="link2 ms-1 ">Login now</a>
+                </p>
+                <span asp-asp-validation-for="password"></span>
+            </form>
+            <p class="d-flex justify-content-center ms-2 pp">Privacy Policy</p>
+        </div>
+    </div>
+
+
+    <script src="~/js/custom.js"></script>
+</body>
+</html>
+
+<script>
+
+        function emailexist(){
+
+    document.getElementById("text-danger").style.display="none";
+
+    }
+
+        var form = document.querySelector('form');
+
+
+        function validatePassword() {
+            var x = document.getElementById("reg-pass").value;
+            var y = document.getElementById("reg-con-pass").value;
+            var z = document.getElementById("pass-conf-err");
+
+            if (x != y) {
+                var submitButton = document.getElementById("reg-btn");
+                submitButton.disabled = true;
+                z.style.display = "block";
+
+            }
+            else {
+                var submitButton = document.getElementById("reg-btn");
+                submitButton.disabled = false;
+            }
+        }
+
+        function confirmpass() {
+            document.getElementById("pass-conf-err").style.display = "none";
+        }
+
+</script>
+

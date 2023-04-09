@@ -1,0 +1,119 @@
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\refint\CIProjectweb.Repository.dll
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+C:\Users\dimpl\source\repos\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\ref\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+D:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+D:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+E:\PC\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\refint\CIProjectweb.Repository.dll
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+E:\PC\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Downloads\ciprojectpc-master\ciprojectpc-master\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+C:\Users\pci31\Desktop\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.deps.json
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.runtimeconfig.json
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\bin\Debug\net6.0\CIProjectweb.Entities.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.AssemblyReference.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.GeneratedMSBuildEditorConfig.editorconfig
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfoInputs.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.AssemblyInfo.cs
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CoreCompileInputs.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.csproj.CopyComplete
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\refint\CIProjectweb.Repository.dll
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.pdb
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\CIProjectweb.Repository.genruntimeconfig.cache
+E:\PC\New folder\CIProjectweb\CIProjectweb.Repository\obj\Debug\net6.0\ref\CIProjectweb.Repository.dll

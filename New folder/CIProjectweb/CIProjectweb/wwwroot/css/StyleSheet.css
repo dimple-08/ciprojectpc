@@ -1,0 +1,76 @@
+﻿
+.sidebar-detail {
+    padding: 10px 0 10px 15px;
+    margin: 0 0 10px 0;
+}
+
+
+@media (max-width: 991px) {
+    .dropdownborder,
+    .dropdownborderright {
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .dropdown-menu {
+        position: relative !important;
+    }
+
+    .ddpolicy {
+        position: absolute !important;
+    }
+
+    .singledropdown {
+        top: 0% !important;
+    }
+
+    .menubar {
+        display: none;
+    }
+
+
+    .dashbord-sidebar-detail {
+        width: 500px;
+    }
+}
+
+@media (min-width: 992px) {
+    .dashboard-nav-sidebar-toggle {
+        display: none;
+    }
+}
+
+
+/* ------------------------------------
+*/
+
+.dropdown a {
+    text-decoration: none;
+}
+
+.dropdownborder {
+    border-left: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
+}
+
+.dropdownborderright {
+    border-right: 1px solid #e8e8e8;
+}
+
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.singledropdown {
+    text-decoration: none;
+    position: relative;
+    top: 20%;
+}
+
+.headernav {
+    background-color: #ffffff;
+    box-shadow: NONE;
+    border-bottom: 1px SOLID #e8e8e8;
+    height: 50px !important;
+}

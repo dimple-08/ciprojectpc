@@ -1,0 +1,1006 @@
+﻿@{
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+}
+@{
+    var Comments = ViewBag.comment;
+    
+}
+@model CIProjectweb.Entities.ViewModels.MissionViewModel
+<head>
+    <script src="~/js/relatedmission.js"></script>
+    <script>
+        function ApplyMission(MissionId) {
+            $.ajax({
+                url: '/Mission/ApplyMission',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: MissionId },
+                success: function (d) {
+                 
+                    alert(d);
+                },
+                error: function () {
+                    alert('Error');
+                }
+            });
+        }
+        </script>
+    <style>
+
+
+        .margin-left-container {
+            flex-wrap: wrap !important;
+            margin-right: -15px !important;
+            margin-left: 68px !important;
+        }
+
+        .padding-row {
+            padding-right: calc(var(--bs-gutter-x) * 0) !important;
+            padding-left: calc(var(--bs-gutter-x) * 0.5) !important;
+        }
+    </style>
+    <style>
+    @@charset "UTF-8";
+
+    :root {
+        --star-size: 28px;
+        --star-color: #ddd;
+        --star-background: #f8d441;
+    }
+
+    .Stars {
+        --percent: calc(var(--rating) / 5 * 100%);
+        display: inline-block;
+        font-size: var(--star-size);
+        font-family: Times;
+        line-height: 1;
+    }
+
+        .Stars::before {
+            content: "★★★★★";
+            letter-spacing: 3px;
+            background: linear-gradient(90deg, var(--star-background) var(--percent), var(--star-color) var(--percent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sliderimagehite {
+    height: 450px;
+}
+
+.mySlides {
+    display: none;
+}
+
+.slider-img {
+    position: relative;
+}
+
+.cursor {
+    cursor: pointer;
+}
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+    width: 16.66% !important;
+}
+
+.demo {
+    opacity: 0.6;
+    height:60px;
+}
+
+.active {
+    opacity: 1;
+}
+
+.demo:hover {
+    opacity: 0.7;
+}
+
+   
+</style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<div class="container d-flex justify-content-between mt-5">
+    <div class="row ">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="" style="height:100%;">
+                @{
+                    var count = Model.MediaPaths.Count;
+                    int i = 0;
+                }
+                @foreach (var theme in Model.MediaPaths)
+                {
+                    if (theme != null)
+                    {
+                        i = i + 1;
+
+                        <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                            <div class="numbertext">@i / @count</div>
+                            <img src="@theme" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                        </div>
+                    }
+                }
+                @* <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">1 / 4</div>
+                    <img src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                    </div>
+                    <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">2 / 4</div>
+                    <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-3.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                    </div>
+                    <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">3 / 4</div>
+                    <img src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                    </div>
+                    <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                    <div class="numbertext">4 / 4</div>
+                    <img src="~/lib/images/image2.png" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
+                    </div>
+                *@
+
+                <a class="prev" onclick="plusSlides(-1)">❮</a>
+                <a class="next" onclick="plusSlides(1)">❯</a>
+
+                <div class="row padding-row mt-2">
+                    @{
+
+                        int d = 0;
+                    }
+                    @foreach (var theme in Model.MediaPaths)
+                    {
+                        if (theme != null)
+                        {
+                            d = d + 1;
+
+                            <div class="column1" style="width:25%">
+                                <img class="demo cursor" src="@theme" style="width:100%;height:100%;" onclick="currentSlide(@d)" alt="The Woods">
+                            </div>
+                        }
+                    }@*
+                        <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" style="width:100%;height:100%;" onclick="currentSlide(1)" alt="The Woods">
+                        </div>
+                        <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%;height:100%;" onclick="currentSlide(2)" alt="Cinque Terre">
+                        </div>
+                        <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%;height:100%;" onclick="currentSlide(3)" alt="Mountains and fjords">
+                        </div>
+                        <div class="column1" style="width:25%">
+                        <img class="demo cursor" src="~/lib/images/image1.png" style="width:100%;height:100%;" onclick="currentSlide(4)" alt="Northern Lights">
+                        </div>*@
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+
+                <div class="card-body">
+                    <div style="font-size:1.80rem;">
+                        <h3>@Model.Title</h3>
+                    </div>
+                    <p class="card-text text-secondary">
+                        @Model.ShortDescription
+                    </p>
+
+                    @if (Model.MissionType == "Goal")
+                    {
+                        <div class="rule mt-1">
+                            <hr>
+                            <button class="hrbtn">@Model.GoalObjectiveText</button>
+                            <hr>
+                        </div>
+                        if(int.Parse(Model.SeatAvailable)>0){
+                             <div class="ms-5 d-flex flex-row justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                                <div class="d-flex flex-column ms-2">
+                                    <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>
+                                    <p class="seat">Seats Left</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row align-items-center" style="width:53%">
+                                <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                                <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                                    <div class="progress">
+                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <p class="seat">8000 achieved</p>
+                                </div>
+
+                            </div>
+
+                            </div>
+                        }
+                        else
+                        {
+                                                         <div class="ms-5 d-flex flex-row justify-content-between me-auto">
+
+                            <div class="d-flex flex-row align-items-center" style="width:53%">
+                                <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                                <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                                    <div class="progress" style="width:284% !important">
+                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                    <p class="seat">@((@Model.GoalValue)*100) achived</p>
+                                     
+                                </div>
+
+                            </div>
+
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="rule mt-1">
+                            <hr>
+                            <button class="hrbtn">
+                                From @Model.StartDate.Value.ToShortDateString()
+                                until @Model.EndDate.Value.ToShortDateString()
+                            </button>
+                            <hr>
+                        </div>
+                         
+                        <div class="ms-5 d-flex flex-row justify-content-between">
+                            @if(int.Parse(@Model.SeatAvailable) > 0)
+                        {
+                            <div class="d-flex flex-row align-items-center">
+                            <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                            <div class="d-flex flex-column ms-2">
+                                <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>
+                                <p class="seat">Seats Left</p>
+                            </div>
+                            </div>
+                        }
+                        else 
+                        {
+                            <div class="d-flex flex-row align-items-center">
+                            <img src="~/lib/images/Already-volunteered.png" alt="" class="" height="25px" width="25px">
+                            <div class="d-flex flex-column ms-2">
+                                <p class="d-inline mb-0 pt-2">@Model.alreadyVolunteered</p>
+                                <p class="seat">Already Volunteered</p>
+                            </div>
+                            </div>
+                        }
+
+                            <div class="d-flex flex-row align-items-center" style="width:53%">
+                                <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                                <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                                    <p class="d-inline mb-0 pt-2">@Model.EndDate.Value.ToShortDateString() </p>
+                                    <p class="seat">Deadline</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    }
+
+                    @*  <div class="rule mt-1">
+                        <hr>
+                        <button class="hrbtn">Plant 10,000 Trees</button>
+                        <hr>
+                        </div>
+
+
+                        <div class="ms-5 d-flex flex-row justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                        <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                        <div class="d-flex flex-column ms-2">
+                        <p class="d-inline mb-0 pt-2">10</p>
+                        <p class="seat">Seats Left</p>
+                        </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center" style="width:53%">
+                        <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                        <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                        <div class="progress">
+                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                        </div>
+                        <p class="seat">8000 achieved</p>
+                        </div>
+
+                        </div>*@
+
+                    @* <div class="rule mt-1">
+                        <hr>
+                        <button class="hrbtn">Plant 10,000 Trees</button>
+                        <hr>
+                        </div>
+
+
+                        <div class="ms-5 d-flex flex-row justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                        <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                        <div class="d-flex flex-column ms-2">
+                        <p class="d-inline mb-0 pt-2">10</p>
+                        <p class="seat">Seats Left</p>
+                        </div>
+                        </div>
+
+                        <div class="d-flex flex-row align-items-center" style="width:53%">
+                        <img src="~/lib/images/achieved.png" height="33px" width="33px" alt="">
+
+                        <div class="d-flex flex-column ms-2 " style="margin-top:9%">
+                        <div class="progress">
+                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: 60%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                        </div>
+                        <p class="seat">8000 achieved</p>
+                        </div>
+
+                        </div>
+
+                        </div>*@
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <button class="mx-auto hrbtn d-flex justify-content-center mt-3" onclick="likeMission(@Model.MissionId)" style="width:47%;">
+                            <i class="bi bi-heart-fill" id="AddFav" style="@(Model.isFavrouite? "color:#F88634;" : "color:black")" height="13" width="14"></i>
+                            @*<img class="d-flex my-auto" src="~/lib/images/heart1.png" height="13" width="14">*@
+                            <span class="ms-2">
+                                Add to Favourite
+                            </span>
+                        </button>
+                        <button class="mx-auto  hrbtn d-flex justify-content-center mt-3" id="myBtn" style="width:47%;">
+                            <div class="bg-dark d-flex my-auto" style="height:15px; width:15px;"></div>
+                            <span class="ms-2">
+                                Recommend to a Co-Worker
+                            </span>
+                            @*  <ul class="dropdown-menu">
+                                @foreach (var items in @ViewBag.Users)
+                                {
+                                <li>
+                                <label class="dropdown-item">
+                                <input type="checkbox" class="recommend-checkbox" value="@items.Email" onchange="onRecommend()">
+                                @items.FirstName (@items.Email)
+                                </label>
+                                </li>
+                                }
+                                </ul>*@
+                        </button>
+                        <div id="myModal" class="modal">
+
+                            <!-- Modal content -->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h2>Select Co-workers</h2>
+                                    <span class="close">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="spinner-border text-success d-none" role="status" id="emailLoader">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    <ul style="list-style-type:none" id="emaillist">
+                                        @foreach (var items in @ViewBag.Users)
+                                        {
+                                            <li class="dropdown-item">
+                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+                                               @* <button class="btn btn-success me-1" onclick="recomand('@items.Email',@Model.MissionId)" style="position:absolute; right:6px;" id="sent">
+                                                        Send Email
+                                                    </button>*@
+                                            </li>
+                                              
+                                        }
+                                    </ul>
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn cardbtn" id="sent1" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        @* <div class=" text-center dropdown">
+                            <button type="button" class="btn btn-outline-secondary border-3" type="button" data-bs-toggle="dropdown">
+                            <img src="../CI-Imgs/heart1.png" alt="" class="bg-secondary">
+                            Recommend to a Co-Worker
+                            </button>
+                            <ul class="dropdown-menu">
+                            @foreach (var items in @ViewBag.Users)
+                            {
+                            <li>
+                            <label class="dropdown-item">
+                            <input type="checkbox" class="recommend-checkbox" value="@items.Email" onchange="onRecommend()">
+                            @items.FirstName (@items.Email)
+                            </label>
+                            </li>
+                            }
+                            </ul>
+                            </div>*@
+                    </div>
+
+
+                    <div class="rule mt-1 rated">
+                        <hr>
+                        <div class="ms-auto">
+
+                           
+                                @for (i = 1; i <= Model.UserPrevRating; i++)
+                                {
+                                    <i class="bi bi-star-fill star" style="color:orange;" id="@i" onclick="ratemission(this.id,@Model.MissionId)"></i>
+                                }
+                                @for (i = Model.UserPrevRating + 1; i <= 5; i++)
+                                {
+                                    <i class="bi bi-star-fill star" id="@i" onclick="ratemission(this.id,@Model.MissionId)"></i>
+                                }
+
+                                @*                        <i class="bi bi-star-fill star" id="1" onclick="ratemission(this.id,@ViewBag.mission.MissionId, @ViewBag.user.UserId)"></i>
+                                    <i class="bi bi-star-fill star" id="2" onclick="ratemission(this.id,@ViewBag.mission.MissionId, @ViewBag.user.UserId)"></i>
+                                    <i class="bi bi-star-fill star" id="3" onclick="ratemission(this.id,@ViewBag.mission.MissionId, @ViewBag.user.UserId)"></i>
+                                    <i class="bi bi-star-fill star" id="4" onclick="ratemission(this.id,@ViewBag.mission.MissionId, @ViewBag.user.UserId)"></i>
+                                    <i class="bi bi-star-fill star" id="5" onclick="ratemission(this.id,@ViewBag.mission.MissionId, @ViewBag.user.UserId)"></i>*@
+                           
+                           
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row d-flex justify-content-between mt-3">
+                        <div class="col-3 col-3-margin">
+                            <div class="card card-height">
+                                <div class="card-body p-0 ms-2 mt-1">
+                                    <img src="~/lib/images/pin1.png" height="17" width="13">
+                                    <div class="d-flex flex-column mt-4">
+                                        <span class="text-light-emphasis" style="font-size:12px">City</span>
+                                        <span class="text-muted">@Model.City</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-3 col-3-margin">
+                            <div class="card card-height">
+                                <div class="card-body p-0 ms-2 mt-1">
+                                    <img src="~/lib/images/web.png" height="17" width="13">
+                                    <div class="d-flex flex-column mt-4">
+                                        <span class="text-light-emphasis" style="font-size:12px">Theme</span>
+                                        <span class="text-muted">@Model.Theme</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-3 col-3-margin">
+                            <div class="card card-height">
+                                <div class="card-body p-0 ms-2 mt-1">
+                                    <img src="~/lib/images/calender.png" height="17" width="13">
+                                    <div class="d-flex flex-column mt-4">
+                                        <span class="text-light-emphasis" style="font-size:12px">@Model.StartDate.Value.ToShortDateString()</span>
+                                        @if (DateTime.Today > Model.EndDate)
+                                        {
+                                            <span class="text-muted">closed</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Ongoing</span>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-3 col-3-margin">
+                            <div class="card card-height">
+                                <div class="card-body p-0 ms-2 mt-1">
+                                    <img src="~/lib/images/organization.png" height="17" width="13">
+                                    <div class="d-flex flex-column mt-4">
+                                        <span class="text-light-emphasis" style="font-size:12px">Organization</span>
+                                        <span class="text-muted">@Model.OrganizationName</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                     <div class="d-flex mx-auto">
+                    @if (Model.deadline > DateTime.Now && int.Parse(Model.SeatAvailable) > 0)
+                                {
+                                    if (Model.isPending)
+                                    {
+                                        
+                                        <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Pending...</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                            else if (Model.isApplied)
+                            {
+                                <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Applied</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                            else
+                                    {
+                                        <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Apply</span>
+                                            <i class="bi bi-arrow-right ms-2"></i>
+                                        </button>
+                                    }
+                                }
+
+                                else if (Model.MissionType == "Goal" && int.Parse(Model.SeatAvailable) > 0 && Model.GoalValue < 100 && Model.deadline > DateTime.Now)
+                                {
+                                    if (Model.isPending)
+                                    {
+                                        
+                                        <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Pending...</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                            else if (Model.isApplied)
+                            {
+                                <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Applied</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                                    else
+                                    {
+                                        <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Apply</span>
+                                            <i class="bi bi-arrow-right ms-2"></i>
+                                        </button>
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    if (Model.isPending)
+                                    {
+                                        
+                                        <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Pending...</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                            else if (Model.isApplied)
+                            {
+                                <button type="button" onclick="ApplyMission(@Model.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                                            <span class="text-wrap">Applied</span>
+                                             <i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                            }
+                            else
+                                    {
+                                         <button type="button" class="btn btn-outline-danger rounded-pill mx-auto">
+                                        <span class="text-wrap">Mission registration has been closed</span>
+                                         <i class="bi bi-arrow-right ms-2"></i>
+                                    </button>
+                                    }
+                                   
+                                }
+                   </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="container  mt-2">
+    <div class="row">
+        <div class="col-lg-7 col-md-7 col-sm-12 p-0">
+
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#A" data-toggle="tab">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#B" data-toggle="tab">Organization</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="myTabLink" href="#C" data-toggle="tab">Comments</a>
+                </li>
+
+            </ul>
+            <div id="exTab2">
+                <div class="tab-content ">
+                    <div class="tab-pane active" id="A">
+                        <div class="mt-4">
+                            <h3>Introduction</h3>
+                            <p class="size-font">
+                                @Model.ShortDescription
+                            </p>
+                            <p class="size-font">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                        <div class="mt-2">
+                            <h3>Challeges</h3>
+                            <p class="size-font">
+                                @Model.Description
+                            </p>
+
+                            <p class="size-font">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                        </div>
+                        <div class="mt-2">
+                            <h3>Documents</h3>
+                            <div class="d-flex flex-row mt-4">
+                                @foreach (var docs in @ViewBag.documents)
+                                {
+                                    <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center "><a href="@Url.Content(docs.DocumentPath)"><img src="~/lib/images/pdf.png" /><span class="ms-1">@docs.DocumentName</span></a></button>
+                                }
+                                @*     <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center "><img src="~/lib/images/pdf.png" /><span class="ms-1">lorem-ipsm.pdf</span></button>
+                                    <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center ms-3"><img src="~/lib/images/pdf.png" /><span class="ms-1">lorem-ipsm.pdf</span></button>
+                                    <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center ms-3 "><img src="~/lib/images/pdf.png" /><span class="ms-1">lorem-ipsm.pdf</span></button>*@
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="B">
+                        <div class="mt-2">
+                            <h3>Organization</h3>
+                            <p>
+                                @Model.OrganizationName
+                            </p>
+                            <p>
+                                @Model.OrganizationDetail
+                            </p>
+
+
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="C">
+                        <div id="commentSection">
+                            <div class="mt-4">
+                                <div class="form-group">
+
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Your Comments.."></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#" class="btn cardbtn mx-auto " onclick="comment(@Model.MissionId)">
+                                    <span>Post Comment</span>
+                                </a>
+                            </div>
+                            <div class="scroll bg-light mt-1">
+                                <div class="p-2" id="commentDiv">
+                                    @foreach (var comment in Comments)
+                                    {
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                            <div class="border-0 rounded-circle">
+                                                <img id="commented-volunteer-id" class="rounded-circle"
+                                                 style=" height:54px;width:54px;" src="@comment.Avatar" alt="">
+                                            </div>
+                                            <div class="d-flex flex-column ms-2">
+                                                <span id="commented-volunteer-name" class="ms-2">@comment.UserName</span>
+                                                <span id="comment-time" class="ms-2">@comment.CreatedAt</span>
+                                                <span id="comment" class="ms-2 mt-2">@comment.CommentText</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    @*<div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex  flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                        <div class="border-0 rounded-circle">
+                                        <img id="commented-volunteer-id" class="rounded-circle"
+                                        style=" height:54px;width:54px;" src="~/lib/images/volunteer3.png" alt="">
+                                        </div>
+                                        <div class="d-flex flex-column ms-2">
+                                        <span id="commented-volunteer-name" class="ms-2">Andrew Johnson</span>
+                                        <span id="comment-time" class="ms-2">Monday,October 21,2019,4:30PM</span>
+                                        <span id="comment" class="ms-2 mt-2">Nice Mission great opportunity for people</span>
+                                        </div>
+                                        </div>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class=" ms-2 pt-3 d-flex flex-column">
+                <div class="card ">
+                    <div class="card-body" style="padding-bottom:0.4rem !important;">
+                        <div class="border-bottom ">
+                            <span class="bottom-border ">
+                                Information
+                            </span>
+                        </div>
+                        <div class="border-bottom flex-column mt-3 ">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span>Skill</span>
+                                </div>
+                                <div class="col-9">
+                                    @foreach(var skills in @Model.skill){
+                                        <span>@skills</span>
+                                    }
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="border-bottom mt-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span>Days</span>
+                                </div>
+                                <div class="col-9">
+                                    <span>@Model.Availability</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class=" mt-3">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span>Ratings</span>
+                                </div>
+                                <div class="col-9 d-flex">
+                                    @*<div class="d-flex ms-auto">
+                                        <img src="~/lib/images/star.png" class="star">
+                                        <img src="~/lib/images/star-empty.png" class="star" alt="">
+                                        <img src="~/lib/images/star-empty.png" class="star" alt="">
+                                        <img src="~/lib/images/star-empty.png" class="star" alt="">
+                                        <img src="~/lib/images/star-empty.png" class="star" alt="">
+                                        </div>*@
+
+                                    <div class="Stars" id="displaystar" style="--rating: @Model.avgRating;"></div>
+                                    <div>
+                               (BY @Model.ratingCount Volunteers)
+                           </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="border-bottom mt-3">
+                                <span class="bottom-border ">
+                                    Recent volunteers
+                                </span>
+
+                            </div>
+                            <div class="row recentvol">
+
+                                @foreach (var theme in @ViewBag.RecentVolunteers)
+                                {
+                                    if (theme != null)
+                                    {
+
+                                        <div class="col-4  py-3 d-flex flex-column align-items-center justify-content-center">
+                                            <div class="border-0 rounded-circle">
+                                                <img id="recent-volunteer-id" class="rounded-circle"
+                                             style=" height:70px;width:70px;" src="@theme.users" alt="">
+                                            </div>
+                                            <div style="width:max-content;">
+                                                <span id="recent-volunteer-name">@theme.missions</span>
+                                            </div>
+                                        </div>
+
+
+
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                        <div id="recent-volunteer-pageination mt-5"
+                             class=" d-flex border align-items-center justify-content-between">
+                            
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@ViewBag.PageIndex-1,@Model.MissionId)"><img src="~/Images/left.png" alt=""></a>
+                                @if(@ViewBag.PageIndex==1){
+                                    <div> 1-@ViewBag.count Recent Volunteers of @ViewBag.TotalCount</div>
+                                }
+                                else{
+                                    <div> @ViewBag.skip-@ViewBag.count Recent Volunteers of @ViewBag.TotalCount</div>
+                                }
+                            
+                            
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@ViewBag.PageIndex+1,@Model.MissionId)"><img src="~/Images/right-arrow1.png" alt=""></a>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+<hr />
+<partial name="~/Views/Shared/_RelatedMission.cshtml" />
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("demo");
+
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+
+    }
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

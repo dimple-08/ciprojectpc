@@ -1,0 +1,993 @@
+﻿/* loginpage, ForgotPassPage, ResetPassPage, RegistrationPage */
+
+.body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.centerRegistrationForm {
+    padding: 10%;
+}
+
+.row {
+    margin: 0;
+}
+
+.centerLogin {
+    margin-top: 20%;
+    padding: 10%;
+}
+
+.centerForgotPass {
+    margin-top: 20%;
+    padding: 2%;
+}
+
+.centerResetPass {
+    margin-top: 16%;
+    padding: 5%;
+}
+
+.container {
+    padding: 0;
+}
+
+.col-lg-8.col-md-12.col-sm-12 {
+    padding: 0;
+}
+/*.firsrname{
+    margin-top:7% !important;
+}
+*/
+.button {
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    width: 100%;
+    padding: 1.5%;
+    color: #F88634;
+}
+
+.link1 {
+    text-decoration: none;
+    color: #414141;
+}
+
+.link2 {
+    text-decoration: none;
+}
+
+.pp {
+    color: #414141;
+}
+
+.createacc, .link1 {
+    font-size: 14px;
+}
+
+.smtext {
+    font-size: 14px;
+    text-align: left;
+}
+
+.maintext {
+    font-size: 35px;
+    text-align: left;
+}
+
+.carousel-indicators button {
+    height: 10px !important;
+    width: 10px !important;
+    margin: 0 10px !important;
+    border-radius: 100% !important;
+}
+
+/* loginpage, ForgotPassPage, ResetPassPage, RegistrationPage */
+
+@media screen and (max-width:992px) {
+    .centerLogin, .centerResetPass, .centerForgotPass, .centerRegistrationForm {
+        margin-top: 0%;
+        top: 0% !important;
+        padding: 0;
+    }
+}
+
+@media screen and (min-width:992px) {
+    .carousel-inner img {
+        height: 100vh;
+    }
+
+    .centerLogin, .centerResetPass, .centerForgotPass, .centerRegistrationForm {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .smtext {
+        display: none;
+    }
+
+    .maintext {
+        font-size: 15px;
+    }
+
+    .carousel-indicators button {
+        height: 5px !important;
+        width: 5px !important;
+        margin: 0 5px !important;
+        border-radius: 100% !important;
+    }
+}
+
+@media screen and (min-width:576px) and (max-width:992px) {
+    .smtext {
+        font-size: 10px;
+    }
+
+    .maintext {
+        font-size: 28px;
+    }
+
+    .carousel-indicators button {
+        height: 7.5px !important;
+        width: 7.5px !important;
+        margin: 0 7.5px !important;
+        border-radius: 100% !important;
+    }
+}
+
+
+
+
+
+
+
+
+/*PlatForm  Landing   Page*/
+
+
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.txt {
+    font-size: 14px;
+}
+
+.cont2 {
+    margin-left: 15%;
+}
+
+
+
+/*check box listing */
+
+.filter-list {
+    /* padding:6px 10px; */
+    background-color: white;
+    border: 1px solid #808080;
+    border-radius: 20px;
+    color: #000;
+    cursor: pointer;
+}
+
+.filter-close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 5px;
+    color: #888;
+}
+
+.filters-section11 {
+    margin-top: 2%;
+}
+
+
+
+/* card content */
+
+/* list view css setting*/
+
+.list-view .card-img-top {
+    position: relative;
+}
+
+.list-view .location-btn {
+    position: absolute;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 18px;
+    width: fit-content;
+    padding: 0%;
+    width: 8%;
+    height: 10%;
+    margin-left: 27%;
+}
+
+.list-view .like-btn {
+    position: absolute;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 50%;
+    width: fit-content;
+    margin-left: 30.8%;
+    margin-top: 17%;
+    width: 4%;
+    height: 14%;
+}
+
+.list-view .eye-btn {
+    position: absolute !important;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 50%;
+    width: fit-content;
+    margin-left: 30.8%;
+    margin-top: 23% !important;
+    width: 4% !important;
+    height: 14%;
+}
+
+.list-view .date-btn {
+    margin-left: 16%;
+    margin-top: 0.3%;
+    height: 7%;
+    width: 29%;
+}
+
+.list-view .category-btn {
+    background: white;
+    opacity: 1;
+    border-radius: 18px;
+    width: fit-content;
+    padding: 0 1%;
+    width: auto;
+    height: 5%;
+    margin-left: 11%;
+    margin-top: 38.7% !important;
+    border: 0px;
+    color: #ADADAD;
+}
+
+@media screen and (min-width : 1400px) {
+    .list-view .category-btn {
+        margin-top: 26.3% !important;
+    }
+}
+
+
+@media (max-width :1400px) and (min-width : 1200px) {
+    .list-view .location-btn {
+        margin-left: 26.4%;
+    }
+
+    .list-view .like-btn {
+        margin-left: 30.8%;
+    }
+
+    .list-view .eye-btn {
+        margin-left: 30.8%;
+    }
+
+    .list-view .category-btn {
+        margin-left: 12%;
+        margin-top: 30.2% !important;
+    }
+
+    .list-view .category-btn {
+        margin-top: 38.3% !important;
+    }
+}
+
+@media (max-width :1200px) and (min-width : 992px) {
+    .list-view .location-btn {
+        width: 9%;
+        height: 10%;
+        margin-left: 26%;
+    }
+
+    .list-view .like-btn {
+        margin-left: 31%;
+        margin-top: 21%;
+    }
+
+    .list-view .eye-btn {
+        margin-left: 31%;
+        margin-top: 28% !important;
+    }
+}
+
+@media (max-width : 992px) {
+    .btn-grid, .btn-list {
+        display: none;
+    }
+}
+
+/* grid view*/
+
+.apply-button {
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #F88634;
+    border-radius: 24px;
+    width: 33% !important;
+    padding: 0.5%;
+    color: #F88634;
+}
+
+.cardbtn {
+    border: 1px solid #fd7e14;
+    border-radius: 22px;
+}
+
+    .cardbtn span {
+        color: #fd7e14;
+    }
+
+.star {
+    height: 1rem;
+    width: 1rem;
+}
+
+.rule {
+    display: flex;
+    flex-direction: row;
+}
+
+
+hr {
+    flex: 1;
+    border: none;
+    height: 2px;
+    background: black;
+}
+
+.seat {
+    font-size: 0.7rem;
+}
+
+.progress {
+    border-radius: 10px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+.category-btn {
+    background: white;
+    opacity: 1;
+    border-radius: 18px;
+    width: fit-content;
+    padding: 0 1%;
+    width: auto !important;
+    height: 5%;
+    margin-left: 37%;
+    margin-top: 58% !important;
+    border: 0px;
+    color: #ADADAD;
+}
+
+
+.date-btn {
+    background: white;
+    opacity: 1;
+    border: 0.1rem solid rgb(184, 184, 184);
+    border-radius: 22px;
+    color: #414141;
+    font-size: 81%;
+    margin-left: 16%;
+    margin-top: 1%;
+    height: 4%;
+    width: 67%;
+    z-index: 1;
+    font-size: 73%;
+}
+
+.card-img-top {
+    position: relative;
+}
+
+.location-btn {
+    position: absolute;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 18px;
+    width: fit-content;
+    padding: 0%;
+    width: 26%;
+    height: 5%;
+    margin-left: 74%;
+}
+
+    .location-btn p {
+        color: #FFFFFF;
+    }
+
+.like-btn {
+    position: absolute;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 50%;
+    width: fit-content;
+    margin-left: 89%;
+    margin-top: 33%;
+    width: 11%;
+    height: 6%;
+}
+
+.eye-btn {
+    position: absolute;
+    background: #000000 0% 0% no-repeat padding-box;
+    opacity: 0.5;
+    border-radius: 50%;
+    width: fit-content;
+    margin-left: 89%;
+    margin-top: 47% !important;
+    width: 11% !important;
+    height: 6%;
+}
+
+.checked {
+    color: orange;
+}
+
+.seat-and-goal {
+    justify-content: space-between;
+}
+
+
+/*Header dropdown list*/
+.dropdownlist {
+    max-height: 250px;
+    overflow: scroll;
+}
+/*for list view and grid view*/
+.card {
+    margin-bottom: 1rem;
+}
+
+.list-view .row > [class*=col-] {
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.list-view .card {
+    flex-direction: row;
+}
+
+@media (max-width: 575.98px) {
+    .list-view .card {
+        flex-direction: column;
+    }
+}
+
+.list-view .card > .card-img-top {
+    width: 35%;
+}
+
+.list-view .card .card-body {
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+/*Media query*/
+
+
+
+@media (min-width: 764px) {
+    .navbar-expand-sm {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+}
+
+@media (min-width: 576px) {
+    .offcanva-btn, .offcanva, .logo, .profilePhoto-sm, .profileName-sm,
+    .search-icon, .bell-icon, .filter-sm {
+        display: none;
+    }
+
+    .storiesPolicy {
+        padding-left: 15%;
+    }
+
+    .profile-photo-name {
+        padding-right: 4.5%;
+    }
+}
+
+@media (max-width: 575px) {
+    .collaps-btn, .collaps, .filter-lg {
+        display: none;
+    }
+}
+
+
+
+
+
+@media (min-width: 992px) {
+    .navbar-expand-lg, .header2 {
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        padding-left: 6% !important;
+        padding-right: 6% !important;
+    }
+}
+
+@media (min-width : 768px) {
+    #toggle-container {
+        padding-left: 6.5%;
+        padding-right: 6.5%;
+    }
+}
+
+@media (max-width : 768px) {
+    #toggle-container {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+}
+
+
+/* Volunteering Mission Page */
+
+/* images slideshow*/
+
+
+* {
+    box-sizing: border-box;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+    position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+    cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+/* Number text (1/3 etc) */
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Six columns side by side */
+.column {
+    float: left;
+    width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+    opacity: 0.6;
+}
+
+    .active,
+    .demo:hover {
+        opacity: 1;
+    }
+
+/* card content*/
+.mySlides {
+    height: 100%;
+}
+
+.volunteering-date {
+    background: white;
+    opacity: 1;
+    border: 0.1rem solid rgb(184, 184, 184);
+    border-radius: 22px;
+    color: #414141;
+    width: auto;
+    z-index: 1;
+    font-size: 82%;
+    margin-left: 0;
+}
+
+.progress-volunteering {
+    height: 10px;
+}
+
+.seat-volunteering {
+    font-size: 12px;
+}
+
+.addToFav-Recommend-btn {
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid #ADADAD;
+    border-radius: 24px;
+    width: 40%;
+    padding: 0.5%;
+    color: #ADADAD;
+}
+
+.star-rating-volunteering {
+    background: white;
+    opacity: 1;
+    border: 0;
+    border-radius: 22px;
+    color: #414141;
+    margin-top: 0.9%;
+    height: 5%;
+    width: auto;
+    z-index: 1;
+    font-size: 95%;
+}
+
+.date-volunteering {
+    background: white;
+    opacity: 1;
+    border: 0;
+    border-radius: 22px;
+    color: #414141;
+    margin-top: 0.9%;
+    height: 5%;
+    width: auto;
+    z-index: 1;
+    font-size: 95%;
+}
+
+.four-cards {
+    display: none;
+}
+
+@media screen and (max-width :992px) {
+    .four-cards {
+        display: none !important;
+    }
+}
+
+
+@media screen and (max-width :1160px) {
+    .city-theme-volunteering {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width :679px) {
+    .city-theme-volunteering {
+        width: 45% !important;
+    }
+
+    .right-last-1-card {
+        margin-left: 3.5%;
+        margin-top: 2%;
+    }
+
+    .right-last-2-card {
+        margin-left: 1%;
+        margin-top: 2%;
+    }
+
+    .apply-button {
+        width: 60%;
+    }
+
+    .btn-2-volunteering {
+        flex-direction: column;
+    }
+
+    .addToFav-Recommend-btn {
+        width: auto;
+        margin-bottom: 0 !important;
+    }
+
+    .addToFav-btn {
+        margin-top: 0 !important;
+    }
+
+    .Recommend-btn {
+        margin-top: 3% !important;
+    }
+
+    .rating-star-volunteering-parent {
+        margin-top: 3%;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .card {
+        margin-top: 4%;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1260px) {
+    .addToFav-Recommend-btn {
+        font-size: 11px !important;
+    }
+
+    .addToFav-btn {
+        padding-top: 3%;
+    }
+
+    .Recommend-btn {
+        padding-top: 3% !important;
+    }
+
+    .heart-button-volunteering {
+        margin-bottom: 6%;
+    }
+
+    .eye-button-volunteering {
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1360px) {
+
+    .four-cards {
+        display: flex;
+    }
+
+    .four-cards-right {
+        display: none !important;
+    }
+}
+
+@media screen and (min-width:1361px) {
+    .four-cards {
+        display: none !important;
+    }
+}
+
+
+/* Tab layout Volunteering */
+
+/* nav */
+.tab-card {
+    padding: 0;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+a.active {
+    border-bottom: 2px solid #55c57a;
+}
+
+.nav-link {
+    color: rgb(110, 110, 110);
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: #55c57a;
+    }
+
+.nav-pills .nav-link.active {
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-weight: 600;
+}
+
+.tab-content {
+    padding-bottom: 1.3rem;
+}
+
+.form-control {
+    background-color: rgb(241, 243, 247);
+    border: none;
+}
+
+
+
+
+.first-tab {
+    font-size: 20px;
+}
+
+.first-tab-content {
+    font-size: 15.1px;
+}
+
+.information, .recent-volunteers, .display-volunteers {
+    border: 1px solid #ADADAD;
+}
+
+.volunteeers-img {
+    border-radius: 100px;
+    height: 60px;
+}
+
+.volunteers-name {
+    font-size: 10px;
+}
+
+.document-btn {
+    border: 1px solid #ADADAD;
+    border-radius: 15px;
+    width: auto;
+}
+
+.information-star-imgs {
+    margin-left: 25%;
+    width: 100%;
+}
+
+.addinfo {
+    padding: 0 1rem;
+}
+
+.comment-section {
+    border: 1px solid white;
+    background-color: white;
+}
+
+.comment-section-text {
+    font-size: 13px;
+}
+
+.comment-section-perent {
+    background-color: #F6F6F6;
+}
+
+@media screen and (max-width:392px) {
+    .information-star-imgs {
+        margin-left: 15%;
+    }
+
+    .information-star-img {
+        height: 14px;
+    }
+
+    .by-n-volunteers {
+        font-size: 12px;
+    }
+}
+
+
+
+/* Story Listing Page */
+
+
+
+body, html {
+    height: 100%;
+}
+
+/* The hero image */
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../Images/Grow-Trees-On-the-path-to-environment-sustainability-login.png");
+    /* Set a specific height */
+    height: 400px;
+    /* Position and center the image to scale nicely on all screens */
+    background-position-y: 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.share-story-btn {
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid white;
+    border-radius: 24px;
+    width: auto;
+    padding: 0.5%;
+    color: white;
+}
+
+
+/*card content - storylisting page 
+*/
+
+.card-img-storylisting {
+    width: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.5s ease;
+}
+
+.card-image:hover .overlay {
+    display: block;
+    background: linear-gradient(90deg, rgba(28,28,32,0.6083683473389356) 0%, rgba(37,37,43,0.7092086834733893) 10%)
+}
+
+#hover-div:hover .view-details-btn {
+    opacity: 1;
+}
+
+#hover-div:hover .card-img-storylisting {
+    opacity: 0.5;
+    background: black;
+}
+
+.view-details-btn {
+    background: #F8863400 0% 0% no-repeat padding-box;
+    border: 2px solid white;
+    border-radius: 24px;
+    width: auto;
+    padding: 0.5%;
+    color: white;
+    top: 50%;
+    top: 22%;
+    left: 29%;
+    opacity: 0;
+}
+
+/*.card-img-storylisting:hover {
+    opacity: 0.5;
+    background-color: black;
+}*/
+
+

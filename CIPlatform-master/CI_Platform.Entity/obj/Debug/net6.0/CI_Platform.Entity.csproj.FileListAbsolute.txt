@@ -1,0 +1,14 @@
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.deps.json
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.runtimeconfig.json
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.dll
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\bin\Debug\net6.0\ref\CI_Platform.Entity.dll
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\bin\Debug\net6.0\CI_Platform.Entity.pdb
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.csproj.AssemblyReference.cache
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.GeneratedMSBuildEditorConfig.editorconfig
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.AssemblyInfoInputs.cache
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.AssemblyInfo.cs
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.csproj.CoreCompileInputs.cache
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.dll
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\ref\CI_Platform.Entity.dll
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.pdb
+D:\tatvasoft\3-tire\CI_Platform\CI_Platform.Entity\obj\Debug\net6.0\CI_Platform.Entity.genruntimeconfig.cache

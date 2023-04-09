@@ -1,0 +1,141 @@
+﻿@{
+
+    Layout = "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
+    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+
+    <title>PlatFormLandingPage</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+
+<body>
+
+    <partial name="_Header" />
+    <div class="filters-section d-flex align-items-end flex-wrap justify-content-start" id="filter-section">
+    </div>
+    <div id="missionList" class="container">
+    </div>
+
+
+     <script>
+        function loginckeck(){
+            alert ("login first")
+        }
+    </script>
+
+    <script>
+        var searchTerm = "";
+        let sortValue = "";
+
+
+        $(document).ready(function () {
+
+            LoadMission();
+        });
+
+
+        $("#search").on("keyup", function (e) {
+            searchTerm = $("#search").val().toLowerCase();
+            LoadMission();
+        })
+
+
+
+        function LoadMission(pg,sortValue) {
+            var country = [];
+
+            $("#countryList").find("input:checked").each(function (i, obj) {
+
+                country.push($(obj).val());
+
+            })
+            var city = [];
+            $("#cityList").find("input:checked").each(function (i, obj) {
+
+                city.push($(obj).val());
+
+            })
+            var theme = [];
+            $("#themeList").find("input:checked").each(function (i, obj) {
+
+                theme.push($(obj).val());
+
+            })
+
+
+
+            $.ajax({
+                url: '/LandingPage/LandingPage',
+                method: "POST",
+                dataType: "html",
+                data: { "searchTerm": searchTerm, "sortValue": sortValue, "country": country, "city": city, "theme": theme, "pg":pg},
+                success: function (data) {
+                    $("#missionList").html("");
+                    $("#missionList").html(data);
+                },
+                error: function (error) {
+                    console.log(error);
+
+                }
+
+            })
+
+
+        }
+
+        //// recomand to users
+
+        //    function recomand(Email, MI) {
+
+        //        //alert(MI);
+        //        $.ajax({
+        //            url: '/Home/RecomandUser',
+        //            type: 'POST',
+        //            data: { EmailId: Email, MissionId: MI },
+        //            success: function (result) {
+
+        //                alert("send");
+
+        //            }
+        //        });
+        //    }
+    </script>
+
+
+ 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js" integrity="sha512-2rNj2KJ+D8s1ceNasTIex6z4HWyOnEYLVC3FigGOmyQCZc2eBXKgOxQmo3oKLHyfcj53uz4QMsRCWNbLd32Q1g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    
+    @*<script src="~/js/popper.min.js"></script>*@
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+</body>

@@ -1,0 +1,74 @@
+﻿@model CI_Platform.Entity.ViewModels.ResetModel
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="CSS\bootstrap.min.css" rel="stylesheet" text="text/css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+    <script src="JavaScript\bootstrap.bundle.min.js"></script>
+    <title>ResetPassword</title>
+</head>
+<body>
+<div class="card ms-5 me-4 border-0 centerResetPass">
+    <div class="card-body mt-5">
+           @ViewBag.ResetSuccessfully
+        <form asp-controller="User" asp-action="ResetPassPost" method="post">
+            <h4 class="d-flex justify-content-center mt-4">New Password</h4>
+            <p class="d-flex justify-content-center mt-2" class="createacc">
+                Please enter a new password in the fields below.
+            </p>
+            
+                <input type="email" asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" hidden>
+            
+                <input type="text" asp-for="Token" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" hidden>
+            
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">New Password</label>
+                <input type="password" asp-for="Password" class="form-control" id="reg-pass" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Confirm New Password</label>
+                <input type="password" onfocusout="validatePassword()" onkeyup="confirmpass()" asp-for="ConfirmPassword" class="form-control" id="reg-con-pass">
+            </div>
+               <input type="hidden" asp-for="UpdatedAt" value="@DateTime.Now" />
+            <span class="text-danger" style="display:none;" id="pass-conf-err">Password and Confirm Password must be same </span>
+            <button type="submit" class="button mt-3" id="reg-btn">Change Password</button>
+            <p class="d-flex justify-content-center mt-4">
+                <a asp-action="Login" asp-controller="User" class="link1">
+                    Login
+                </a>
+            </p>
+        </form>
+        <p class="d-flex justify-content-center mt-5 pp">Privacy Policy</p>
+    </div>
+</div>
+    <script>
+        var form = document.querySelector('form');
+
+
+        function validatePassword() {
+            var x = document.getElementById("reg-pass").value;
+            var y = document.getElementById("reg-con-pass").value;
+            var z = document.getElementById("pass-conf-err");
+
+            if (x != y) {
+                var submitButton = document.getElementById("reg-btn");
+                submitButton.disabled = true;
+                z.style.display = "block";
+                alert("sdfsdf");
+
+            }
+            else {
+                var submitButton = document.getElementById("reg-btn");
+                submitButton.disabled = false;
+            }
+        }
+
+        function confirmpass() {
+            document.getElementById("pass-conf-err").style.display = "none";
+        }
+    </script>
+</body>
+</html>
