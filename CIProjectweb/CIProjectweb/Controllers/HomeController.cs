@@ -50,7 +50,9 @@ namespace CIProjectweb.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            List<CmsPage> list = _db.CmsPages.Where(cms => cms.Slug == "privacy").ToList();            
+
+            return View(list);
         }
 
 
@@ -96,9 +98,22 @@ namespace CIProjectweb.Controllers
                         int u_id = int.Parse(userId);
                         User user = _objILogin.GetUsers(u_id);
                     HttpContext.Session.SetString("Avtar", user.Avatar == null ? "/images/user1.png" : user.Avatar);
+                    // Generate URL for the Index action in the Admin area
+    string areaUrl = Url.Action("Index", "Admin", new { area = "Admin",id=user.UserId });
 
+                    // Redirect to the URL
+                    
+                    if (user.Role == "Admin")
+                    {
+                        return Redirect(areaUrl);
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("LandingPage", "Mission");
+                    }
                     //Session["UserName"] = listofuser.username.ToString();
-                    return RedirectToAction("LandingPage","Mission");
+                   
                 }
                 else
                 {
@@ -522,49 +537,66 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public async Task<IActionResult> SendRec(int missionId, string[] ToMail )
         {
-            var u_id = HttpContext.Session.GetString("UserId");
-            if( u_id!=null) {
-                int uIds = int.Parse(u_id);
-                var FromUser = _objILogin.GetUsers(uIds);
-                foreach (var item in ToMail)
+            try
+            {
+                var u_id = HttpContext.Session.GetString("UserId");
+                if (u_id != null)
                 {
-                    var uId = _objUserInterface.getuserEmail(item);
-                    
-                    var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = missionId, usersid = uId.UserId });
-                    var fromAddress = new MailAddress(FromUser.Email,FromUser.FirstName);
-                    var toAddress = new MailAddress(item);
-        ;
-                    var subject = "Message For Recommand Mission";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    int uIds = int.Parse(u_id);
+                    var FromUser = _objILogin.GetUsers(uIds);
+                    foreach (var item in ToMail)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
-                   
-                    
+                        var uId = _objUserInterface.getuserEmail(item);
+
+                        var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = missionId, usersid = uId.UserId });
+                        var fromAddress = new MailAddress(FromUser.Email, FromUser.FirstName);
+                        var toAddress = new MailAddress(item);
+                        ;
+                        var subject = "Message For Recommand Mission";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
+
+
                         MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)uId.UserId, missionId);
                         bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)uId.UserId, missionId);
-                    
-                   
-                    
-                    
+
+
+
+
+                    }
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false });
                 }
 
-                 return Json(new { success = true });
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+
 
         }
 
@@ -575,50 +607,65 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult RecomandUser(string EmailId, int MissionId)
         {
-            var u_id = HttpContext.Session.GetString("UserId");
-            if (u_id != null)
+            try
             {
-                int uIds = int.Parse(u_id);
-                var FromUser = _objILogin.GetUsers(uIds);
-                var recomandUser = _objUserInterface.getuserEmail(EmailId);
-                if (recomandUser != null)
+                var u_id = HttpContext.Session.GetString("UserId");
+                if (u_id != null)
                 {
-
-
-                    var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
-                    var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
-                    var toAddress = new MailAddress(EmailId)
-        ;
-                    var subject = "Message For Recommand Mission";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    int uIds = int.Parse(u_id);
+                    var FromUser = _objILogin.GetUsers(uIds);
+                    var recomandUser = _objUserInterface.getuserEmail(EmailId);
+                    if (recomandUser != null)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
-                    MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
-                    bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
-                    return Json(new { success = true });
 
+
+                        var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
+                        var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
+                        var toAddress = new MailAddress(EmailId)
+            ;
+                        var subject = "Message For Recommand Mission";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
+                        MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                        bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                        return Json(new { success = true });
+
+                    }
+                    else
+                    {
+                        return Json(new { success = false });
+                    }
                 }
                 else
                 {
                     return Json(new { success = false });
                 }
-            }
-            else
-            {
-                return Json(new { success = false });
-            }   
 
+            }
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
              
         }
 
@@ -626,14 +673,28 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult Share_Story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrls,string value)
         {
-            var story = _objUserInterface.getstory(Image, MissionId, Title, Date, Description, UserId, videoUrls,value);
-            if (story != null && story.Status == "DRAFT")
+            try
             {
-                return Json(new { success = true, storyid = story.StoryId });
+                var story = _objUserInterface.getstory(Image, MissionId, Title, Date, Description, UserId, videoUrls, value);
+                if (story != null && story.Status == "DRAFT")
+                {
+                    return Json(new { success = true, storyid = story.StoryId });
+                }
+                else
+                {
+                    return Json(new { success = false });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
         }
         #region ShareStory saveto database
@@ -832,6 +893,15 @@ namespace CIProjectweb.Controllers
             }
         }
         #endregion
+
+
+        [HttpPost]
+        public IActionResult Contactus(string name, string mail, string subject, string message)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserInterface.contactadd(name, mail, subject, message, int.Parse(userId));
+            return Json(new { success = true });
+        }
         public MissionCardModel CreateCard(Mission mission)
         {
             var userId = HttpContext.Session.GetString("UserId");
@@ -881,7 +951,7 @@ namespace CIProjectweb.Controllers
         public IActionResult storyListingPage(int pg = 1)
         {
             List<storyListingViewModel> list = new List<storyListingViewModel>();
-            List<Story>stories= _db.Stories.ToList();
+            List<Story>stories= _db.Stories.Where(st=>st.Status=="DRAFT"&& st.DeletedAt==null).ToList();
             foreach (var data in stories)
             {
                 storyListingViewModel listView = new storyListingViewModel();
@@ -1110,6 +1180,239 @@ namespace CIProjectweb.Controllers
             }
         }
         #endregion
+
+        #region user edit
+        public IActionResult userEditProfile(long? CountryId)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            List<City> city;
+            if (CountryId==null) {
+               city = _objUserInterface.cities();
+            }
+            else
+            {
+                city = _objUserInterface.cities((long)CountryId);
+            }
+            List<Country> country = _objUserInterface.countries();
+            List<Skill> skill = _objUserInterface.skills();
+            List<SelectListItem> listCities = new List<SelectListItem>();
+            List<SelectListItem> listCountries = new List<SelectListItem>();
+            List<SelectListItem> listSkills = new List<SelectListItem>();
+            List<SelectListItem> oneuserskill = new List<SelectListItem>();
+            User user = _objILogin.GetUsers(int.Parse(userId));
+            Userviewmodel userviewmodel = new Userviewmodel();
+            var userskill = _objUserInterface.oneuserskill(int.Parse(userId));
+            foreach (var item in city)
+            {
+                listCities.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+            }
+            foreach (var item in country)
+            {
+                listCountries.Add(new SelectListItem() { Text = item.Name, Value = item.CountryId.ToString() });
+            }
+            foreach (var item in skill)
+            {
+                listSkills.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            foreach (var item in userskill)
+            {
+                oneuserskill.Add(new SelectListItem() { Text = item.SkillName, Value = item.SkillId.ToString() });
+            }
+            userviewmodel.cities = listCities;
+            userviewmodel.countries = listCountries;
+            userviewmodel.skills = listSkills;
+            userviewmodel.userskill = oneuserskill;
+            userviewmodel.UserId = user.UserId;
+            userviewmodel.FirstName = user.FirstName;
+            userviewmodel.LastName = user.LastName;
+            userviewmodel.Availability = user.Availability; 
+            userviewmodel.Avatar = user.Avatar;
+            userviewmodel.WhyIVolunteer = user.WhyIVolunteer;
+            userviewmodel.EmployeeId = user.EmployeeId;
+            userviewmodel.Status = user.Status;
+            userviewmodel.Department = user.Department;
+            userviewmodel.CityId = user.CityId;
+            userviewmodel.CountryId = user.CountryId;
+            userviewmodel.ManagerDetail = user.ManagerDetail;
+            userviewmodel.ProfileText = user.ProfileText;
+            userviewmodel.Title = user.Title;
+            userviewmodel.LinkedInUrl = user.LinkedInUrl;
+            return View(userviewmodel);
+        }
+        #endregion
+
+        #region userEditPost
+        [HttpPost]
+        public IActionResult UserEdit(Userviewmodel userViewModel, string[] skill)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            HttpContext.Session.SetString("Avtar", userViewModel.Avatar == null ? "/images/user1.png" : userViewModel.Avatar);
+            HttpContext.Session.SetString("UserName", userViewModel.FirstName == null ? "User" : userViewModel.FirstName);
+            if (skill.Length > 0)
+            {
+                _objUserInterface.saveskill(skill, int.Parse(userId));
+            }
+            
+            _objUserInterface.adduser(userViewModel, int.Parse(userId));
+            return RedirectToAction("userEditProfile", "Home");
+        }
+        #endregion
+
+        #region password Edit
+        [HttpPost]
+        public IActionResult passEdit(string old, string newp, string confp)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            var savepass = _objUserInterface.savePassword(old, newp, confp, int.Parse(userId));
+            if (savepass == true)
+            {
+                return Json(new { success = true });
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+        #endregion
+
+
+        public IActionResult VolunteeerTimesheet()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
+            List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
+            List<SelectListItem> listmissiontime = new List<SelectListItem>();
+            List<SelectListItem> listmissiongoal = new List<SelectListItem>();
+            List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
+            List<TimesheetViewModel> sheetview2 = new List<TimesheetViewModel>();
+
+            List<Timesheet> sheetviewtime = _objUserInterface.timesheetlistTime(int.Parse(userId));
+            var sheetrecordtime = (from sv in sheetviewtime join mt in missiontime on sv.MissionId equals mt.MissionId select new { sheetid = sv.TimesheetId, Name = mt.Title, Timespend = sv.Time, Date = sv.DateVolunteered }).ToList();
+
+            foreach (var item in sheetrecordtime)
+            {
+                TimesheetViewModel timesheetViewModel2 = new TimesheetViewModel();
+                timesheetViewModel2.TimesheetId = item.sheetid;
+                timesheetViewModel2.Title = item.Name;
+                timesheetViewModel2.Timehour = item.Timespend.Split(':').First();
+                timesheetViewModel2.Timeminute = item.Timespend.Split(':').Last();
+                timesheetViewModel2.DateVolunteered = item.Date;
+                sheetview2.Add(timesheetViewModel2);
+            }
+
+
+           
+            List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
+            var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
+            TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
+            foreach (var item in missiontime)
+            {
+                listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in missiongoal)
+            {
+                listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in sheetrecord)
+            {
+                TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
+                timesheetViewModel1.TimesheetId = item.sheetid;
+                timesheetViewModel1.Title = item.Name;
+                timesheetViewModel1.Action = item.Action.ToString();
+                timesheetViewModel1.DateVolunteered = item.Date;
+                sheetview.Add(timesheetViewModel1);
+            }
+            timesheetViewModel.timesheets = sheetview;
+            timesheetViewModel.timesheettime = sheetview2;
+            timesheetViewModel.missionstime = listmissiontime;
+            timesheetViewModel.missionsgoal = listmissiongoal;
+            return View(timesheetViewModel);
+            
+        }
+
+
+        [HttpPost]
+        public IActionResult editTime(int timesheetid)
+        {
+            var find = _objUserInterface.findtimerecord(timesheetid);
+            return Json(new { find = find });
+        }
+        [HttpPost]
+        public IActionResult TimesheetTime(TimesheetViewModel timesheetviewmodel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserInterface.sheetime(timesheetviewmodel, int.Parse(userId));
+            return RedirectToAction("VolunteeerTimesheet", "Home");
+        }
+        [HttpPost]
+        public IActionResult VolunteeerTimesheet(TimesheetViewModel timesheetviewmodel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            _objUserInterface.timesheet(timesheetviewmodel, int.Parse(userId));
+            List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
+            List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
+            List<SelectListItem> listmissiontime = new List<SelectListItem>();
+            List<SelectListItem> listmissiongoal = new List<SelectListItem>();
+            List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
+            List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
+            var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
+            TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
+            foreach (var item in missiontime)
+            {
+                listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in missiongoal)
+            {
+                listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+            }
+            foreach (var item in sheetrecord)
+            {
+                TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
+                timesheetViewModel1.TimesheetId = item.sheetid;
+                timesheetViewModel1.Title = item.Name;
+                timesheetViewModel1.Action = item.Action.ToString();
+                timesheetViewModel1.DateVolunteered = item.Date;
+                sheetview.Add(timesheetViewModel1);
+            }
+            timesheetviewmodel.timesheets = sheetview;
+            timesheetviewmodel.missionstime = listmissiontime;
+            timesheetviewmodel.missionsgoal = listmissiongoal;
+            return RedirectToAction("VolunteeerTimesheet", "Home");
+
+        }
+
+        [HttpPost]
+        public IActionResult edit(long missionid)
+        {
+            Timesheet timesheetviewmodel = _db.Timesheets.Where(tm=>tm.TimesheetId==missionid).FirstOrDefault();
+            return Json(new { timesheet = timesheetviewmodel });
+
+        }
+        [HttpPost]
+        public IActionResult delete_post(long missionId)
+        {
+            Timesheet timesheetviewmodel = _db.Timesheets.Where(tm => tm.TimesheetId == missionId).FirstOrDefault();
+            _db.Timesheets.Remove(timesheetviewmodel);
+            _db.SaveChanges();
+            return Json(new { success = true });
+
+        }
+
+        [HttpPost]
+        public IActionResult changePassword(Userviewmodel userViewModel)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            var savepass = _objUserInterface.savePassword(userViewModel.Password, userViewModel.NewPassword, userViewModel.confirmPasswrd, int.Parse(userId));
+            if (savepass == true)
+            {
+                return RedirectToAction("userEditProfile","home");
+            }
+            else
+            {
+                return RedirectToAction("userEditProfile", "home"); ;
+            }
+
+        }
         public IActionResult dummy()
         {
             return View();

@@ -687,8 +687,178 @@ namespace CIProjectweb.Repository.Repository
         }
 
 
+        public List<City> cities()
+        {
+            List<City> cities = _objdb.Cities.ToList();
+            return cities;
+        }
+
+        public List<City> cities(long countryId)
+        {
+            List<City> cities = _objdb.Cities.Where(ct=>ct.CountryId==countryId).ToList();
+            return cities;
+        }
+        public List<Country> countries()
+        {
+            List<Country> countries = _objdb.Countries.ToList();
+            return countries;
+        }
+
+        public List<Skill> skills()
+        {
+            List<Skill> skills=_objdb.Skills.ToList();  
+            return skills;
+        }
+        public List<Skill> oneuserskill(int userid)
+        {
+            var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
+            List<Skill> skills = _objdb.Skills.ToList();
+            var oneuserskill = (from u in userskill join s in skills on u.SkillId equals s.SkillId select s).ToList();
+            return oneuserskill;
+        }
+        public void adduser(Userviewmodel userViewModel, int userid)
+        {
+            User user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
+            user.FirstName = userViewModel.FirstName == null ? user.FirstName : userViewModel.FirstName;
+            user.LastName = userViewModel.LastName;
+            user.Avatar = userViewModel.Avatar == null ? user.Avatar : userViewModel.Avatar;
+            user.EmployeeId = userViewModel.EmployeeId == null ? user.EmployeeId : userViewModel.EmployeeId;
+            user.Department = userViewModel.Department == null ? user.Department : userViewModel.Department;
+            user.ManagerDetail = userViewModel.ManagerDetail == null ? user.ManagerDetail : userViewModel.ManagerDetail;
+            user.Title = userViewModel.Title == null ? user.Title : userViewModel.Title;
+            user.ProfileText = userViewModel.ProfileText == null ? user.ProfileText : userViewModel.ProfileText;
+            user.WhyIVolunteer = userViewModel.WhyIVolunteer == null ? user.WhyIVolunteer : userViewModel.WhyIVolunteer;
+            user.CityId = userViewModel.CityId == null ? user.CityId : userViewModel.CityId;
+            user.CountryId = userViewModel.CountryId == null ? user.CountryId : userViewModel.CountryId;
+            user.Availability = userViewModel.Availability == null ? user.Availability : userViewModel.Availability;
+            user.LinkedInUrl = userViewModel.LinkedInUrl == null ? user.LinkedInUrl : userViewModel.LinkedInUrl;
+            _objdb.Users.Update(user);
+            _objdb.SaveChanges();
+        }
+        public void saveskill(string[] skill, int userid)
+        {
+            var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
+            if (userskill.Count == 0)
+            {
+                foreach (var item in skill)
+                {
+                    var skillId = _objdb.Skills.Where(sk => sk.SkillName == item).Select(sk => sk.SkillId).FirstOrDefault();
+                    UserSkill userSkill = new UserSkill();
+                    userSkill.UserId = userid;
+                    userSkill.SkillId = skillId;
+                    _objdb.UserSkills.Add(userSkill);
+                }
+                _objdb.SaveChanges();
+            }
+            else
+            {
+                foreach (var item in userskill)
+                {
+                    _objdb.UserSkills.Remove(item);
+                    _objdb.SaveChanges();
+                }
+              
+                foreach (var item in skill)
+                {
+                    var skillId = _objdb.Skills.Where(sk => sk.SkillName == item).Select(sk => sk.SkillId).FirstOrDefault();
+                    UserSkill userSkill = new UserSkill();
+                    userSkill.UserId = userid;
+                    userSkill.SkillId = skillId;
+                    _objdb.UserSkills.Add(userSkill);
+                }
+                _objdb.SaveChanges();
+            }
+        }
+        public List<Mission> missionstime(int userId)
+        {
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
+            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Time").ToList();
+            List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
+            return appliedbyuser;
+        }
+        public List<Mission> missionsgoal(int userId)
+        {
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
+            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Goal").ToList();
+            List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
+            return appliedbyuser;
+        }
+        public List<Timesheet> timesheetlist(int userId)
+        {
+            var usersheet = _objdb.Timesheets.Where(ts => ts.UserId == userId && ts.Action > 0).ToList();
+            return usersheet;
+        }
+        public void timesheet(TimesheetViewModel timesheetViewModel, int userid)
+        {
+            if (timesheetViewModel.TimesheetId==0)
+            {
+                Timesheet timesheet = new Timesheet();
+                timesheet.UserId = userid;
+                timesheet.MissionId = timesheetViewModel.MissionId;
+                timesheet.Action = int.Parse(timesheetViewModel.Action);
+                timesheet.Status = "PENDING";
+                timesheet.DateVolunteered = timesheetViewModel.DateVolunteered;
+                timesheet.Notes = timesheetViewModel.Notes;
+                _objdb.Timesheets.Add(timesheet);
+                _objdb.SaveChanges();
+            }
+            else
+            {
+                var find = _objdb.Timesheets.FirstOrDefault(ts => ts.TimesheetId == timesheetViewModel.TimesheetId);
+                find.MissionId = timesheetViewModel.MissionId;
+                find.Action = int.Parse(timesheetViewModel.Action);
+                find.DateVolunteered = timesheetViewModel.DateVolunteered;
+                find.Notes = timesheetViewModel.Notes;
+                _objdb.Timesheets.Update(find);
+                _objdb.SaveChanges();
+            }
+            
+        }
+        public bool sheetAvail(int userid, int missionid)
+        {
+            var isusertimesheet = _objdb.Timesheets.FirstOrDefault(ts => ts.MissionId == missionid && ts.UserId == userid);
+            if (isusertimesheet != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void contactadd(string name, string mail, string subject, string message, int userid)
+        {
+            ContactU contactU = new ContactU();
+            contactU.UserId = userid;
+            contactU.UserName = name;
+            contactU.Email = mail;
+            contactU.Subject = subject;
+            contactU.Message = message;
+            _objdb.ContactUs.Add(contactU);
+            _objdb.SaveChanges();
+        }
+        public bool savePassword(string old, string newp, string confp, int userid)
+        {
+            var user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
 
 
+             if (user.Password == newp)
+            {
+                return false;
+            }
+            else if (user.Password == old)
+            {
+                user.Password = newp;
+                _objdb.Users.Update(user);
+                _objdb.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public bool Update_favourite(FavouriteMission favoriteMission,long missionId,int u_id)
         {
             if (favoriteMission != null)
@@ -759,6 +929,38 @@ namespace CIProjectweb.Repository.Repository
             }
         }
 
+        public List<Timesheet> timesheetlistTime(int userId)
+        {
+            var list = _objdb.Timesheets.Where(ts => ts.UserId == userId && ts.Action == 0).ToList();
+            return list;
+        }
+        public void sheetime(TimesheetViewModel timesheetViewModel, int userid)
+        {
+            if (timesheetViewModel.TimesheetId == 0)
+            {
+                Timesheet timesheet = new Timesheet();
+                timesheet.UserId = userid;
+                timesheet.MissionId = timesheetViewModel.MissionId;
+                timesheet.Time = timesheetViewModel.Timehour + ":" + timesheetViewModel.Timeminute;
+                timesheet.DateVolunteered = timesheetViewModel.DateVolunteered;
+                timesheet.Notes = timesheetViewModel.Notes;
+                timesheet.Action = 0;
+                timesheet.Status = "PENDING";
+                _objdb.Timesheets.Add(timesheet);
+                _objdb.SaveChanges();
+            }
+            else
+            {
+                var find = _objdb.Timesheets.FirstOrDefault(ts => ts.TimesheetId == timesheetViewModel.TimesheetId);
+                find.MissionId = timesheetViewModel.MissionId;
+                find.Action = 0;
+                find.DateVolunteered = timesheetViewModel.DateVolunteered;
+                find.Notes = timesheetViewModel.Notes;
+                find.Time = timesheetViewModel.Timehour + ":" + timesheetViewModel.Timeminute;
+                _objdb.Timesheets.Update(find);
+                _objdb.SaveChanges();
+            }
+        }
         public bool Update_Rating(MissionRating ratingExists,string rating,int u_id,long missionId)
         {
             if (ratingExists != null)
@@ -1022,7 +1224,11 @@ namespace CIProjectweb.Repository.Repository
         {
             return _objdb.MissionDocuments.Where(t=>t.MissionId==missionid).ToList();
         }
-
+        public Timesheet findtimerecord(int timesheetid)
+        {
+            var find = _objdb.Timesheets.FirstOrDefault(ts => ts.TimesheetId == timesheetid);
+            return find;
+        }
         public ShareStoryViewModel getsharestory(int id)
         {
             var tempMission = _objdb.MissionApplications.Where(x => x.UserId == id && x.ApprovalStatus == "ACCEPT").Select(x => x.MissionId).ToList();

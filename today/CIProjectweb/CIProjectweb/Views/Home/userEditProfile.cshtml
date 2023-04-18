@@ -1,0 +1,552 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+}
+@model CIProjectweb.Entities.ViewModels.Userviewmodel
+<style>
+    .hours_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 20px;
+    }
+
+    .userimg {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+
+    .skilldiv {
+        width: 100%;
+        height: 15%;
+        border: 1px solid rgb(173, 170, 170);
+        overflow-y: auto;
+        border-radius: 5px;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<form asp-controller="Home" asp-action="UserEdit" method="post" id="userform">
+<div class="container h-100">
+    <div class="row mt-2">
+        <div class="col-lg-2 col-md-12 col-sm-12" id="editCard">
+            <div class="card text-center mt-2" style="width: 100%;">
+                <div class="mt-3">
+                    <img src="@Model.Avatar" alt="" class="userimg">
+                            <input type="hidden" asp-for="Avatar" class="imghidden" value="@Model.Avatar" />
+                        <input type="file" id="profile-img-input" style="display:none;" accept="image/*">
+                </div>
+                <div class="text-center">
+                    <p>@Model.FirstName @Model.LastName </p>
+                    <button type="button" class="btn" id="myBtn">
+                        Change Password
+                    </button>
+                    <form>
+                        <div id="myModal" class="modal">
+                            <div class="modal-content" style="height: 50%;">
+                                <div class="modal-header" style="background-color: white; color: black;">
+                                    <h2>Change Password</h2>
+                                    <span class="close" style="color:black;">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <input type="password" id="oldPassword" asp-for="Password" class="form-control mt-4" placeholder="Enter old password">
+                                     <span class="text-danger " style="position:absolute;left: 13px;" id="errorContainerOld"></span>
+                                    <input type="password" id="newPassword" asp-for="NewPassword" class="form-control mt-4" placeholder="Enter new password">
+                                     <span class="text-danger" style="position:absolute;left: 13px;" id="errorContainerNew"></span>
+                                    <input type="password" id="confPassword" asp-for="confirmPasswrd" class="form-control mt-4" placeholder="Enter confirm password">
+                                    <span class="text-danger " style="position:absolute;left: 13px;" id="errorContainer"></span>
+
+                                </div>
+                                <div class="modal-footer" style="background-color: white; color: black;">
+
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="changePass();">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12" id="editCard">
+                <div class="border-bottom">
+                    <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Basic Information</span>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="name">Name</label>
+                        <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter your name">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="surname">SurName</label>
+                        <input type="text"asp-for="LastName" class="form-control" placeholder="Enter your Surname">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="empid">Employee ID</label>
+                        <input type="text" asp-for="EmployeeId"class="form-control" placeholder="Enter your employee id">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="empid">Manager</label>
+                        <input type="text" asp-for="ManagerDetail" class="form-control" placeholder="Enter your manager detail">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="empid">Title</label>
+                        <input type="text" asp-for="Title" class="form-control" placeholder="Enter your employee id">
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="department">Department</label>
+                        <input type="text" asp-for="Department" class="form-control" placeholder="Enter your department details">
+                    </div>
+                </div>
+                <label for="comment" class="mt-3">My Profile</label>
+                <textarea  rows="5" asp-for="ProfileText" class="form-control" placeholder="Enter your comments"></textarea>
+
+                <label for="volunteer" class="mt-3">Why I Volunteer?</label>
+                <textarea name="" id="" rows="5" asp-for="WhyIVolunteer" class="form-control" placeholder="Enter your volunteer details"></textarea>
+                <div class="border-bottom mt-4">
+                    <span class="text-muted fs-4 mt-3" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Address Information</span>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label for="city">City</label>
+                        <select class="form-control form-select citydiv" asp-items="@Model.cities" asp-for="CityId">
+                            <option>Enter your city</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="city">Country</label>
+                        <select class="form-control form-select " asp-items="@Model.countries" id="country" onchange="profileCityList()" asp-for="CountryId">
+                            <option>Enter your country</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="border-bottom mt-4">
+                    <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Professional Information</span>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-lg-6">
+                        <label>Availablity</label>
+                       <select class="form-control form-select" asp-for="Availability">
+                            <option>Select your availablity</option>
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="url">LinkedIn</label>
+                        <input type="text" class="form-control" asp-for="LinkedInUrl" placeholder="Enter linkedIn URL">
+                    </div>
+                </div>
+                <div class="border-bottom mt-4">
+                    <span class="text-muted fs-4 mt-3" style="border-bottom: 3px solid black !important; padding-bottom:2px;">My Skills</span>
+                </div>
+                <div class="row mt-3">
+                    <div class="ms-2 skilldiv">
+                        @foreach(var item in Model.userskill)
+                            {
+                                <p value="@item.Value" id="skills">@item.Text</p>
+                            }
+                    </div>
+                    <div class="skillbtn">
+                        <button type="button" class="btn btn-outline-dark rounded-pill mt-2" id="myBtnSkill">Add Skills</button>
+                            <div id="myModalskill" class="modal">
+                         <div class="modal-content" style="height: 50%;">
+                                <div class="modal-header" style="background-color: white; color: black;">
+                                    <h2>Add skill</h2>
+                                    <span class="closeSkill" style="color:black;">&times;</span>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                    <div class="col-6">
+                                        <div class="card addskill p-2" >
+                                            @foreach(var item in Model.skills)
+                                            {
+                                                <p value="@item.Value">@item.Text</p>
+                                            }
+                                        </div>
+                                    </div>
+                                   <div class="col-1">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" id="add" class="btn btn-secondary btn-sm my-2">&gt;</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <button type="button" id="remove" class="btn btn-secondary btn-sm my-2">&lt;</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <div class="col-5">
+                                        <div class="card addedskill">
+                                            @foreach(var item in Model.userskill)
+                                                {
+                                                    <p value="@item.Value" id="skills">@item.Text</p>
+                                                }
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer" style="background-color: white; color: black;">
+
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="button" class="btn btn-primary skillsavebtn">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="d-flex justify-content-end" style="width:97.5%;">
+                        <button type="button" class="btn btn-outline-danger rounded-pill" onclick="sendskill()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+     <script>
+        // Get the modal
+        var modalskill = document.getElementById("myModalskill");
+
+        // Get the button that opens the modal
+        var btnSkill = document.getElementById("myBtnSkill");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("closeSkill")[0];
+
+        // When the user clicks the button, open the modal
+        btnSkill.onclick = function() {
+          modalskill.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modalskill.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modalskill.style.display = "none";
+          }
+        }
+    </script>
+    <script>
+       // Get the addskill, addedskill, and skilldiv elements
+const addskill = document.querySelector('.addskill');
+const addedskill = document.querySelector('.addedskill');
+const skilldiv = document.querySelector('.skilldiv');
+const selectedSkills = new Set();
+
+// Add a click event listener to the addskill div
+addskill.addEventListener('click', (event) => {
+    // Check if the clicked element is a skill name
+    if (event.target.tagName === 'P') {
+        // Check if the skill name has already been added
+       event.target.style.backgroundColor = '#F0F0F0';
+    }
+});
+
+// Add click event listener to a button to add selected p tags
+const addButton = document.querySelector('#add');
+addButton.addEventListener('click', () => {
+    // Get all selected p tags in the addedskill div
+    const selectedPTags = addskill.querySelectorAll('p.selected');
+    // Perform action for each selected p tag
+    selectedPTags.forEach((pTag) => {
+        
+        // Clone the selected p tag and append it to skilldiv
+        const clone = pTag.cloneNode(true);
+        
+         let alreadyExists = false;
+        addedskill.childNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.textContent === clone.textContent) {
+                alreadyExists = true;
+                return;
+            }
+        });
+        if (!alreadyExists) {
+            // Append the cloned p tag to the addedskill div
+            addedskill.appendChild(clone);
+            // Remove the 'selected' class from the cloned p tag in the addskill div
+            pTag.classList.remove('selected');
+            // Remove the 'selected' class from the cloned p tag in the addedskill div
+            clone.classList.remove('selected');
+            clone.style.backgroundColor='white';
+            // Remove the original p tag from the addskill div
+            pTag.remove();
+        }
+       
+      
+        
+        
+    });
+});
+
+// Add click event listener to p tags in the addedskill div to toggle selected class
+addskill.addEventListener('click', (event) => {
+    if (event.target.tagName === 'P') {
+        event.target.classList.toggle('selected');
+    }
+});
+
+
+
+// Add click event listener to a button to add selected p tags
+const removeButton = document.querySelector('#remove');
+removeButton.addEventListener('click', () => {
+    // Get all selected p tags in the addedskill div
+    const selectedPTags = addedskill.querySelectorAll('p.selected');
+    // Perform action for each selected p tag
+    selectedPTags.forEach((pTag) => {
+                  const clone = pTag.cloneNode(true);
+
+          
+         let alreadyExists = false;
+        addskill.childNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE && node.textContent === clone.textContent) {
+                alreadyExists = true;
+                return;
+            }
+        });
+        if (!alreadyExists) {
+             addskill.appendChild(clone);
+         // Remove the 'selected' class from the cloned p tag in the addskill div
+        pTag.classList.remove('selected');
+
+        // Remove the 'selected' class from the cloned p tag in the addedskill div
+        clone.classList.remove('selected');
+        pTag.style.backgroundColor='white';
+        // Clone the selected p tag and append it to skilldiv
+       
+         // Remove the 'selected' class from the cloned p tag in the addskill div
+        }
+       
+         pTag.remove();
+
+       
+        
+    });
+});
+
+// Add click event listener to p tags in the addedskill div to toggle selected class
+addedskill.addEventListener('click', (event) => {
+    if (event.target.tagName === 'P') {
+        event.target.classList.toggle('selected');
+    }
+});
+
+//addedskill.addEventListener('click', (event) => {
+//    // Check if the clicked element is a skill name
+//    if (event.target.tagName === 'P') {
+//        // Remove the clicked p tag from the addedskill div
+//        event.target.remove();
+//        // Remove the skill name from the selectedSkills set
+//        selectedSkills.delete(event.target.textContent);
+//    }
+//});
+
+// Add a click event listener to the addskill div
+//addedskill.addEventListener('click', (event) => {
+//     Check if the clicked element is a skill name
+//    if (event.target.tagName === 'P') {
+//         Check if the skill name has already been added
+//       event.target.style.backgroundColor = '#F0F0F0';
+//    }
+//});
+
+
+//// Add a click event listener to the save button
+//const saveBtn = document.querySelector('.skillsavebtn');
+//saveBtn.addEventListener('click', () => {
+//    // Get all the skill names in the addedskill div
+//    const addedSkills = addedskill.querySelectorAll('p');
+//    console.log(addedSkills);
+//   // Remove existing skills from skilldiv
+//    const existingSkills = skilldiv.querySelectorAll('#skills');
+//    existingSkills.forEach(skill => skill.remove());
+//    console.log(existingSkills);
+//    // Append each skill name to the skilldiv
+//    addedSkills.forEach((skill) => {
+        
+//            const clone = skill.cloneNode(true);
+//            clone.setAttribute('id', 'skills');
+//            skilldiv.appendChild(clone);
+        
+//    });
+//});
+
+// Add a click event listener to the save button
+const saveBtn = document.querySelector('.skillsavebtn');
+saveBtn.addEventListener('click', () => {
+    // Get all the skill names in the addedskill div
+    const addedSkills = addedskill.querySelectorAll('p');
+    const skillNames = Array.from(addedSkills).map(skill => skill.textContent); // Get an array of skill names
+
+    // Make an AJAX call with the data
+    $.ajax({
+        url: '/Home/UserEdit', // Replace with your endpoint URL
+        type: 'POST',
+        data: { skill: skillNames }, // Send the array of skill names as data
+        success: function (result) {
+            // Handle success
+           
+           $('.skilldiv').html($(result).find('.skilldiv').html());
+
+        },
+        error: function () {
+            // Handle error
+            console.error(error);
+        }
+    });
+});
+
+
+
+
+const profileImg = document.querySelector('.userimg');
+const profileImgInput = document.querySelector('#profile-img-input');
+const profhidden = document.querySelector(".imghidden");
+profileImg.addEventListener('click', () => {
+  profileImgInput.click();
+});
+
+profileImgInput.addEventListener('change', () => {
+    const file = profileImgInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+          profileImg.src = reader.result;
+          console.log(reader.result);
+          profhidden.value = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  });
+
+function sendskill() {
+    
+    $.ajax({
+        url: '/Home/UserEdit',
+        type: 'POST',
+        data: {  },
+        success: function (result) {
+            
+            document.getElementById("userform").submit();
+          
+        }
+        })
+}
+
+
+function changePass() {
+    const old = document.getElementById("oldPassword").value;
+    const newp = document.getElementById("newPassword").value;
+    const confp = document.getElementById("confPassword").value;
+   // Define the regular expression pattern
+const regexPattern = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$/;
+  if(old === null || old === ""){
+    document.getElementById("errorContainerOld").textContent = "Old password is required";
+     errorContainer.style.color = "red";
+  }
+  else if(confp === null || confp === ""){
+      document.getElementById("errorContainer").textContent = "Confirm password is required";
+     errorContainer.style.color = "red";
+  }
+  else if(newp === null || newp === ""){
+       document.getElementById("errorContainerNew").textContent = "New password is required";
+     errorContainer.style.color = "red";
+  }
+  else if(!regexPattern.test(newp)){
+      document.getElementById("errorContainerNew").textContent = "Password must meet the minimum strength requirements.";;
+     errorContainer.style.color = "red";
+  }
+  else
+  {
+      
+  // Check if new password and confirm password match
+  if (newp !== confp) {
+    // Display error message
+    document.getElementById("errorContainer").textContent = "New Password and Confirm Password do not match.";
+  } else{
+      $.ajax({
+        url: '/Home/passEdit',
+        type: 'POST',
+        data: { old: old, newp: newp, confp: confp },
+        success: function (result) {
+            if (result.success) {
+                Swal.fire(
+                    'Your Password is Changed Successfully'
+                );
+            }
+            else {
+                Swal.fire(
+                    'Your Password is Not Match, Please Enter Correct Old Password or your password is same as previous'
+                );
+            }
+        }
+    });
+  }
+  }
+    
+}
+    </script>
+    <script>
+        function profileCityList() {
+    alert("hjdsnv");
+
+    var getCountryId = document.getElementById('country').value;
+    // Make an AJAX call with the data
+    $.ajax({
+        url: '/home/userEditProfile', // Replace with your endpoint URL
+        type: 'GET',
+        data: { CountryId: getCountryId }, // Send the array of skill names as data
+        success: function (result) {
+            // Handle success
+           
+           $('.citydiv').html($(result).find('.citydiv').html());
+
+        },
+        error: function () {
+            // Handle error
+            console.error(error);
+        }
+    });
+    
+}
+    </script>

@@ -98,13 +98,13 @@
                                 <img class="ic-down" src="~/images/drop-down.png">
                             </a>
                             <ul class="dropdown-menu">
-
-                                <li><a class="dropdown-item dd-color" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider dd-color"></li>
-                                <li><a class="dropdown-item dd-color" href="#">Something else here</a></li>
+                               
+                                <li> <a class="dropdown-item dd-color" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a></li>
+                                
                             </ul>
                         </li>
 
+                         
                     </ul>
                     <div class="d-flex me-5  justify-content-end dropdown mx-5 my-auto">
 
@@ -128,9 +128,11 @@
                             <a class=" nav-link text-dark font-color " href="#" role="button" data-bs-toggle="dropdown"
                                                                                 aria-expanded="false" font-family: Roboto;><label> @Context.Session.GetString("UserName")</label>  <img class="ic-down" src="~/images/drop-down.png"></a>
                             <ul class="dropdown-menu ">
-                                <li><a class="dropdown-item dd-color" href="#">Dashbord</a></li>
-                                <li><a class="dropdown-item dd-color" href="#">My Account</a></li>
-                                <li><a class="dropdown-item dd-color" href="#">Help Center</a></li>
+                               
+                                <li><a class="dropdown-item dd-color" asp-action="userEditProfile" asp-controller="Home">Add profile</a></li>
+                                <li><a class="dropdown-item dd-color" asp-action="VolunteeerTimesheet" asp-controller="Home">Volunteer Timesheet</a></li>
+
+                                
                                 <li><a class="dropdown-item dd-color" asp-action="LogOut" asp-controller="Home">Log out</a></li>
                             </ul>
 
@@ -516,10 +518,88 @@
         @RenderBody()
     </main>
 
+  @*  <footer>
+        <div class="d-flex">
+            <a asp-controller="Home" asp-action="Policy" class=" btn text-decoration-none" style="color: black;">Privacy Policy</a>
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Select Co-workers</h2>
+                        <span class="close">&times;</span>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-body">
+                            <label for="Name">Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your name" id="name" />
+
+                            <label for="email" class="mt-3">Email Address</label>
+                            <input type="email" class="form-control" placeholder="Enter your mail" id="email" />
+
+                            <label for="subject" class="mt-3">Subject</label>
+                            <input type="text" class="form-control" placeholder="Enter your subject" id="subject" />
+
+                            <label for="message" class="mt-3">Message</label>
+                            <textarea class="form-control" id="message"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn cardbtn" id="sent1" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </footer>*@
 
     <footer class=" footer text-muted">
         <div class="container">
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+            <!-- Button trigger modal -->
+            <button class="btn" id="myBtn" data-bs-toggle="modal" >
+                Contact us
+            </button>
+
+
+            <!-- Modal content -->
+            <div id="myModal" class="modal">
+                <div class="modal-content" style="height:82%;">
+                    <div class="modal-header" style="background-color: white; color: black;">
+                        <h2>Contact Us</h2>
+                        <span class="close" style="color:black;">&times;</span>
+
+                    </div>
+                    <form>
+                         <div class="modal-body">
+                            <label for="Name">Name</label>
+                            <input type="text" required class="form-control" placeholder="Enter your name" id="name" />
+
+                            <label for="email" class="">Email Address</label>
+                            <input type="email" required class="form-control" placeholder="Enter your mail" id="email" />
+
+                            <label for="subject" >Subject</label>
+                            <input type="text" required  class="form-control" placeholder="Enter your subject" id="subject" />
+
+                            <label for="message" >Message</label>
+                            <textarea required class="form-control" id="message"></textarea>
+                        </div>
+                    </form>
+                       
+                
+
+
+                    <div class="modal-footer" style="background-color: white; color: black;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="contactUs()">Send</button>
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -555,6 +635,82 @@
         
 
 
+    </script>
+    <script>
+        function contactUs() {
+             const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ms-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+            var name = document.getElementById("name").value;
+            var mail = document.getElementById("email").value;
+            var subject = document.getElementById("subject").value;
+            var message = document.getElementById("message").value;
+            const regex =  /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (name.trim() && mail.trim() && subject.trim() && message.trim()) {
+                if (!regex.test(mail)) {
+                    swalWithBootstrapButtons.fire(
+                        'Warning!',
+                        'Please Enter Valid Email.',
+                        'info'
+                    )
+                }
+                else {
+                    $.ajax({
+                url: '/Home/Contactus',
+                type: 'POST',
+                data: { "name": name, "mail": mail, "subject": subject, "message": message },
+                success: function (result) {
+                    if (result.success) {
+                        Swal.fire(
+                            'Your report is added.'
+                        );
+                    }
+                }
+            });
+                }
+                
+
+            }
+            else{
+                swalWithBootstrapButtons.fire(
+                        'Alert!',
+                        'Every field id required.',
+                        'error'
+                    )
+            }
+            
+        }
+   </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
     </script>
     
     @*<script>

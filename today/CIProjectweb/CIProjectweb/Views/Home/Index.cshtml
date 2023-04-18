@@ -1,0 +1,86 @@
+﻿
+@{
+    Layout="";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Fetch Students</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <label for="filter-input">Filter by Name:</label>
+    <input type="text" id="filter-input">
+
+    <div id="output"></div>
+    <ul id="pagination">
+    <!-- pagination links will be dynamically added here -->
+</ul>
+
+ <script>
+    var jsonData = @Html.Raw(ViewBag.JsonData);
+
+    // Use the data to update the HTML of the page
+    function updateOutput(page = 1) {
+        var filter = document.getElementById("filter-input").value;
+        var output = document.getElementById("output");
+        output.innerHTML = "";
+        var pageSize = 5; // number of items per page
+        var startIndex = (page - 1) * pageSize;
+        var endIndex = startIndex + pageSize;
+
+        var data = filter === "" ? jsonData : jsonData.filter(student => {
+            return student.Title.toLowerCase().startsWith(filter.toLowerCase());
+        });
+
+        var pageData = data.slice(startIndex, endIndex);
+
+        pageData.forEach(student => {
+            // create card element for each student
+            var p = document.createElement("p");
+            p.innerHTML = "<strong>Name:</strong> " + student.Title + "<br>" +
+                          "<strong>Email:</strong> " + student.startDate + "<br>" +
+                          "<strong>Mobile:</strong> " + student.City;
+            output.appendChild(p);
+        });
+
+        var numPages = Math.ceil(data.length / pageSize);
+        var pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+        for (var i = 1; i <= numPages; i++) {
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.href = "#";
+            a.innerText = i;
+            a.onclick = function() {
+                updateOutput(this.innerText);
+            }
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
+
+        // Highlight the current page
+        var currentPage = document.querySelector("#pagination li a.active");
+        if (currentPage) {
+            currentPage.classList.remove("active");
+        }
+        var newCurrentPage = document.querySelector("#pagination li:nth-child(" + (page + 1) + ") a");
+        if (newCurrentPage) {
+            newCurrentPage.classList.add("active");
+        }
+    }
+
+    updateOutput();
+
+    // Bind the updateOutput function to the input event of the filter input box
+    var filterInput = document.getElementById("filter-input");
+    filterInput.addEventListener("input", function() {
+        updateOutput(1); // Reset to the first page when the filter changes
+    });
+</script>
+
+
+</body>
+</html>

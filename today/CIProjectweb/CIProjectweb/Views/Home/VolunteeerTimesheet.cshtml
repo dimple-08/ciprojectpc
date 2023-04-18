@@ -1,0 +1,487 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+}
+@model CIProjectweb.Entities.ViewModels.TimesheetViewModel
+<style>
+    .hours_header {
+        display: flex;
+        justify-content: space-between;
+        padding: 30px 20px;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<div class="container">
+    <div class="row" style="margin-top: 8%;">
+        <h2>Volunteering Timesheet</h2>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card" style="width: 100%;height:100%">
+                <div class="hours_header">
+                    <h5>Volunteering Hours</h5>
+                    <button type="button" id="mybtnTime" class="btn btn-outline-warning" style="border-radius: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModalTime">
+                        <i class="bi bi-plus w-50">Add</i>
+                    </button>
+                    @* <div class="modal fade" id="exampleModalTime" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please input below Volunteering Goal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form action="">
+                        <label for="MissionName" class="mt-3">Mission</label>
+                        <input type="text" class="form-control" placeholder="Please enter mission name">
+
+                        <label for="Date" class="mt-3">Date Volunteered</label>
+                        <input type="date" class="form-control">
+
+                        <div class="container-fluid p-0">
+                        <div class="row">
+                        <div class="col-6">
+                        <label for="Hours" class="mt-3">Hours</label>
+                        <input type="text" class="form-control">
+                        </div>
+                        <div class="col-6">
+                        <label for="Minutes" class="mt-3">Minutes</label>
+                        <input type="text" class="form-control">
+                        </div>
+                        </div>
+                        </div>
+
+                        <label for="Message" class="mt-3">Message</label>
+                        <textarea name="" id="" placeholder="Enter your message" class="form-control"></textarea>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-warning rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-outline-dark rounded-pill">Submit</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>*@
+
+
+                    <div id="myModal" class="modal">
+                        <div class="modal-content" style="height: 65%;">
+                            <div class="modal-header" style="background-color: white; color: black;">
+                                <h5 class="modal-title" id="exampleModalLabel">Please input below Volunteering Time</h5>
+                                <span class="close" style="color:black;">&times;</span>
+
+                            </div>
+                            <form asp-action="TimesheetTime" asp-controller="Home" method="post">
+                            <div class="modal-body">
+                                
+                                    <label for="MissionName" class="mt-3">Mission</label>
+                                    <select class="form-control form-select" asp-items="@Model.missionstime" id="missionname" asp-for="MissionId" onchange="checkTimesheet(this.value)">
+                                        <option>Enter your mission</option>
+                                    </select>
+
+                                    <label for="Date" class="mt-3">Date Volunteered</label>
+                                    <input type="date" value=" " asp-for="DateVolunteered" id="timedate" class="form-control">
+                                     <input type="hidden" asp-for="TimesheetId" id="timesheetId2" />
+                                    <div class="container-fluid p-0">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <label for="Hours" class="mt-3">Hours</label>
+                                                <input type="text" id="Timehour"asp-for="Timehour" class="form-control">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="Minutes" class="mt-3">Minutes</label>
+                                                <input type="text" id="Timeminute" asp-for="Timeminute"class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <label for="Message" class="mt-3">Message</label>
+                                    <textarea asp-for="Notes" id="timenotes" placeholder="Enter your message" class="form-control"></textarea>
+                                
+
+                            </div>
+                            <div class="modal-footer" style="background-color: white; color: black;">
+
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Hours</th>
+                                <th>Minutes</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           @foreach(var item in Model.timesheettime)
+                                {
+                                    <tr>
+                                        <td>@item.Title</td>
+                                        <td>@item.DateVolunteered.ToString("d")</td>
+                                        <td>@item.Timehour</td>
+                                        <td>@item.Timeminute</td>
+                                        <td>
+                                            <button type="button" class="border-0" onclick="editTime(@item.TimesheetId);">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="border-0"  onclick="delete_record(@item.TimesheetId);">
+                                                <i class="bi bi-trash text-danger"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="card" style="width: 100%;height:100%">
+                <div class="hours_header">
+                    <h5>Volunteering Goals</h5>
+                    <button id="myBtnGoal" type="button" class="btn btn-outline-warning" style="border-radius: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-plus w-50">Add</i>
+                    </button>
+                    @*                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please input below Volunteering Goal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form action="">
+                        <label for="MissionName" class="mt-3">Mission</label>
+                        <input type="text" class="form-control" placeholder="Please enter mission name">
+
+                        <label for="Actions" class="mt-3">Actions</label>
+                        <input type="text" class="form-control" placeholder="Enter Actions">
+
+                        <label for="Date" class="mt-3">Date Volunteered</label>
+                        <input type="date" class="form-control">
+
+                        <label for="Message" class="mt-3">Message</label>
+                        <textarea name="" id="" placeholder="Enter your message" class="form-control"></textarea>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-warning rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-outline-dark rounded-pill">Submit</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>*@
+
+                    <div id="myModalGoal" class="modal">
+                        <div class="modal-content" style="height: 65%;">
+                            <div class="modal-header" style="background-color: white; color: black;">
+                                <h5 class="modal-title" id="exampleModalLabel">Please input below Volunteering Goal</h5>
+                                <span class="close1" style="color:black;">&times;</span>
+
+                            </div>
+                            <form asp-controller="Home" asp-action="VolunteeerTimesheet" method="post" id="goalForm">
+                                <div class="modal-body">
+
+                                    <label for="MissionName" class="mt-3">Mission</label>
+                                    <select class="form-control form-select" id="missionId" asp-items="@Model.missionsgoal" asp-for="MissionId">
+                                        <option>Enter your mission</option>
+                                    </select>
+                                    <input type="hidden" asp-for="TimesheetId" id="timesheetId" />
+                                    <label for="Action" class="mt-3">Actions</label>
+                                    <input type="text" class="form-control" id="Action" placeholder="Enter Actions" asp-for="Action">
+
+                                    <label for="Date" class="mt-3">Date Volunteered</label>
+                                    <input type="date" value="" id="DateVol" asp-for="DateVolunteered" class="form-control">
+
+                                    <label for="Message" class="mt-3">Message</label>
+                                    <textarea asp-for="Notes" id="Notes" placeholder="Enter your message" class="form-control"></textarea>
+
+                                </div>
+                                <div class="modal-footer" style="background-color: white; color: black;">
+
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary" >Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless goalcontent">
+                        <thead>
+                            <tr>
+                                <th>Mission</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.timesheets)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.DateVolunteered.ToString("d")</td>
+                                    <td>@item.Action</td>
+                                    <td>
+                                        <button type="button" class="border-0" onclick="edit(@item.TimesheetId);">
+                                            <i class="bi bi-pencil-square text-warning"></i>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" onclick="delete_record(@item.TimesheetId);" class="border-0">
+                                            <i class="bi bi-trash text-danger"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:18%;">
+</div>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("mybtnTime");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+
+    // Get the modal
+    var modal1 = document.getElementById("myModalGoal");
+
+    // Get the button that opens the modal
+    var btn1 = document.getElementById("myBtnGoal");
+
+    // Get the <span> element that closes the modal
+    var span1 = document.getElementsByClassName("close1")[0];
+
+    // When the user clicks the button, open the modal
+    btn1.onclick = function() {
+
+      modal1.style.display = "block";
+          var date1=document.getElementById("DateVol");
+             var missionId=document.getElementById("missionId");
+             var action=document.getElementById("Action");
+             var message=document.getElementById("Notes");
+             var timesheet=document.getElementById("timesheetId");
+             date1.value="";
+             missionId.value="";
+             action.value=" ";
+             message.value=" ";
+             timesheet.value=" ";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span1.onclick = function() {
+      modal1.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal1.style.display = "none";
+      }
+    }
+    function checkTimesheet(missionId) {
+        $.ajax({
+            url: '/Home/VolunteeringTimesheet',
+            type: 'POST',
+            data: { missionId:missionId },
+            success:function(result){
+                if(result.success){
+                    Swal.fire(
+                        'You have already timesheet record'
+                    );
+                }
+                else{
+
+                }
+            }
+        });
+    }
+         function edit(timesheetId) {
+             var date1=document.getElementById("DateVol");
+             var missionId=document.getElementById("missionId");
+             var action=document.getElementById("Action");
+             var message=document.getElementById("Notes");
+             var timesheet=document.getElementById("timesheetId");
+
+            $.ajax({
+                url: '/Home/edit',
+                type: 'POST',
+                data: { missionId:timesheetId },
+                success:function(result){
+                    var data=result.timesheet;
+                    console.log(data);
+
+                     modal1.style.display = "block";
+                       var date = new Date(data.dateVolunteered);
+
+            console.log(date);
+
+            var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getDate().toString().padStart(2, '0');
+            console.log(formattedDate);
+                     date1.value=formattedDate;
+                    missionId.value=data.missionId;
+                    action.value=data.action;
+                    message.value=data.notes;
+                    timesheet.value=data.timesheetId;
+                }
+            });
+        }
+         
+</script>
+<script>
+    function delete_record(timesheetId) {
+
+            $.ajax({
+                url: '/Home/delete_post',
+                type: 'POST',
+                data: { missionId: timesheetId },
+                success:function(result){
+                   if(result.success){
+                       Swal.fire("delete");
+                    location.reload();
+                   }
+
+                }
+            });
+        }
+
+            function  delete_record(timesheetId) {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: true
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this timesheet!",
+            icon: 'warning',
+            width: '350',
+            height: '100',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+               $.ajax({
+                    url: '/Home/delete_post',
+                    type: 'POST',
+                    data: { missionId: timesheetId },
+                    success:function(result){
+                       if(result.success){
+                           Swal.fire("delete");
+                        location.reload();
+                       }
+
+                    }
+                });
+
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+
+                )
+            }
+        });
+
+
+
+
+    }
+
+
+
+
+
+        function editTime(timeid){ 
+            var date1=document.getElementById("timedate");
+             var missionId=document.getElementById("missionname");
+             var hours=document.getElementById("Timehour");
+             var minutes=document.getElementById("Timeminute");
+             var message=document.getElementById("timenotes");
+             var timesheet=document.getElementById("timesheetId2");
+            $.ajax({
+                url:'/Home/editTime',
+                type:'POST',
+                data:{timesheetid:timeid},
+                success:function(result){
+                   
+                    modal.style.display = "block";
+                    var timerecord=result.find;
+                    console.log(timerecord);
+                    missionId.value = timerecord.missionId;
+                    var date = new Date(timerecord.dateVolunteered);
+                    var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1).toString().padStart(2, '0') + "-" + date.getDate().toString().padStart(2, '0');
+                    date1.value = formattedDate;
+                    hours.value=timerecord.time.split(":")[0];
+                    minutes.value = timerecord.time.split(":")[1];
+                    message.value = timerecord.notes;
+                    timesheet.value = timerecord.timesheetId;
+                }
+            });
+        }
+        //function submitform(){
+        //     $.ajax({
+        //        url: '/Home/VolunteeerTimesheet',
+        //        type: 'POST',
+        //        data: { },
+        //        success:function(result){
+        //           if(result.success){
+                       
+        //                document.getElementById("goalForm").submit();
+        //                  location.reload();
+        //           }
+
+        //        }
+        //    });
+        //}
+</script>

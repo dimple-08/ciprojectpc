@@ -20,49 +20,54 @@
     var editor = CKEDITOR.instances.editor1;
     var editordata = editor.getData();
 
-
-    for (let i = 0; i < videoUrls.length; i++) {
-        if (!regex.test(videoUrls[i])) {
-            swal.fire("Please enter a valid YouTube or Vimeo video URL.");
-            isValid = false;
-            break;
+    if (title.trim() && missionId != "Select Mission" && date.trim() && videoUrls.length != 0 && videoUrls[0] != "" && dataUrls.length > 0) {
+        for (let i = 0; i < videoUrls.length; i++) {
+            if (!regex.test(videoUrls[i])) {
+                swal.fire("Please enter a valid YouTube or Vimeo video URL.");
+                isValid = false;
+                break;
+            }
         }
-    }
-   
-    if (!isValid) {
-        
-        event.preventDefault();
-    }
-    else {
-      
-        if (title.trim() && missionId != "Select Mission" && date.trim() && videoUrls.length != 0 && videoUrls[0] != "" && dataUrls.length > 0) {
-            $.ajax({
-                url: '/Home/Share_Story',
-                type: 'POST',
-                data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "videoUrls": videoUrls, "Value": value },
-                success: function (result) {
-                    if (result.success) {
-                        alert("Your Story Is Added");
-                        previewbtn.classList.remove("d-none");
-                        previewbtn.id = result.storyid;
-                        const url = `/Home/StoryDetailPage?Storyid=${result.storyid}`;
 
-                        // Set the "href" attribute of the "prw" element to the constructed URL
-                        previewbtn.href = url;
+        if (!isValid) {
 
-                    }
-                    else {
-                        Swal.fire("You alreay share the story");
-                      
-
-                    }
-                }
-            });
+            event.preventDefault();
         }
         else {
-            Swal.fire("You have to fill every fields..");
+
+            if (title.trim() && missionId != "Select Mission" && date.trim() && videoUrls.length != 0 && videoUrls[0] != "" && dataUrls.length > 0) {
+                $.ajax({
+                    url: '/Home/Share_Story',
+                    type: 'POST',
+                    data: { "Image": dataUrls, "MissionId": missionId, "Title": title, "Date": date, "Description": editordata, "UserId": userId, "videoUrls": videoUrls, "Value": value },
+                    success: function (result) {
+                        if (result.success) {
+                            alert("Your Story Is Added");
+                            previewbtn.classList.remove("d-none");
+                            previewbtn.id = result.storyid;
+                            const url = `/Home/StoryDetailPage?Storyid=${result.storyid}`;
+
+                            // Set the "href" attribute of the "prw" element to the constructed URL
+                            previewbtn.href = url;
+
+                        }
+                        else {
+                            Swal.fire("You alreay share the story");
+
+
+                        }
+                    }
+                });
+            }
+            else {
+                Swal.fire("You have to fill every fields..");
+            }
         }
     }
+    else {
+        Swal.fire("You have to fill every fields..");
+    }
+    
 
        
    
@@ -96,11 +101,12 @@ function shareStorySubmit(userId) {
     console.log(missionId);
     console.log(title);
     console.log(date);
-    console.log(videoUrls);
     var editor = CKEDITOR.instances.editor1;
     var editordata = editor.getData();
 
-
+    if (title.trim() && missionId != "Select Mission" && date.trim() && videoUrls.length != 0 && videoUrls[0] != "" && dataUrls.length > 0) {
+        swal.fire("You have to fill every feilds");
+    }
     for (let i = 0; i < videoUrls.length; i++) {
         if (!regex.test(videoUrls[i])) {
             swal.fire("Please enter a valid YouTube or Vimeo video URL.");
@@ -280,6 +286,13 @@ fileUpload();
 removeFile();
 
 function searchStoryByMission() {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ms-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
     var missionId = document.getElementById("exampleFormControlSelect1").value;
     while (FILE_LIST.length > 0) {
         FILE_LIST.pop();
@@ -290,7 +303,7 @@ function searchStoryByMission() {
         data: { MissionId: missionId },
         dataType: "json",
         success: function (result) {
-            alert();
+           
             if (result.success==true) {
                 
                 var story = result.storypreview;
@@ -331,11 +344,21 @@ function searchStoryByMission() {
             }
 
             else {
-                alert("For this mission your story is in pending");
+                swalWithBootstrapButtons.fire(
+                    'Pending!',
+                    'For this mission your story is in pending.',
+                    'info'
+                )
+               
             }
         },
         error: function () {
-            alert("could not load your draft");
+            swalWithBootstrapButtons.fire(
+                'Alert!',
+                'Could not load your draft.',
+                'error'
+            )
+           
         }
     });
 }

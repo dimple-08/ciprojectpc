@@ -1,0 +1,23 @@
+﻿
+@using CIProjectweb.Entities.ViewModels
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<CommentViewModel>
+ @foreach (var comment in Model)
+                                    {
+                                        <div class=" d-flex bg-white flex-row align-items-center mt-2">
+                                            <div class="border-0 rounded-circle">
+                                                <img id="commented-volunteer-id" class="rounded-circle"
+                                                 style=" height:54px;width:54px;" src="@comment.Avatar" alt="">
+                                            </div>
+                                            <div class="d-flex flex-column ms-2">
+                                                <span id="commented-volunteer-name" class="ms-2">@comment.UserName</span>
+                                                <span id="comment-time" class="ms-2">@comment.CreatedAt</span>
+                                                <span id="comment" class="ms-2 mt-2">@comment.CommentText</span>
+                                            </div>
+                                        </div>
+                                    }

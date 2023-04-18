@@ -1,0 +1,53 @@
+﻿@using CIProjectweb.Entities.ViewModels
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RecentVolPagination
+<div class="card-body">
+                            <div class="border-bottom mt-3">
+                                <span class="bottom-border ">
+                                    Recent volunteers
+                                </span>
+
+                            </div>
+                            <div class="row">
+
+                                @foreach (var theme in @Model.Items)
+                                {
+                                    if (theme != null)
+                                    {
+
+                                        <div class="col-4  py-3 d-flex flex-column align-items-center justify-content-center">
+                                            <div class="border-0 rounded-circle">
+                                                <img id="recent-volunteer-id" class="rounded-circle"
+                                             style=" height:70px;width:70px;" src="@theme.users" alt="">
+                                            </div>
+                                            <div style="width:max-content;">
+                                                <span id="recent-volunteer-name">@theme.missions</span>
+                                            </div>
+                                        </div>
+
+
+
+                                    }
+                                }
+                            </div>
+
+                        </div>
+                        <div id="recent-volunteer-pageination mt-5"
+                             class=" d-flex border align-items-center justify-content-between">
+                            
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@Model.CurrentPage - 1,@Model.MissionId)"><img src="~/Images/left.png" alt=""></a>
+                               @* @if(@ViewBag.PageIndex==1){
+                                    <div> 1-@ViewBag.count Recent Volunteers of @ViewBag.TotalCount</div>
+                                }
+                                else{
+                                    <div> @ViewBag.skip-@ViewBag.count Recent Volunteers of @ViewBag.TotalCount</div>
+                                }
+                            *@
+                            <div>Recent Volunteers</div>
+                                    <a class="bg-transparent border py-2 px-3" onclick="loadItems(@Model.CurrentPage + 1,@Model.MissionId)"><img src="~/Images/right-arrow1.png" alt=""></a>
+                                
+                        </div>

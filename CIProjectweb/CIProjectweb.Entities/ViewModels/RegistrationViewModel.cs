@@ -10,11 +10,11 @@ namespace CIProjectweb.Entities.ViewModels
     public class RegistrationViewModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter FirstName")]
-        [RegularExpression("/[^a-zA-Z]/g;",ErrorMessage="Please Enter Valid Name")]
+        [RegularExpression("^[^0-9]*$", ErrorMessage="Please Enter Valid Name")]
         public string? FirstName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter LastName")]
-        [RegularExpression("/[^a-zA-Z]/g;", ErrorMessage = "Please Enter Valid Name")]
+        [RegularExpression("^[^0-9]*$", ErrorMessage = "Please Enter Valid Name")]
         public string? LastName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter Email")]

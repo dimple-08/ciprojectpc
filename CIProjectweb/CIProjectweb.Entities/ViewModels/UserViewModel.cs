@@ -1,34 +1,54 @@
 ﻿using CIProjectweb.Entities.DataModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CIProjectweb.Entities.ViewModels
 {
-    public class UserViewModel
+    public class Userviewmodel
     {
         public long UserId { get; set; }
 
-        public string? FirstName { get; set; }
-
-        public string? LastName { get; set; }
+        [Required(ErrorMessage = "Field can't be empty")]
+        public string FirstName { get; set; } = null!;
+        [Required(ErrorMessage = "Field can't be empty")]
+        public string LastName { get; set; } = null!;
 
         public string Email { get; set; } = null!;
 
+        [Required(ErrorMessage = "Field can't be empty")]
+        [MinLength(8, ErrorMessage = "Password Must be atleast 8 character")]
+        [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}", ErrorMessage = "Please Enter Valid Password ")]
         public string Password { get; set; } = null!;
+
+        [Required(ErrorMessage = "Field can't be empty")]
+        [MinLength(8, ErrorMessage = "Password Must be atleast 8 character")]
+        [RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}", ErrorMessage = "Please Enter Valid Password ")]
+        public string NewPassword { get; set; } = null!;
+
+        [Required(ErrorMessage = "Field can't be empty")]
+        [DataType(DataType.Password)]
+        [Compare("Password", ErrorMessage = "Password doesn't match.")]
+        public string confirmPasswrd { get; set; } = null!;
+
+        public int PhoneNumber { get; set; }
 
         public string? Avatar { get; set; }
 
         public string? WhyIVolunteer { get; set; }
-
+        [Required(ErrorMessage = "Field can't be empty")]
         public string? EmployeeId { get; set; }
 
         public string? Department { get; set; }
+        public string? ManagerDetail { get; set; }
 
         public long? CityId { get; set; }
 
+        [Required(ErrorMessage = "Field can't be empty")]
         public long? CountryId { get; set; }
 
         public string? ProfileText { get; set; }
@@ -36,39 +56,23 @@ namespace CIProjectweb.Entities.ViewModels
         public string? LinkedInUrl { get; set; }
 
         public string? Title { get; set; }
+        public string? Availability { get; set; }
 
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
-        public DateTime? CreatedAt { get; set; } = null!;
+        public byte[] CreatedAt { get; set; } = null!;
 
         public DateTime? UpdatedAt { get; set; }
 
         public DateTime? DeletedAt { get; set; }
 
-        public long PhoneNumber { get; set; }
 
-        public virtual City? City { get; set; }
+        public long SkillId { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; } = new List<Comment>();
-
-        public virtual Country? Country { get; set; }
-
-        public virtual ICollection<FavouriteMission> FavouriteMissions { get; } = new List<FavouriteMission>();
-
-        public virtual ICollection<MissionApplication> MissionApplications { get; } = new List<MissionApplication>();
-
-        public virtual ICollection<MissionInvite> MissionInviteFromUsers { get; } = new List<MissionInvite>();
-
-        public virtual ICollection<MissionInvite> MissionInviteToUsers { get; } = new List<MissionInvite>();
-
-        public virtual ICollection<MissionRating> MissionRatings { get; } = new List<MissionRating>();
-
-        public virtual ICollection<Story> StoryMissions { get; } = new List<Story>();
-
-        public virtual ICollection<Story> StoryUsers { get; } = new List<Story>();
-
-        public virtual ICollection<Timesheet> Timesheets { get; } = new List<Timesheet>();
-
-        public virtual ICollection<UserSkill> UserSkills { get; } = new List<UserSkill>();
+        public string SkillName { get; set; } = null!;
+        public List<SelectListItem> cities { get; set; } = null!;
+        public List<SelectListItem> countries { get; set; } = null!;
+        public List<SelectListItem> skills { get; set; } = null!;
+        public List<SelectListItem> userskill { get; set; } = null!;
     }
 }

@@ -181,7 +181,7 @@
 
         $("#countryDiv").change(function() {
             FilterTag("#divCountry");
-            cityfill($("#divCountry").val());
+           
 
             Filter();
         });
@@ -205,30 +205,8 @@
     function Search() {
         Filter();
     }
-
-    function cityfill(countryId) {
-
-        $.ajax({
-            url: '/Mission/LandingPage',
-            type: 'POST',
-            dataType: 'json',
-            data: { id: countryId },
-            success: function(data) {
-               var options = [];
-                        $.each(data, function (i, city) {
-                            options.push({ label: city.text, value: city.value })
-                        });
-                        document.querySelector('#divCity').setOptions(options);
-
-               // Set the value of the select element to the first option
-       
-            },
-            error: function() {
-                alert("error");
-            }
-
-        });
-    }
+   
+   
     function favMission(Missionid, Missionfav) {
         $.ajax({
             url: '/Mission/FavMission',
@@ -268,39 +246,77 @@
     //    });
     //}
 
-    function FilterTag(str) {
+    //function FilterTag(str) {
+       
+    //   var selectElement = document.querySelector(str);
+    //        var selectedOptions = selectElement.getSelectedOptions();
+    //        var containerElement = $(str + "Div");
+    //        containerElement.empty();
+
+    //        // Append new tags
+    //        $.each(selectedOptions, function (i, text) {
+    //            containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+    //        });
+
+    //        containerElement.on('click', 'button i.bi-x', function () {
+    //            // Get the index of the option to remove
+    //            var index = $(this).parent().attr('id').split('-')[1];
+
+                
+
+    //            // Deselect the corresponding option from the selected options list
+    //            var selectElement = document.querySelector(str);
+    //            var removedOption = selectElement.options[index];
+    //               removedOption.selected = false;
+    //            selectElement.options.splice(index, 1);
+    //            // Remove the button element
+    //            $(this).parent().remove();
+    //            // Get the latest selected values
+                
+    //            var selectedOptions = selectElement.getSelectedOptions();
+    //            if (selectedOptions) {
+    //                const updatedValues = Array.from(selectedOptions).map(option => option.value);
+                    
+    //                // Call setValue with the latest values
+    //                document.querySelector(str).setValue(updatedValues);
+    //                Filter();
+    //            }
+                
+
+               
+    //        });
+
+    //}
+     function FilterTag(str) {
+       
+       console.log(str);
         var selectElement = document.querySelector(str);
         var selectedOptions = selectElement.getSelectedOptions();
+       
         var containerElement = $(str + "Div");
         containerElement.empty();
         // Append new tags
-        $.each(selectedOptions, function(i, text) {
+        $.each(selectedOptions, function (i, text) {
             containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
         });
-        // Get the virtual select element
-        //const virtualSelect = document.querySelector('#virtual-select');
-
-        //// Get the options in the select list
-        //const options = virtualSelect.querySelectorAll('option');
-
-        //// Loop through each option and add a unique id to its corresponding checkbox
-        //options.forEach((option, index) => {
-        //    const checkbox = virtualSelect.querySelector(`[value="${option.value}"]`);
-        //    checkbox.id = `checkbox-${index}`;
-        //});
+        
 
 
-        containerElement.on('click', 'button i.bi-x', function() {
+        containerElement.on('click', 'button i.bi-x', function () {
             // Get the index of the option to remove
             var index = $(this).parent().attr('id').split('-')[1];
             // Remove the button element
             $(this).parent().remove();
-            // Remove the corresponding option from the selected options list
-            document.querySelector(str).options[index].selected = false;
+           
+        
+           // Deselect the corresponding option from the selected options list
+    selectElement.options[index].selected = false;
+    document.querySelector(str).reset();
+   Filter();
+            
         });
 
     }
-
  function getID(e){
             
             var abc = e.id;

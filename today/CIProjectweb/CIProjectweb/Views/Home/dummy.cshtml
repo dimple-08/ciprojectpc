@@ -1,0 +1,375 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@{
+Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"/>
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crorel="stylesheet"
+ssorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+/>
+<link rel="stylesheet" href="~/css/navbar.css">
+                                        
+</head>
+
+<body>
+
+<div>
+<nav class="navbar headernav navbar-expand-lg fixed-top" style="background-color: #ffffff;">
+<div class="container">
+<div class="d-flex col-md-6 d-flex justify-content-center justify-content-md-start pt-3 mb-3 mb-md-0">
+
+<p>Stories</p>
+<div class="dropdown ms-5">
+<a
+class="text-reset me-3 dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+Policy
+</a>
+<ul
+class="dropdown-menu ddpolicy dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Read Policy</a></li>
+<li>
+<a class="dropdown-item" href="#">Terms & Conditions</a>
+</li>
+<li>
+<a class="dropdown-item" href="#">User's Policy</a>
+</li>
+</ul>
+</div>
+</div>
+<button class="navbar-toggler pb-3" type="button" data-bs-toggle="offcanvas"
+data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+<span><img src="./images/menu-bar.svg" alt="logo"></span>
+</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+aria-labelledby="offcanvasNavbarLabel">
+<div class="offcanvas-header">
+<div class="searchspace d-flex">
+<i class="fas fa-search ms-1 mt-2"></i>
+<input type="search" class="form-control rounded searchbar ms-2" placeholder="Search"
+aria-label="Search" aria-describedby="search-addon" />
+</div>
+<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+<div class="offcanvas-body justify-content-end">
+
+<ul class="navbar-nav justify-content-end dashboard-nav-sidebar-toggle">
+
+
+<li class="nav-item d-flex align-items-center">
+<div class="sidebar-detail d-flex">
+<div class="dropdown dropend pe-3 ps-2 dropdownborder">
+<a
+class="text-reset me-5 singledropdown dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+Country
+</a>
+<ul
+class="dropdown-menu dropdown-menu-side"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">India</a></li>
+<li><a class="dropdown-item" href="#">USA</a></li>
+<li>
+<a class="dropdown-item" href="#">Canada</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li class="nav-item d-flex align-items-center">
+<div class="sidebar-detail d-flex">
+<div class="dropdown dropend ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset me-5 singledropdown dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+City
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Surat</a></li>
+<li><a class="dropdown-item" href="#">New York</a></li>
+<li>
+<a class="dropdown-item" href="#">Toronto</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li class="nav-item d-flex align-items-center">
+<div class="sidebar-detail d-flex">
+<div class="dropdown dropend ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset singledropdown me-4 dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+Theme
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li>
+<input type= "checkbox" value="chackbox" name="India" /> India</li>
+
+<li><a class="dropdown-item" href="#">Children</a></li>
+<li>
+<a class="dropdown-item" href="#">Women</a>
+</li>
+</ul>
+</div>
+</div>
+</li>
+<li class="nav-item d-flex align-items-center">
+<div class="sidebar-detail d-flex">
+<div class="dropdown dropend ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset singledropdown me-4 dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+skills
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Nutrition</a></li>
+<li><a class="dropdown-item" href="#">Advocacy </a></li>
+<li><a class="dropdown-item" href="#">Networking </a></li>
+<li><a class="dropdown-item" href="#">communication </a></li>
+</ul>
+</div>
+</div>
+</li>
+
+</ul>
+
+<ul class="navbar-nav col-md-6 justify-content-end">
+<li class="nav-item d-flex align-items-center">
+
+<div class="dropdown">
+<a
+class="text-reset dropdown-toggle d-flex align-items-center"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+<img
+src="~/Images/profile.png"
+class="rounded-circle me-3"
+height="22"
+alt=""
+loading="lazy"
+/>
+Gumnam
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">My profile</a></li>
+<li><a class="dropdown-item" href="#">Settings</a></li>
+<li><a class="dropdown-item" href="#">Logout</a></li>
+</ul>
+</div>
+
+
+</li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+
+
+<div
+class="navbar menubar navbar-expand-lg navbar-light bg-white"
+style="padding-top: 51px; padding-bottom: 0px"
+>
+<div class="container">
+<div class="col-md-4">
+<div class="input-group rounded">
+<i class="fas fa-search mt-2"></i>
+
+<input
+type="search"
+class="form-control rounded ms-2"
+placeholder="Search Mission . . ."
+aria-label="Search"
+aria-describedby="search-addon"
+style="border: 0px"
+/>
+</div>
+</div>
+<div
+class="dropdown-section col-md-8 d-flex justify-content-end"
+style="height: 50px"
+>
+<div class="dropdown ms-5 pe-3 ps-2 dropdownborder">
+<a
+class="text-reset me-5 singledropdown dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+Country
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><input type="checkbox" />India</li>
+<li><input type="checkbox" />USA</li>
+<li>
+<input type="checkbox" />Canada
+</li>
+</ul>
+</div>
+<div class="dropdown ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset me-5 singledropdown dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+City
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Surat</a></li>
+<li><a class="dropdown-item" href="#">New York</a></li>
+<li>
+<a class="dropdown-item" href="#">Toronto</a>
+</li>
+</ul>
+</div>
+<div class="dropdown ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset singledropdown me-4 dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+Theme
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Environment</a></li>
+<li><a class="dropdown-item" href="#">Children</a></li>
+<li>
+<a class="dropdown-item" href="#">Women</a>
+</li>
+</ul>
+</div>
+<div class="dropdown ms-1 pe-5 ps-2 dropdownborderright">
+<a
+class="text-reset singledropdown me-4 dropdown-toggle"
+href="#"
+id="navbarDropdownMenuLink"
+role="button"
+data-mdb-toggle="dropdown"
+aria-expanded="false"
+>
+skills
+</a>
+<ul
+class="dropdown-menu dropdown-menu-start"
+aria-labelledby="navbarDropdownMenuLink"
+>
+<li><a class="dropdown-item" href="#">Nutrition</a></li>
+<li><a class="dropdown-item" href="#">Advocacy </a></li>
+<li><a class="dropdown-item" href="#">Networking </a></li>
+<li><a class="dropdown-item" href="#">communication </a></li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script
+type="text/javascript"
+src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"
+></script>
+
+</body>
+
+</html>

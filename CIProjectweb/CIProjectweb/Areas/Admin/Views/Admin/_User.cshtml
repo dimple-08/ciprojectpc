@@ -1,0 +1,363 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<section id="user" class="row my-3 content-section active">
+                        <!-- <div class="text-end">
+                            <button class="btn btn-outline-warning rounded-pill"><i class="bi bi-plus">Add</i></button>
+                        </div> -->
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">User</span>
+                        </div>
+                        <br />
+
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form action="">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content" style="height: 713px; overflow-y: scroll;">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body usermodalbody">
+                                            <label for="fname">First Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter your first name">
+
+                                            <label for="lname" class="mt-2">Last Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter your last name">
+
+                                            <label for="mail" class="mt-2">Email</label>
+                                            <input type="email" class="form-control" placeholder="Enter your email address">
+
+                                            <label for="password" class="mt-2">Password</label>
+                                            <input type="password" class="form-control" placeholder="Enter your password">
+
+                                            <label for="empid" class="mt-2">Employee Id</label>
+                                            <input type="text" class="form-control" placeholder="Enter your employee id">
+
+                                            <label for="avatar" class="mt-2">Avatar</label>
+                                            <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image">
+                                            <input type="hidden" id="profileImg" value="">
+
+                                            <label for="department" class="mt-2">Department</label>
+                                            <input type="text" class="form-control" placeholder="Enter your department">
+
+                                            <label for="city" class="mt-2">City</label>
+                                            <select class="form-control form-select">
+                                                <option value=""></option>
+                                                <option value="">Ahmedabad</option>
+                                                <option value="">Ahmedabad</option>
+                                                <option value="">Ahmedabad</option>
+                                            </select>
+
+                                            <label for="country" class="mt-2">Country</label>
+                                            <select class="form-control form-select">
+                                                <option value=""></option>
+                                                <option value="">India</option>
+                                                <option value="">USA</option>
+                                                <option value="">UK</option>
+                                            </select>
+
+                                            <label for="Profile Text" class="mt-2">Profile text</label>
+                                            <textarea cols="20" class="form-control"></textarea>
+
+                                            <label for="status" class="mt-2">Status</label>
+                                            <input type="text" class="form-control" placeholder="Enter status">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Employee Id</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Adam</td>
+                                        <td>Baidwin</td>
+                                        <td>adam12546@yahs.com</td>
+                                        <td>1364978456</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Peter</td>
+                                        <td>Kenny</td>
+                                        <td>peter42546@yahs.com</td>
+                                        <td>1364975623</td>
+                                        <td>Sales</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Jacob</td>
+                                        <td>Jenny</td>
+                                        <td>jacob25546@yahs.com</td>
+                                        <td>1364975656</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Terry</td>
+                                        <td>Killy</td>
+                                        <td>terry25546@yahs.com</td>
+                                        <td>1364974556</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>Peg</td>
+                                        <td>Filly</td>
+                                        <td>peg125546@yahs.com</td>
+                                        <td>1364974569</td>
+                                        <td>Sales</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>Aida</td>
+                                        <td>Bumbo</td>
+                                        <td>aida425546@yahs.com</td>
+                                        <td>1364974556</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">7</th>
+                                        <td>Olive</td>
+                                        <td>Bilbo</td>
+                                        <td>olive25546@yahs.com</td>
+                                        <td>1364974123</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">8</th>
+                                        <td>Peter</td>
+                                        <td>Frodo</td>
+                                        <td>peter45546@yahs.com</td>
+                                        <td>1364974461</td>
+                                        <td>Sales</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">9</th>
+                                        <td>Allie</td>
+                                        <td>Kimo</td>
+                                        <td>teri145546@yahs.com</td>
+                                        <td>1364974465</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">10</th>
+                                        <td>Rose</td>
+                                        <td>Zico</td>
+                                        <td>rose45546@yahs.com</td>
+                                        <td>1364974445</td>
+                                        <td>Sales</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">11</th>
+                                        <td>Carpet</td>
+                                        <td>Jeco</td>
+                                        <td>carpet@gmail.com</td>
+                                        <td>1363749487</td>
+                                        <td>HR</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">12</th>
+                                        <td>Food</td>
+                                        <td>Haso</td>
+                                        <td>haso@gmail.com</td>
+                                        <td>1538598486</td>
+                                        <td>Sales</td>
+                                        <td>Active</td>
+                                        <td>
+                                            <a type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <script>
+                       var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime=document.getElementById("dashboadtime");
+        var userrecordFilter = document.getElementById("userrecord_filter");
+
+        var time=new Date();
+        var dateString = time.toDateString();
+        var timeString = time.toLocaleTimeString();
+        dashboadtime.innerHTML=dateString + ' ' + timeString;
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        const menulink=document.querySelectorAll(".list-group-item");
+        const contentSections = document.querySelectorAll('.content-section');
+
+        menulink.forEach((link)=>{
+            link.addEventListener('click',(event)=>{
+                event.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                contentSections.forEach((section)=>{
+                    section.classList.remove('active');
+                });
+                
+                menulink.forEach((link)=> {
+            link.classList.remove('active');
+            link.classList.add("bg-transparent");
+          });
+          link.classList.add('active');
+          link.classList.remove("bg-transparent");
+            });
+        });
+        $(document).ready(function () {
+            $('#userrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $('#userrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false
+        });
+        var userrecordFilter = document.getElementById("userrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML=`<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn","btn-outline-warning","rounded-pill","addbtn");
+        button.setAttribute("data-bs-toggle","modal");
+        button.setAttribute("data-bs-target","#exampleModaladd")
+        userrecordFilter.appendChild(button);
+
+        const profileImgInput = document.querySelector('#profile-img-input');
+        profileImgInput.addEventListener('change', () => {
+    const file = profileImgInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        profileImg.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  });
+   
+                    </script>

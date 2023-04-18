@@ -1,0 +1,267 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using CIProjectweb.Entities.ViewModels
+@model List<StoryView>
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<div class="container-fluid px-4">
+    <div id="content">
+        <section id="Mission" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Story</span>
+                        </div>
+                         <div class="modal fade" id="exampleModalmissionadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form action="">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body usermodalbody">
+                                        <div class="container-fluid p-0">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="title">Mission Title</label>
+                                                    <input type="text" class="form-control" placeholder="Enter title">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="short description">Mission Short Description</label>
+                                                    <input type="text" class="form-control" placeholder="Enter short description">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="organization name">Mission Organisation Name</label>
+                                                    <input type="text" class="form-control" placeholder="Enter organization name">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="description">Mission Description</label>
+                                                    <textarea name="editor2" class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="country">Country</label>
+                                                    <Select class="form-control form-select">
+                                                        <option value=""></option>
+                                                        <option value="">USA</option>
+                                                    </Select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="city">city</label>
+                                                    <Select class="form-control form-select">
+                                                        <option value=""></option>
+                                                        <option value="">Los Angeles</option>
+                                                    </Select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="organization detail">Mission Organisation Detail</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="sdate">Mission start date</label>
+                                                    <input type="date" class="form-control" placeholder="Enter start date">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="edate">Mission end date</label>
+                                                    <input type="date" class="form-control" placeholder="Enter end date">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="type">Mission Type</label>
+                                                    <input type="text" class="form-control" placeholder="Enter mission type">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="seats">Total Seats</label>
+                                                    <input type="text" class="form-control" placeholder="Enter seats">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="deadline">Mission Deadline</label>
+                                                    <input type="text" class="form-control" placeholder="Enter deadline if mission is time base">
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="theme">Mission Theme</label>
+                                                    <select class="form-control form-select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="skill">Mission Skill</label>
+                                                    <div class="dropdown">
+                                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                          Select Skills
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><input type="checkbox"> Boating</li>
+                                                            <li><input type="checkbox"> Cooking</li>
+                                                            <li><input type="checkbox"> Swimming</li>
+                                                        </ul>
+                                                      </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="image">Mission Images</label>
+                                                    <input type="file" class="form-control" name="images[]" multiple>
+                                                </div>
+                                                <div class="col-4">
+                                                    <label for="documents">Mission Documents</label>
+                                                    <input type="file" class="form-control" name="documents[]" multiple>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="availability">Mission Availability</label>
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="video">Mission Video</label>
+                                                    <textarea cols="5" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </form>
+                          </div>
+                        <div class="col mt-4">
+                           <table id="storyrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                            <thead style="background-color: #F8F9FC;">
+                                <tr>
+                                    <th>Story Title</th>
+                                    <th>Full Name</th>
+                                    <th>Mission Title</th>
+                                    
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @foreach(var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.StoryTitle</td>
+                                        <td>@item.FirstName @item.LastName</td>
+                                        <td>@item.MissionTitle</td>
+                                        <td>
+                                            <a href="" class="btn btn-outline-warning rounded-pill">View</a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-check-circle text-success"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-x-circle text-danger"></i>
+                                            </a>
+                                            <a type="button" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        </div>
+                    </section>
+        <section id="cmspage" class="row my-5 content-section">
+            <h3>CMS Page</h3>
+        </section>
+        <section id="mission" class="row my-5 content-section">
+            <h3>Mission</h3>
+        </section>
+        <section id="theme" class="row my-5 content-section">
+            <h3>Mission Theme</h3>
+        </section>
+        <section id="skill" class="row my-5 content-section">
+            <h3>Mission Skill</h3>
+        </section>
+        <section id="application" class="row my-5 content-section">
+            <h3>Mission Application</h3>
+        </section>
+        <section id="story" class="row my-5 content-section">
+            <h3>Story</h3>
+        </section>
+        <section id="banner" class="row my-5 content-section">
+            <h3>Banner Management</h3>
+        </section>
+    </div>
+</div>
+          
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime=document.getElementById("dashboadtime");
+        var userrecordFilter = document.getElementById("userrecord_filter");
+
+         function currentTime() {
+            var time = new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML = dateString + ' ' + timeString;
+            let t = setTimeout(function () { currentTime() }, 1000);
+        }
+        currentTime();
+        const menulink=document.querySelectorAll(".list-group-item");
+        const contentSections = document.querySelectorAll('.content-section');
+
+        //menulink.forEach((link)=>{
+        //    link.addEventListener('click',(event)=>{
+        //        event.preventDefault();
+        //        const targetId = link.getAttribute('href');
+        //        const targetSection = document.querySelector(targetId);
+        //        contentSections.forEach((section)=>{
+        //            section.classList.remove('active');
+        //        });
+                
+        //        menulink.forEach((link)=> {
+        //    link.classList.remove('active');
+        //    link.classList.add("bg-transparent");
+        //  });
+        //  link.classList.add('active');
+        //  link.classList.remove("bg-transparent");
+        //    });
+        //});
+       // missionrecord
+       // storyrecord
+    
+        $(document).ready(function () {
+            $('#storyrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+       $('#storyrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+
+
+      
+      
+  //      const profileImgInput = document.querySelector('#profile-img-input');
+  //      profileImgInput.addEventListener('change', () => {
+  //  const file = profileImgInput.files[0];
+  //  if (file) {
+  //    const reader = new FileReader();
+  //    reader.addEventListener('load', () => {
+  //      profileImg.src = reader.result;
+  //    });
+  //    reader.readAsDataURL(file);
+  //  }
+  //});
+    </script>

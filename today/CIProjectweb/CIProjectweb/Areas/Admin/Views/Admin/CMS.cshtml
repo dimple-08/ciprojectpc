@@ -1,0 +1,285 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model CIProjectweb.Entities.AdminViewModel.CMSViewModel
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<div class="container-fluid px-4">
+    <div id="content">
+        <section id="Mission" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">CMS</span>
+                        </div>
+                        
+                          <div class="modal fade" id="exampleModalcmsadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form asp-area="Admin" asp-action="AddCms" asp-controller="Admin" method="post">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">CMS Add</h5>
+                                        <button type="button"   class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <label for="title">Page Title</label>
+                                        <input type="text" asp-for="Title" id="Title" class="form-control" placeholder="Enter page title">
+                                        <input type="hidden" asp-for="CmsPageId" id="cmsId"/>
+                                        <label for="page description" class="mt-2">Page Description</label>
+                                        <textarea name="Description" id="editor2" asp-for="Description" class="form-control"></textarea>
+
+                                        <label for="slug" class="mt-2">Slug</label>
+                                        <input type="text" id="slug" asp-for="Slug" class="form-control" placeholder="Enter slug">
+
+                                        <label for="status" class="mt-2">Status</label>
+                                       
+                                         <select id="status" asp-for="Status" class="form-control form-select">
+                                            <option value=""></option>
+                                            <option value=true>Active</option>
+                                            <option value=false>In-Active</option>
+                                            
+                                        </select>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" id="modalclose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                           <table id="cmsrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                            <thead style="background-color: #F8F9FC;">
+                                <tr>
+                                    <th> Title</th>
+                                    <th>Status</th>
+                                   
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @foreach(var item in Model.cMSViewModels){
+                                <tr>
+                                    <td>@item.Title</td>
+                                        @if (item.Status == true)
+                                        {
+                                            <td style="color:#14C506">Active</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red">In-Active</td>
+                                        }
+                                        <td>
+                                        <a type="button" onclick="CMSEDIT(@item.CmsPageId)" class="border-0">
+                                            <i class="bi bi-pencil-square text-warning"></i>
+                                        </a>
+                                        <a type="button" onclick="CMSDELETE(@item.CmsPageId)"class="border-0 ms-2">
+                                            <i class="bi bi-trash-fill text-danger"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                        </div>
+                    </section>
+        <section id="cmspage" class="row my-5 content-section">
+            <h3>CMS Page</h3>
+        </section>
+        <section id="mission" class="row my-5 content-section">
+            <h3>Mission</h3>
+        </section>
+        <section id="theme" class="row my-5 content-section">
+            <h3>Mission Theme</h3>
+        </section>
+        <section id="skill" class="row my-5 content-section">
+            <h3>Mission Skill</h3>
+        </section>
+        <section id="application" class="row my-5 content-section">
+            <h3>Mission Application</h3>
+        </section>
+        <section id="story" class="row my-5 content-section">
+            <h3>Story</h3>
+        </section>
+        <section id="banner" class="row my-5 content-section">
+            <h3>Banner Management</h3>
+        </section>
+    </div>
+</div>
+          
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+     CKEDITOR.replace('editor2');
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime=document.getElementById("dashboadtime");
+        var userrecordFilter = document.getElementById("userrecord_filter");
+
+         function currentTime() {
+            var time = new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML = dateString + ' ' + timeString;
+            let t = setTimeout(function () { currentTime() }, 1000);
+        }
+        currentTime();
+        const menulink=document.querySelectorAll(".list-group-item");
+        const contentSections = document.querySelectorAll('.content-section');
+
+       
+       
+
+        $(document).ready(function () {
+            $('#cmsrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+       $('#cmsrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+     
+      
+      
+      // cmsrecordbtn
+        var cmsrecordFilter = document.getElementById("cmsrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML=`<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn","btn-outline-warning","rounded-pill","addbtn");
+        button.setAttribute("data-bs-toggle","modal");
+         button.setAttribute("id","Examplemodal");
+        button.setAttribute("data-bs-target","#exampleModalcmsadd")
+        cmsrecordFilter.appendChild(button);
+           var modal = document.getElementById("exampleModalcmsadd");
+var Examplemodal = document.getElementById("Examplemodal");
+var modalclose = document.getElementById("modalclose");
+
+modalclose.onclick = function () {
+
+    modal.style.display = "none";
+
+};
+Examplemodal.onclick = function () {
+   var Title = document.getElementById("Title");
+    var Description = document.getElementById("editor2");
+    var Slug = document.getElementById("slug");
+     var cmsId = document.getElementById("cmsId");
+
+    var status = document.getElementById("status");
+
+
+    Title.value = "";
+    Description.value = '';
+    Slug.value = '';
+    cmsId.value = '';
+    status.value = '';
+    CKEDITOR.instances['editor2'].setData(" ");
+}
+  //      const profileImgInput = document.querySelector('#profile-img-input');
+  //      profileImgInput.addEventListener('change', () => {
+  //  const file = profileImgInput.files[0];
+  //  if (file) {
+  //    const reader = new FileReader();
+  //    reader.addEventListener('load', () => {
+  //      profileImg.src = reader.result;
+  //    });
+  //    reader.readAsDataURL(file);
+  //  }
+  //});
+    function CMSEDIT(userID){
+            
+    var Title = document.getElementById("Title");
+    var Description = document.getElementById("editor2");
+    var Slug = document.getElementById("slug");
+     var cmsId = document.getElementById("cmsId");
+
+    var status = document.getElementById("status");
+
+            
+             $.ajax({
+        url: '/Admin/Admin/EditCMS',
+        type: 'POST',
+        data: { "CMSID": userID },
+        success: function (result) {
+            if (result) {
+                 console.log(result);
+                modal.classList.add("show");
+                modal.style.display = "block";
+                Title.value = result.title;
+                CKEDITOR.instances['editor2'].setData(result.description);
+
+
+
+                
+                Slug.value = result.slug;
+                cmsId.value=result.cmsPageId;
+                
+                status.value=result.status;
+               
+            }
+            else {
+                Swal.fire("You alreay share the story");
+
+
+            }
+        }
+    });
+        }
+        function CMSDELETE(userId) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ms-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: '/Admin/Admin/CMSDELETE',
+                type: 'POST',
+                data: { PageId: userId },
+                success: function (result) {
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        'Your record has been deleted.',
+                        'success'
+                    ).then((res) => {
+                        location.reload();
+                    });
+                }
+            });
+        } else if (
+            
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+        swalWithBootstrapButtons.fire(
+            'Cancelled'
+        )
+    }
+})
+        }
+    </script>
