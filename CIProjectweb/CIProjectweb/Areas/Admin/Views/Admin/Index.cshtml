@@ -27,7 +27,7 @@
    >
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
-                                        <button type="button" id="modalclose"class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" id="modalclose"class="btn-close" data-bs-dismiss="modal" onClick="window.location.reload();" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body usermodalbody">
                                          
@@ -71,7 +71,7 @@
                                         </select>
 
                                         <label for="country" class="mt-2">Country</label>
-                                        <select id="country" class="form-control form-select">
+                                        <select id="country" class="form-control form-select" onchange="countryByCity()">
                                             <option value=""></option>
                                              @foreach (var item in countries)
                                             {
@@ -93,7 +93,7 @@
                                         </select>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" onClick="window.location.reload();" data-bs-dismiss="modal">Close</button>
                                         <button type="button" onclick="AddUser()" class="btn btn-primary">Save changes</button>
                                       </div>
                                     </div>
@@ -179,7 +179,36 @@
         var toggleButton = document.getElementById("menu-toggle");
         var dashboadtime=document.getElementById("dashboadtime");
         var userrecordFilter = document.getElementById("userrecord_filter");
+        function countryByCity() {
+    var countryId = document.getElementById("country").value;
+    $.ajax({
 
+
+
+        url: '/Admin/Admin/CountryByCityAdmin',
+        type: 'POST',
+        data: { CountryId: countryId },
+        dataType: 'json',
+
+        success: function (result) {
+            console.log(result.data);
+            var cityOption = "";
+            var cityDropdown = document.getElementById("city");
+            if (result.data.length == 0) {
+
+                cityOption += `<option>No cities Found</option>`
+            }
+            else {
+                for (let i = 0; i < result.data.length; i++) {
+                    cityOption += `<option value="${result.data[i].cityId}">${result.data[i].name}</option>`
+                }
+            }
+           
+
+            cityDropdown.innerHTML = cityOption;
+        }
+    });
+}
         function currentTime() {
             var time = new Date();
             var dateString = time.toDateString();
@@ -189,7 +218,9 @@
         }
         currentTime();
 
-
+         toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
         const menulink=document.querySelectorAll(".list-group-item");
         const contentSections = document.querySelectorAll('.content-section');
 

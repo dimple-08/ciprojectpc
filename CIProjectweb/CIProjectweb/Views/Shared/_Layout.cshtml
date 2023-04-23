@@ -576,10 +576,10 @@
                     <form>
                          <div class="modal-body">
                             <label for="Name">Name</label>
-                            <input type="text" required class="form-control" placeholder="Enter your name" id="name" />
-
+                            <input type="text" required class="form-control" placeholder="Enter your name" value="@Context.Session.GetString("UserName")" id="name" />
+                            
                             <label for="email" class="">Email Address</label>
-                            <input type="email" required class="form-control" placeholder="Enter your mail" id="email" />
+                            <input type="email" required class="form-control" placeholder="Enter your mail" value="@Context.Session.GetString("Email")" id="email" />
 
                             <label for="subject" >Subject</label>
                             <input type="text" required  class="form-control" placeholder="Enter your subject" id="subject" />

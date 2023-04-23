@@ -2,253 +2,661 @@
 
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-@using CIProjectweb.Entities.DataModels
-@model List<Mission>
+@model CIProjectweb.Entities.AdminViewModel.MissionView
 <!-- /#sidebar-wrapper -->
 <!-- Page Content -->
 
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+
 
 <div class="container-fluid px-4">
     <div id="content">
-        <section id="Mission" class="row my-3 content-section active">
-                        <div class="border-bottom">
-                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Mission</span>
-                        </div>
-                         <div class="modal fade" id="exampleModalmissionadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <form action="">
-                                <div class="modal-dialog modal-xl">
-                                    <div class="modal-content">
-                                      <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                      </div>
-                                      <div class="modal-body usermodalbody">
-                                        <div class="container-fluid p-0">
-                                            <div class="row">
-                                                <div class="col-4">
-                                                    <label for="title">Mission Title</label>
-                                                    <input type="text" class="form-control" placeholder="Enter title">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="short description">Mission Short Description</label>
-                                                    <input type="text" class="form-control" placeholder="Enter short description">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="organization name">Mission Organisation Name</label>
-                                                    <input type="text" class="form-control" placeholder="Enter organization name">
-                                                </div>
-                                                <div class="col-12">
-                                                    <label for="description">Mission Description</label>
-                                                    <textarea name="editor1" class="form-control"></textarea>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="country">Country</label>
-                                                    <Select class="form-control form-select">
-                                                        <option value=""></option>
-                                                        <option value="">USA</option>
-                                                    </Select>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="city">city</label>
-                                                    <Select class="form-control form-select">
-                                                        <option value=""></option>
-                                                        <option value="">Los Angeles</option>
-                                                    </Select>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="organization detail">Mission Organisation Detail</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="sdate">Mission start date</label>
-                                                    <input type="date" class="form-control" placeholder="Enter start date">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="edate">Mission end date</label>
-                                                    <input type="date" class="form-control" placeholder="Enter end date">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="type">Mission Type</label>
-                                                    <input type="text" class="form-control" placeholder="Enter mission type">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="seats">Total Seats</label>
-                                                    <input type="text" class="form-control" placeholder="Enter seats">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="deadline">Mission Deadline</label>
-                                                    <input type="text" class="form-control" placeholder="Enter deadline if mission is time base">
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="theme">Mission Theme</label>
-                                                    <select class="form-control form-select">
-                                                        <option value=""></option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="skill">Mission Skill</label>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                          Select Skills
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><input type="checkbox"> Boating</li>
-                                                            <li><input type="checkbox"> Cooking</li>
-                                                            <li><input type="checkbox"> Swimming</li>
-                                                        </ul>
-                                                      </div>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="image">Mission Images</label>
-                                                    <input type="file" class="form-control" name="images[]" multiple>
-                                                </div>
-                                                <div class="col-4">
-                                                    <label for="documents">Mission Documents</label>
-                                                    <input type="file" class="form-control" name="documents[]" multiple>
-                                                </div>
-                                                <div class="col-6">
-                                                    <label for="availability">Mission Availability</label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                                <div class="col-6">
-                                                    <label for="video">Mission Video</label>
-                                                    <textarea cols="5" class="form-control"></textarea>
-                                                </div>
+        <section id="mission" class="row my-3 content-section active">
+            <div class="border-bottom">
+                <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Mission</span>
+            </div>
+            <div class="modal fade" id="exampleModalmissionadd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <form asp-area="Admin" asp-controller="Admin" asp-action="Mission" method="post" id="missionform">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" onClick="window.location.reload();" aria-label="Close" id="btnclose"></button>
+                            </div>
+                            <div class="modal-body usermodalbody" style="height:500px;overflow-y:auto;">
+                                <div class="container-fluid p-0">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="hidden" name="MissionId" asp-for="MissionId" id="missionId" />
+                                            <label for="title">Mission Title</label>
+                                            <input type="text" class="form-control" placeholder="Enter title" asp-for="Title" id="title" required />
+                                            <span class="text-danger" id="titleError" style="font-size:16px"></span>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="short description">Mission Short Description</label>
+                                            <input type="text" class="form-control" placeholder="Enter short description" asp-for="ShortDescription" id="sdescription" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="organization name">Mission Organisation Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter organization name" asp-for="OrganizationName" id="oname" required>
+                                             <span class="text-danger" id="onameError" style="font-size:16px"></span>
+                                        </div>
+                                        <div class="col-12">
+                                            <label for="description">Mission Description</label>
+                                            <textarea name="CKeditor" class="form-control" id="CKeditor" required></textarea>
+                                            <input type="hidden" name="Description" asp-for="Description" id="misdescription" />
+                                            <span class="text-danger" id="storyDescriptionError" style="font-size:16px"></span>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="country">Country</label>
+                                            <Select class="form-control form-select" asp-for="CountryId" id="countryid" required>
+                                                <option value=""></option>
+                                                @foreach (var item in Model.countries)
+                                                {
+                                                    <option value="@item.CountryId">@item.Name</option>
+                                                }
+                                            </Select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="city">city</label>
+                                            <Select class="form-control form-select" asp-for="CityId" id="cityid" required>
+                                                <option value=""></option>
+                                                @foreach (var item in Model.citys)
+                                                {
+                                                    <option value="@item.CityId">@item.Name</option>
+                                                }
+                                            </Select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="organization detail">Mission Organisation Detail</label>
+                                            <input type="text" class="form-control" asp-for="OrganizationDetalis" id="odetail" required>
+                                            <span class="text-danger" id="odetailError" style="font-size:16px"></span>
+                                        </div>
+                                        <div class="col-4" id="startdate">
+                                            <label for="sdate" id="sdatelabel">Mission start date</label>
+                                            <input type="date" class="form-control" placeholder="Enter start date" asp-for="StartDate" id="sdate" required>
+                                        </div>
+                                        <div class="col-4" id="enddate">
+                                            <label for="edate">Mission end date</label>
+                                            <input type="date" class="form-control" placeholder="Enter end date" asp-for="EndDate" id="edate">
+                                        </div>
+                                         <div class="col-4" id="GoalValue" style="display: none;">
+                                            <label for="edate">Mission end date</label>
+                                            <input type="text" class="form-control" placeholder="Enter end date" asp-for="GoalValue" id="gVlaue">
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="type">Mission Type</label>
+                                            <select class="form-control form-select" asp-for="MissionType" id="missiontype" onchange="missionType()" required>
+                                                <option></option>
+                                                <option value="Goal">Goal</option>
+                                                <option value="Time">Time</option>
+                                            </select>
+                                            
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="seats">Total Seats</label>
+                                            <input type="text" class="form-control" placeholder="Enter seats" asp-for="SeatsAvailable" id="availseats" required>
+                                        </div>
+                                        <div class="col-4" id="Deadline">
+                                            <label for="deadline">Mission Deadline</label>
+                                            <input type="date" class="form-control" placeholder="Enter deadline if mission is time base" asp-for="Deadline" id="deadline">
+                                        </div>
+                                         <div class="col-4" id="GoalObjectiveText" style="display: none;">
+                                            <label for="deadline">Goal Mission Text</label>
+                                            <input type="text" class="form-control" placeholder="Enter deadline if mission is time base" asp-for="GoalObjectiveText" id="gTExt">
+                                             
+                                        </div> 
+                                        <div class="col-4">
+                                            <label for="theme">Mission Theme</label>
+                                            <select class="form-control form-select" asp-for="ThemeId" id="themeid">
+                                                <option value=""></option>
+                                                @foreach (var item in Model.missionThemes)
+                                                {
+                                                    <option value="@item.MissionThemeId">@item.Title</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="availability">Mission Availability</label>
+                                            <select class="form-control form-select" name="Availability" asp-for="Availability" id="availability">
+                                                <option></option>
+                                                <option value="daily">Daily</option>
+                                                <option value="weekly">Weekly</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="image">Mission Images</label>ImgError
+                                            <input type="file" id="missionimg" class="form-control" name="images[]" multiple>
+                                             <span class="text-danger" id="ImgError" style="font-size:16px"></span>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="documents">Mission Documents</label>
+                                            <input type="file" id="missiondocs" class="form-control" name="documents[]" multiple>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="skill">Mission Skill</label>
+                                            <div class="dropdown">
+                                                <select class="form-control form-select select" multiple aria-label="multiple select example" id="selectskills">
+                                                    <option value=""></option>
+                                                    @foreach (var item in Model.skills)
+                                                    {
+                                                        <option value="@item.SkillId">@item.SkillName</option>
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                      </div>
+                                        <div class="col-6">
+                                            <label for="video">Mission Video</label>
+                                            <textarea rows="4" class="form-control" id="missionvideo"></textarea>
+                                        </div>
+                                        <div class="col-12 image-preview d-flex mt-3 flex-wrap">
+                                        </div>
+                                        <div class="col-12 doc-preview d-flex mt-3 flex-wrap">
+                                        </div>
                                     </div>
-                                  </div>
-                            </form>
-                          </div>
-                        <div class="col mt-4">
-                           <table id="missionrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
-                            <thead style="background-color: #F8F9FC;">
-                                <tr>
-                                    <th>Mission Title</th>
-                                    <th>Mission Type</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                               @foreach(var item in Model)
-                                {
-                                    <tr>
-                                        <td>@item.Title</td>
-                                        <td>@item.MissionType</td>
-                                        <td>@item.StartDate.Value.ToShortDateString()</td>
-                                        <td>@item.EndDate.Value.ToShortDateString()</td>
-                                        <td>
-                                            <a type="button" class="border-0">
-                                                <i class="bi bi-pencil-square text-warning"></i>
-                                            </a>
-                                            <a type="button" class="border-0 ms-2">
-                                                <i class="bi bi-trash-fill text-danger"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onClick="window.location.reload();" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="btnsubmit" class="btn btn-primary">Save changes</button>
+                            </div>
                         </div>
-                    </section>
-        <section id="cmspage" class="row my-5 content-section">
-            <h3>CMS Page</h3>
-        </section>
-        <section id="mission" class="row my-5 content-section">
-            <h3>Mission</h3>
-        </section>
-        <section id="theme" class="row my-5 content-section">
-            <h3>Mission Theme</h3>
-        </section>
-        <section id="skill" class="row my-5 content-section">
-            <h3>Mission Skill</h3>
-        </section>
-        <section id="application" class="row my-5 content-section">
-            <h3>Mission Application</h3>
-        </section>
-        <section id="story" class="row my-5 content-section">
-            <h3>Story</h3>
-        </section>
-        <section id="banner" class="row my-5 content-section">
-            <h3>Banner Management</h3>
+                    </div>
+                </form>
+            </div>
+            <table id="missionrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                <thead style="background-color: #F8F9FC;">
+                    <tr>
+                        <th>Mission Title</th>
+                        <th>Mission Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.missions)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.MissionType</td>
+                            <td>@item.StartDate.Value.ToShortDateString()</td>
+                            @if(@item.EndDate !=null){
+                                <td>@item.EndDate.Value.ToShortDateString()</td>
+                            }
+                            else
+                            {
+                                @foreach(var goals in Model.goalmissions){
+                                    @if(goals.MissionId==item.MissionId){
+                                        <td>@goals.GoalValue</td>
+                                    }
+                                    
+                                }
+                               
+                            }
+                            <td>
+                                <a type="button" class="border-0" onclick="missionEdit(@item.MissionId)">
+                                    <i class="bi bi-pencil-square text-warning"></i>
+                                </a>
+                                <a type="button" class="border-0 ms-2" onclick="missionDelete(@item.MissionId)">
+                                    <i class="bi bi-trash-fill text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
         </section>
     </div>
 </div>
-          
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    CKEDITOR.replace('editor1');
+            var el = document.getElementById("wrapper");
+            var toggleButton = document.getElementById("menu-toggle");
+            var dashboadtime = document.getElementById("dashboadtime");
+            var myModal=document.getElementById("exampleModalmissionadd");
+            var modalclose = document.getElementById("btnclose");
+            
+             function missionType() {
+                 
+                 
+                  var missiontype = document.getElementById('missiontype').value;
+                  if(missiontype=="Goal"){
+                      document.getElementById("GoalValue").style.display = "block";
+                    document.getElementById("GoalObjectiveText").style.display = "block";
+                   
+                    document.getElementById("Deadline").style.display="none";
+                        
+                  }
+               }
+            function currentTime() {
+                var time = new Date();
+                var dateString = time.toDateString();
+                var timeString = time.toLocaleTimeString();
+                dashboadtime.innerHTML = dateString + ' ' + timeString;
+                let t = setTimeout(function () { currentTime() }, 1000);
+            }
+            currentTime();
+            toggleButton.onclick = function () {
+                el.classList.toggle("toggled");
+            };
 
-        var el = document.getElementById("wrapper");
-        var toggleButton = document.getElementById("menu-toggle");
-        var dashboadtime=document.getElementById("dashboadtime");
-        var userrecordFilter = document.getElementById("userrecord_filter");
+            const menulink = document.querySelectorAll(".list-group-item");
 
-        var time=new Date();
-        var dateString = time.toDateString();
-        var timeString = time.toLocaleTimeString();
-        dashboadtime.innerHTML=dateString + ' ' + timeString;
-        toggleButton.onclick = function () {
-            el.classList.toggle("toggled");
-        };
+            menulink.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    menulink.forEach((link) => {
+                        link.classList.remove('active');
+                    });
+                    link.classList.add('active');
+                });
+            });
 
-        const menulink=document.querySelectorAll(".list-group-item");
-        const contentSections = document.querySelectorAll('.content-section');
+            CKEDITOR.replace('CKeditor');
 
-        //menulink.forEach((link)=>{
-        //    link.addEventListener('click',(event)=>{
-        //        event.preventDefault();
-        //        const targetId = link.getAttribute('href');
-        //        const targetSection = document.querySelector(targetId);
-        //        contentSections.forEach((section)=>{
-        //            section.classList.remove('active');
-        //        });
+            // missionrecord
+            $(document).ready(function () {
+                $('#missionrecord').DataTable();
+                $('.dataTables_length').addClass('bs-select');
+            });
+            $('#missionrecord').DataTable({
+                "ordering": false,
+                "lengthChange": false,
+                "pagingType": "full_numbers",
+                "oLanguage": {
+                    "sEmptyTable": " ",
+                    "oPaginate": {
+                        "sNext": '<i class="bi bi-chevron-right"></i>',
+                        "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                        "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                        "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                    }
+                }
+            });
+
+            // missionrecordbtn
+            var missionrecordFilter = document.getElementById("missionrecord_filter");
+            var button = document.createElement("button");
+            button.innerHTML = `<i class="bi bi-plus">Add</i>`;
+            button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
+            button.setAttribute("data-bs-toggle", "modal");
+            button.setAttribute("id","ExampleModalAdd");
+            button.setAttribute("data-bs-target", "#exampleModalmissionadd")
+            missionrecordFilter.appendChild(button);
+
+            const dataUrls = [];
+            const docUrls=[];
+            const docName=[];
+            const input = document.querySelector('#missionimg');
+            const inputdocs=document.querySelector("#missiondocs");
+            $(document).ready(function () {
+                input.addEventListener('change', (event) => {
+                    // Get the selected files
+                    const files = event.target.files;
+                    // Loop through each file
+                    Array.from(files).forEach((file) => {
+                        // Create a new FileReader instance
+                        const reader = new FileReader();
+
+                        // Add an event listener to the FileReader instance
+                        reader.addEventListener('load', () => {
+                            // Print the data URL of the image to the console
+                            const id = Date.now();
+                            dataUrls.push({url:reader.result,id});
+                            addImage(reader.result,id);
+                        });
+
+                        // Read the selected file as a data URL
+                        reader.readAsDataURL(file);
+                    });
+                });
+
+                inputdocs.addEventListener('change', (event) => {
+                    const docfile = event.target.files;
+                    Array.from(docfile).forEach((file) => {
+                        const readerdoc = new FileReader();
+                        readerdoc.addEventListener('load', () => {
+                            const id = Date.now();
+                            docUrls.push({URLS: readerdoc.result, id });
+                            docName.push({name:file.name,id});
+                            addDocs(file.name, id, docfile.length);
+                        });
+                        readerdoc.readAsDataURL(file);
+                    });
+                });
+
+                $("#btnsubmit").click(function (e) {
+                     $("#odetailError").text("");
+
+            var storyImage = $("#odetail").val();
+
+            
+            if(storyImage.length == 0)
+            {
+                event.preventDefault();
+                $("#odetailError").text("Please Select at least one Image");
+               
+            }
+            $("#titleError").text("");
+
+            var title = $("#title").val();
+
+            
+            if(title.length == 0)
+            {
+                event.preventDefault();
+                $("#titleError").text("Please Select at least one Image");
                 
-        //        menulink.forEach((link)=> {
-        //    link.classList.remove('active');
-        //    link.classList.add("bg-transparent");
-        //  });
-        //  link.classList.add('active');
-        //  link.classList.remove("bg-transparent");
-        //    });
-        //});
-       // missionrecord
-        $(document).ready(function () {
-            $('#missionrecord').DataTable();
-            $('.dataTables_length').addClass('bs-select');
+            }
+            //$("#descriptionError").text("");
+
+            //var sdescription = $("#sdescription").val();
+
+            
+            //if(sdescription.length == 0)
+            //{
+            //    event.preventDefault();
+            //    $("#descriptionError").text("Please Select at least one Image");
+            //    return false;
+            //}
+            // $("#onameError").text("");
+
+            //var oname = $("#oname").val();
+
+            
+            //if(oname.length == 0)
+            //{
+            //    event.preventDefault();
+            //    $("#onameError").text("Please Select at least one Image");
+            //    return false;
+            //}
+           //  var editor = CKEDITOR.instances.CKeditor;
+           //   $("#storyDescriptionError").text("");
+
+           //var storyDescription = editor.getData();
+
+           // if (storyDescription.length == 0) {
+           //     event.preventDefault();
+           //     $("#storyDescriptionError").text("Please Enter Any Message");
+           // }
+           // else if (storyDescription.length > 1000) {
+           //     event.preventDefault();
+           //     $("#storyDescriptionError").text("Message text cannot be longer than 1000 characters");
+
+           // }
+            // $("#ImgError").text("");
+
+            //var missionImage = $("#missionimg").val();
+
+            
+            //if(missionImage.length == 0)
+            //{
+            //    event.preventDefault();
+            //    $("#ImgError").text("Please Select at least one Image");
+            //}
+
+                    e.preventDefault();
+                    var selectElement = document.getElementById("selectskills");
+                    var selectedValues = Array.from(selectElement.selectedOptions).map(option => option.value);
+                    var files=dataUrls.map(file=>file.url);
+                    var docFiles = docUrls.map(file => file.URLS);
+                    var docNames=docName.map(file=>file.name);
+                    var videoUrls = $("#missionvideo").val();
+                    var valdata = $('#missionform').serializeArray().reduce(function (obj, item) {
+                        obj[item.name] = item.value;
+                        return obj;
+                    }, {});
+                    $.ajax({
+                        url: '/Admin/Admin/Mission',
+                        type: 'POST',
+                        data: { selectedValues: selectedValues, "dataUrls": files, "docFiles": docFiles, "docName": docNames, "videoUrls": videoUrls, missionView: valdata },
+                        success: function (result) {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle errors
+                        }
+                    });
+                     event.preventDefault();
+                });
+            });
+
+            var exampleModaladd = document.getElementById("ExampleModalAdd");
+            exampleModaladd.onclick=function(){
+                $('#missionId').val(''); $('#title').val(''); $('#sdescription').val(''); CKEDITOR.instances['CKeditor'].setData('');
+                $('#countryid').val(''); $('#cityid').val(''); $('#odetail').val(''); $('#sdate').val(''); $('#oname').val('');
+                $('#edate').val(''); $('#missiontype').val(''); $('#availseats').val(''); $('#deadline').val(''); $('#themeid').val('');
+                $('#availability').val(''); $('#missionvideo').val('');
+                $('#selectskills').find('option:selected').prop('selected', false);
+                dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
+            }
+
+            function addImage(dataUrl,id){
+                const imagePreview = document.querySelector('.image-preview');
+                const imageContainer = document.createElement('div');
+                const image = new Image();
+                const removeButton = document.createElement('button');
+                image.src = dataUrl;
+                imageContainer.classList.add('image-container');
+                image.dataset.id = id;
+                removeButton.classList.add('remove-button');
+                removeButton.innerHTML = '<span>X</span>';
+                imageContainer.appendChild(image);
+                imageContainer.appendChild(removeButton);
+                imagePreview.appendChild(imageContainer);
+                removeButton.addEventListener('click', function () {
+                    const index = dataUrls.findIndex(f => f.id === id);
+                    if (index !== -1) dataUrls.splice(index, 1);
+                    imageContainer.remove();
+                    input.value = ''; // Reset the file input field
+
+                    removeButton.addEventListener('click', function () {
+                        // Find the index of the file object in the array
+                        const index = dataUrls.findIndex(f => f.id === id);
+
+                        // If the file object exists in the array, remove it
+                        if (index !== -1) {
+                            dataUrls.splice(index, 1);
+                        }
+
+                        // Remove the image container from the preview
+                        imageContainer.remove();
+                        // Reset the file input field
+                        input.value = '';
+
+                    });
+
+                });
+            }
+
+            function addDocs(docurls,id){
+                const docPreview = document.querySelector(".doc-preview");
+                const doccontainer=document.createElement("div");
+                const p = document.createElement("p");
+                const removedocbtn=document.createElement('a');
+                doccontainer.classList.add("doc-container");
+                p.innerHTML=docurls;
+                p.dataset.id=id;
+                removedocbtn.classList.add("remove-docbtn","btn");
+                p.classList.add("mt-2");
+                removedocbtn.innerHTML = '<i class="bi bi-trash-fill text-danger p-0"></i>';
+                doccontainer.appendChild(p);
+                doccontainer.appendChild(removedocbtn);
+                docPreview.appendChild(doccontainer);
+                removedocbtn.addEventListener('click',function(){
+                    const index=docUrls.findIndex(f=>f.id===id);
+                    if(index!==-1)docUrls.splice(index,1);
+                    docName.splice(index,1);
+                    doccontainer.remove();
+                    inputdocs.value = '';
+                    removedocbtn.addEventListener('click',function(){
+                        const index = docUrls.findIndex(f => f.id === id);
+                        if(index!==-1){
+                            docUrls.splice(index,1);
+                            docName.splice(index,1);
+                        }
+                        doccontainer.remove();
+                        inputdocs.value='';
+                    });
+                });
+            }
+            var editor = CKEDITOR.instances.CKeditor;
+            editor.on('change', function () {
+                var editordata = editor.getData();
+                var misdesc = document.querySelector("#misdescription");
+                misdesc.value = editordata;
+            });
+
+            modalclose.onclick = function () {
+
+                myModal.style.display = "none";
+
+            };
+
+            function missionEdit(missionId){
+
+                $.ajax({
+                    url:'/Admin/Admin/MissionEdit',
+                    type:'POST',
+                    data:{missionId:missionId},
+                    success:function(result){
+                        console.log(result);
+                        myModal.classList.add("show");
+                        myModal.style.display = "block";
+                       var sdateElement = document.getElementById("sdate");
+                        var sdatelabelElement = document.getElementById("sdatelabel");
+                        
+                        dataUrls.length = 0; docUrls.length = 0; docName.length = 0; $('.image-preview').empty(); $('.doc-preview').empty();
+                        $('#missionvideo').val('');
+                        var mission=result.mission;
+                        var SkillId=result.missionSkillId;
+                        var missionUrl=result.missionUrl;
+                        var missiondoc=result.missiondoc;
+
+                        $('#missiontype').val(mission.missionType);
+                        if(mission.missionType=="Goal"){
+                      document.getElementById("GoalValue").style.display = "block";
+                       $('#gVlaue').val(mission.goalValue);
+                    document.getElementById("GoalObjectiveText").style.display = "block";
+                     $('#gTExt').val(mission.goalObjectiveText);
+                   
+                    document.getElementById("Deadline").style.display="none";
+                        
+                  }
+                        $('#missionId').val(mission.missionId); $('#title').val(mission.title); $('#sdescription').val(mission.shortDescription);
+                        CKEDITOR.instances['CKeditor'].setData(mission.description);
+                        $('#countryid').val(mission.countryId); $('#cityid').val(mission.cityId); $('#odetail').val(mission.organizationDetalis);
+                        var sdate = new Date(mission.startDate);
+                        var startDate = sdate.getFullYear() + "-" + (sdate.getMonth() + 1).toString().padStart(2, '0') + "-" + sdate.getDate().toString().padStart(2, '0');
+                        $('#sdate').val(startDate); $('#oname').val(mission.organizationName);
+                        var edate = new Date(mission.endDate);
+                        var endDate = edate.getFullYear() + "-" + (edate.getMonth() + 1).toString().padStart(2, '0') + "-" + edate.getDate().toString().padStart(2, '0');
+                        $('#edate').val(endDate); $('#mtype').val(mission.missionType); $('#availseats').val(mission.seatsAvailable);
+                        var ddate = new Date(mission.deadline);
+                        var deadlineDate = ddate.getFullYear() + "-" + (ddate.getMonth() + 1).toString().padStart(2, '0') + "-" + ddate.getDate().toString().padStart(2, '0');
+                        $('#deadline').val(deadlineDate); $('#themeid').val(mission.themeId); $('#availability').val(mission.availability);
+                        missionUrl.forEach(function (medium){
+                            if (medium.mediaType=="video"){
+                                $('#missionvideo').val(medium.mediaPath);
+                            }
+                            else{
+                                const id = Date.now();
+                                dataUrls.push({ url: medium.mediaPath, id });
+                                addImage(medium.mediaPath, id);
+                            }
+                        });
+
+                        SkillId.forEach(function(id){
+                            $('#selectskills').find('option[value="' + id + '"]').prop('selected', true);
+                        });
+                        missiondoc.forEach(function(doc){
+                            const id = Date.now();
+                            docUrls.push({ URLS: doc.docPath, id });
+                            docName.push({ name: doc.docName, id });
+                            addDocs(doc.docName, id);
+                        });
+
+                    },
+                    error:function(){
+                        alert("could not edit mission");
+                    }
+                });
+            }
+            function missionDelete(missionId){
+                $.ajax({
+                    url:'/Admin/Admin/MissionDelete',
+                    type:'POST',
+                    data:{missionId:missionId},
+                    success:function(result){
+                        Swal.fire(
+                            'Your Mission Is Deleted'
+                        ).then((res)=>{
+                            location.reload();
+                        })
+                    }
+                })
+            }
+             function missionDelete(missionId){
+                $.ajax({
+                    url:'/Admin/Admin/MissionDelete',
+                    type:'POST',
+                    data:{missionId:missionId},
+                    success:function(result){
+                        Swal.fire(
+                            'Your Mission Is Deleted'
+                        ).then((res)=>{
+                            location.reload();
+                        })
+                    }
+                })
+             }
+
+</script>
+<script>
+     $(function () {
+        
+        $('form').on('submit', function (event) {
+           
+           
+
+
+
+             $("#odetail").on("input", function () {
+            $("#storyDescriptionError").text("");
+            var storyImage = $(this).val();
+            if(goalAction.length == 0)
+            {
+                event.preventDefault();
+                $("#storyDescriptionError").text("Please Select at least one Image");
+            }
         });
-        $('#missionrecord').DataTable({
-            "ordering": false,
-            "lengthChange": false,
+            $("#storyDescriptionError").text("");
+
+            var storyImage = $("#odetail").val();
+
+            
+            if(storyImage.length == 0)
+            {
+                event.preventDefault();
+                $("#storyDescriptionError").text("Please Select at least one Image");
+            }
+
+
+
+
+
+
         });
-       // missionrecordbtn
-        var missionrecordFilter = document.getElementById("missionrecord_filter");
-        var button = document.createElement("button");
-        button.innerHTML=`<i class="bi bi-plus">Add</i>`;
-        button.classList.add("btn","btn-outline-warning","rounded-pill","addbtn");
-        button.setAttribute("data-bs-toggle","modal");
-        button.setAttribute("data-bs-target","#exampleModalmissionadd")
-        missionrecordFilter.appendChild(button);
-  //      const profileImgInput = document.querySelector('#profile-img-input');
-  //      profileImgInput.addEventListener('change', () => {
-  //  const file = profileImgInput.files[0];
-  //  if (file) {
-  //    const reader = new FileReader();
-  //    reader.addEventListener('load', () => {
-  //      profileImg.src = reader.result;
-  //    });
-  //    reader.readAsDataURL(file);
-  //  }
-  //});
-    </script>
+    });
+</script>
+ @section Scripts{
+        @{
+    <partial name="_ValidationScriptsPartial" />
+        }
+    }

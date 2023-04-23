@@ -229,13 +229,32 @@ namespace CIProjectweb.Areas.Admin.Controllers
             User user=_objIAdmin.EditUser(UserId);
             return Json(user);
         }
+       
         public IActionResult Mission()
         {
             HttpContext.Session.SetInt32("Nav", 2);
             ViewBag.nav = HttpContext.Session.GetInt32("Nav");
+            MissionView missionView = new MissionView();
             List<Mission> missions = _objIAdmin.allmission();
-            return View(missions);
+            List<MissionTheme> missionThemes = _objIAdmin.alltheme();
+            List<Country> countries = _objIAdmin.countries();
+            List<City> citys = _objIAdmin.cities();
+            List<Skill> skills = _objIAdmin.skilllist();
+            List<GoalMission> goalMissions = _objIAdmin.allgoalmissions();
+            missionView.goalmissions = goalMissions;
+            missionView.missions = missions;
+            missionView.missionThemes = missionThemes;
+            missionView.countries = countries;
+            missionView.citys = citys;
 
+            missionView.skills = skills;
+            return View(missionView);
+        }
+        [HttpPost]
+        public IActionResult Mission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls)
+        {
+            _objIAdmin.savemission(missionView, selectedValues, dataUrls, docFiles, docName, videoUrls);
+            return Json(null);
         }
         public IActionResult CMS()
         {
@@ -259,6 +278,116 @@ namespace CIProjectweb.Areas.Admin.Controllers
             CMSViewModel cmsPages = _objIAdmin.cmsrecordall();
             return View(cmsPages);
         }
+        public IActionResult Banner()
+        {
+            if (TempData.ContainsKey("Message"))
+            {
+                string msg = (string)TempData["Message"];
+                if (msg == "Successfully  Added!")
+                {
+                    // Success Toast
+                    _toastNotification.AddSuccessToastMessage(msg);
+                }
+                else
+                {
+                    // Success Toast
+                    _toastNotification.AddSuccessToastMessage(msg);
+                }
 
+            }
+            HttpContext.Session.SetInt32("Nav", 8);
+            ViewBag.nav = HttpContext.Session.GetInt32("Nav");
+            List<Banner> bannerViews2 = _objIAdmin.bannerlist();
+            BannerView bannerView = new BannerView();
+            bannerView.banners = bannerViews2;
+            return View(bannerView);
+        }
+        [HttpPost]
+        public IActionResult Banner(BannerView bannerView)
+        {
+            bool success = _objIAdmin.bannersave(bannerView); 
+            if (!success)
+            {
+
+                TempData["Message"] = "Update Successfully!";
+
+
+                return RedirectToAction("Banner", "Admin");
+            }
+            else
+            {
+                TempData["Message"] = "Successfully  Added!";
+                return RedirectToAction("Banner", "Admin");
+            }
+            
+            
+        }
+        [HttpPost]
+        public IActionResult BannerEdit(long bannerId)
+        {
+            var banner = _objIAdmin.banner(bannerId);
+            return Json(banner);
+        }
+        [HttpPost]
+        public IActionResult BannerDelete(long bannerId)
+        {
+            _objIAdmin.deletebanner(bannerId);
+            return Json(null);
+        }
+        public IActionResult Skill()
+        {
+            HttpContext.Session.SetInt32("Nav", 5);
+            ViewBag.nav = HttpContext.Session.GetInt32("Nav");
+            List<Skill> skills = _objIAdmin.skilllist();
+            SkillView skillView = new SkillView();
+            skillView.skills = skills;
+            return View(skillView);
+        }
+        [HttpPost]
+        public IActionResult Skill(SkillView skillView)
+        {
+            _objIAdmin.skillsave(skillView);
+            return RedirectToAction("Skill", "Admin");
+        }
+        [HttpPost]
+        public IActionResult SkillEdit(long skillId)
+        {
+            var skill = _objIAdmin.skilledit(skillId);
+            return Json(skill);
+        }
+        [HttpPost]
+        public IActionResult SkillDelete(long skillId)
+        {
+            bool success = _objIAdmin.deleteskill(skillId);
+            return Json(new { success = success });
+            
+        }
+        #region CountryByCityAdmin
+
+        public IActionResult CountryByCityAdmin(long CountryId)
+        {
+            var countryByCityAdmin = _objIAdmin.CountryByCityAdmin(CountryId);
+            return Json(new { data = countryByCityAdmin });
+        }
+
+        #endregion
+        [HttpPost]
+        public IActionResult MissionEdit(long missionId)
+        {
+            var mission = _objIAdmin.findmission(missionId);
+            List<MissionSkill> missionSkills = mission.missionSkill;
+            var skillId = missionSkills?.Select(ms => ms.SkillId).ToArray();
+            List<MissionMedium> missionMedia = mission.missionMedia;
+            var missionUrl = missionMedia?.Select(mm => new { MediaPath = mm.MediaPath, MediaType = mm.MediaType }).ToArray();
+            List<MissionDocument> missionDocuments = mission.missionDocuments;
+            var missiondoc = missionDocuments?.Select(md => new { DocName = md.DocumentName, DocPath = md.DocumentPath }).ToArray();
+            return Json(new { mission = mission, missionSkillId = skillId, missionUrl = missionUrl, missiondoc = missiondoc });
+        }
+        [HttpPost]
+        public IActionResult MissionDelete(long missionId)
+        {
+            _objIAdmin.deletemission(missionId);
+            return Json(null);
+        }
     }
 }

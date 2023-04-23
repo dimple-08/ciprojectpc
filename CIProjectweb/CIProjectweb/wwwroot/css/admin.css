@@ -116,13 +116,56 @@
     display: flex;
     margin-bottom: 2%;
 }
+#bannerrecord_filter {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 2%;
+}
+#skillrecord_filter {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    margin-bottom: 2%;
+}
 .profileimgcard {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     display: none;
 }
+.image-preview img {
+    width: 120px;
+    height: 120px;
+    margin-left: 10px;
+}
 
+.image-container {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.remove-button {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 109px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.doc-container {
+    display: flex;
+    border: 1px solid #F88634;
+    border-radius: 20px;
+}
 #profilecard {
     display: flex;
     justify-content: center;

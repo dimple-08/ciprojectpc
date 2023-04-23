@@ -83,5 +83,6 @@ namespace CIProjectweb.Repository.Repository.Interface
         public List<Timesheet> timesheetlistTime(int userId);
         public Timesheet findtimerecord(int timesheetid);
         public List<City> cities(long countryId);
+        public DisplayBannerModel LoadBannerGet();
     }
 }

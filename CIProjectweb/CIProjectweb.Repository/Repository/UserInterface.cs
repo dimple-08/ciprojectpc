@@ -961,6 +961,19 @@ namespace CIProjectweb.Repository.Repository
                 _objdb.SaveChanges();
             }
         }
+        #region LoadBanner
+
+        public DisplayBannerModel LoadBannerGet()
+        {
+            var banners = _objdb.Banners.Where(b => b.DeletedAt == null).ToList();
+            var sortedBanners = banners.OrderBy(b => b.SortOrder).ToList();
+            DisplayBannerModel bannerModel = new()
+            {
+                Banners = sortedBanners,
+            };
+            return bannerModel;
+        }
+        #endregion
         public bool Update_Rating(MissionRating ratingExists,string rating,int u_id,long missionId)
         {
             if (ratingExists != null)

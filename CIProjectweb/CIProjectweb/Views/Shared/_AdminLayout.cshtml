@@ -23,30 +23,31 @@
         <div id="sidebar-wrapper" style="background-color: #F88634;">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase">Navigation</div>
             <div class="list-group list-group-flush my-3">
-                <a id="User" asp-area="Admin" asp-controller="Admin" asp-action="Index" class="list-group-item list-group-item-action second-text @(ViewBag.nav == 1? "active":"bg-transparent")">
+                <button id="User" onclick="location.href='@Url.Action("Index", "Admin")'"class="list-group-item list-group-item-action second-text @(ViewBag.nav == 1? "active":"bg-transparent")">
                     <i class="bi bi-person-fill me-2"></i>User
-                </a>
-                <a   asp-area="Admin" asp-controller="Admin" asp-action="CMS" class="list-group-item list-group-item-action  @(ViewBag.nav == 3? "active":"bg-transparent") second-text">
+                </button>
+                <button  onclick="location.href='@Url.Action("CMS", "Admin")'" class="list-group-item list-group-item-action  @(ViewBag.nav == 3? "active":"bg-transparent") second-text">
                     <i class="bi bi-file-earmark-text-fill me-2"></i>CMS Page
-                </a>
-                <a asp-area="Admin" asp-controller="Admin" asp-action="Mission" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 2? "active":"bg-transparent")">
+                </button>
+                <button onclick="location.href='@Url.Action("Mission", "Admin")'" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 2? "active":"bg-transparent")">
                     <i class="bi bi-bullseye me-2"></i>Mission
-                </a>
-                <a asp-area="Admin" asp-controller="Admin" asp-action="Theme" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 4? "active":"bg-transparent")">
+                </button>
+                <button onclick="location.href='@Url.Action("Theme", "Admin")'" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 4? "active":"bg-transparent")">
                     <i class="bi bi-grid-1x2-fill me-2"></i>Mission Theme
-                </a>
-                <a href="#skill" class="list-group-item list-group-item-action  bg-transparent second-text">
+                </button>
+
+                <button onclick="location.href='@Url.Action("Skill", "Admin")'" class="list-group-item list-group-item-action   second-text @(ViewBag.nav == 5? "active":"bg-transparent")">
                     <i class="bi bi-tools me-2"></i>Mission Skill
-                </a>
-                <a  asp-area="Admin" asp-controller="Admin" asp-action="Application" class="list-group-item list-group-item-action second-text @(ViewBag.nav == 6? "active":"bg-transparent")" >
+                </button>
+                <button  onclick="location.href='@Url.Action("Application", "Admin")'" class="list-group-item list-group-item-action second-text @(ViewBag.nav == 6? "active":"bg-transparent")" >
                     <i class="bi bi-folder-fill me-2"></i>Mission Application
-                </a>
-                <a asp-area="Admin" asp-controller="Admin" asp-action="Story" class="list-group-item list-group-item-action   @(ViewBag.nav == 7? "active":"bg-transparent") second-text">
+                </button>
+                <button onclick="location.href='@Url.Action("Story", "Admin")'" class="list-group-item list-group-item-action   @(ViewBag.nav == 7? "active":"bg-transparent") second-text">
                     <i class="bi bi-bookmark-star-fill me-2"></i>Story
-                </a>
-                <a href="#banner" class="list-group-item list-group-item-action  bg-transparent second-text ">
+                </button>
+                <button onclick="location.href='@Url.Action("Banner", "Admin")'" class="list-group-item list-group-item-action   @(ViewBag.nav == 8? "active":"bg-transparent") second-text">
                     <i class="bi bi-book-fill me-2"></i>Banner Management
-                </a>
+                </button>
             </div>
         </div>
          <div id="page-content-wrapper">
@@ -87,6 +88,7 @@
      
     <script src="~/js/AdminPartialRender.js"></script>
     @await Component.InvokeAsync("NToastNotify")
+    @await RenderSectionAsync("Scripts", required: false)
     </html>
     
       

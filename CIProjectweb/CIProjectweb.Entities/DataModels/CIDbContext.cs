@@ -116,8 +116,7 @@ public partial class CIDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Image)
-                .HasMaxLength(512)
-                .IsUnicode(false)
+                .HasColumnType("text")
                 .HasColumnName("image");
             entity.Property(e => e.SortOrder)
                 .HasDefaultValueSql("((0))")
@@ -454,8 +453,7 @@ public partial class CIDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("document_name");
             entity.Property(e => e.DocumentPath)
-                .HasMaxLength(255)
-                .IsUnicode(false)
+                .HasColumnType("text")
                 .HasColumnName("document_path");
             entity.Property(e => e.DocumentType)
                 .HasMaxLength(255)
@@ -527,8 +525,7 @@ public partial class CIDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("media_name");
             entity.Property(e => e.MediaPath)
-                .HasMaxLength(255)
-                .IsUnicode(false)
+                .HasColumnType("text")
                 .HasColumnName("media_path");
             entity.Property(e => e.MediaType)
                 .HasMaxLength(50)
@@ -831,7 +828,7 @@ public partial class CIDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Department)
-                .HasMaxLength(100)
+                .HasMaxLength(16)
                 .IsUnicode(false)
                 .HasColumnName("department");
             entity.Property(e => e.Email)
@@ -855,7 +852,7 @@ public partial class CIDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("linked_in_url");
             entity.Property(e => e.ManagerDetail)
-                .HasMaxLength(500)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("manager_detail");
             entity.Property(e => e.Password)

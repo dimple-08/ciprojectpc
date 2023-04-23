@@ -47,7 +47,7 @@
                             <div class="modal-content" style="height: 50%;">
                                 <div class="modal-header" style="background-color: white; color: black;">
                                     <h2>Change Password</h2>
-                                    <span class="close" style="color:black;">&times;</span>
+                                    <span class="close" onClick="window.location.reload();" style="color:black;">&times;</span>
 
                                 </div>
                                 <div class="modal-body">
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="modal-footer" style="background-color: white; color: black;">
 
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onClick="window.location.reload();">Cancel</button>
                                     <button type="button" class="btn btn-primary" onclick="changePass();">Save</button>
                                 </div>
                             </div>
@@ -492,15 +492,15 @@ const regexPattern = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[
     document.getElementById("errorContainerOld").textContent = "Old password is required";
      errorContainer.style.color = "red";
   }
-  else if(confp === null || confp === ""){
+  if(confp === null || confp === ""){
       document.getElementById("errorContainer").textContent = "Confirm password is required";
      errorContainer.style.color = "red";
   }
-  else if(newp === null || newp === ""){
+  if(newp === null || newp === ""){
        document.getElementById("errorContainerNew").textContent = "New password is required";
      errorContainer.style.color = "red";
   }
-  else if(!regexPattern.test(newp)){
+ if(!regexPattern.test(newp)){
       document.getElementById("errorContainerNew").textContent = "Password must meet the minimum strength requirements.";;
      errorContainer.style.color = "red";
   }

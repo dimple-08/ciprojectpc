@@ -501,8 +501,9 @@ namespace CI_Plateform.Controllers
             card.goalMission = _db.GoalMissions.FirstOrDefault(x => x.MissionId == mission.MissionId);
             if (card.goalMission != null)
             {
+                float action = (float)(_db.Timesheets.Where(x => x.MissionId == mission.MissionId && x.DeletedAt == null).Select(x=> x.Action).Sum());
                 float totalGoal = card.goalMission.GoalValue;
-                card.progressBar = totalGoal;
+                card.progressBar = action*100/totalGoal;
             }
             card.missionApplied = _db.MissionApplications.FirstOrDefault(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.ApprovalStatus=="ACCEPT") != null ? 1 : 0;
             card.approvalPending = _db.MissionApplications.FirstOrDefault(x => x.MissionId == mission.MissionId && x.UserId == u_id

@@ -23,18 +23,24 @@
                                     <div class="modal-content">
                                       <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">CMS Add</h5>
-                                        <button type="button"   class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button"  onClick="window.location.reload();" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
                                         <label for="title">Page Title</label>
                                         <input type="text" asp-for="Title" id="Title" class="form-control" placeholder="Enter page title">
+                                        <span asp-validation-for="Title" class="text-danger"></span>
+                                        <br />
                                         <input type="hidden" asp-for="CmsPageId" id="cmsId"/>
                                         <label for="page description" class="mt-2">Page Description</label>
                                         <textarea name="Description" id="editor2" asp-for="Description" class="form-control"></textarea>
-
+                                        <span asp-validation-for="Description" class="text-danger"></span>
+                                       
+                                        <span class="text-danger" id="storyDescriptionError" style="font-size:16px"></span>
+                                         <br />
                                         <label for="slug" class="mt-2">Slug</label>
                                         <input type="text" id="slug" asp-for="Slug" class="form-control" placeholder="Enter slug">
-
+                                        <span asp-validation-for="Slug" class="text-danger d-flex"></span>
+                                         <br />
                                         <label for="status" class="mt-2">Status</label>
                                        
                                          <select id="status" asp-for="Status" class="form-control form-select">
@@ -43,9 +49,10 @@
                                             <option value=false>In-Active</option>
                                             
                                         </select>
+                                        <span asp-validation-for="Status" class="text-danger"></span>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" id="modalclose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" onClick="window.location.reload();" id="modalclose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                       </div>
                                     </div>
@@ -283,3 +290,47 @@ Examplemodal.onclick = function () {
 })
         }
     </script>
+    <script>
+    $(function () {
+         var editor = CKEDITOR.instances.editor2;
+
+// Bind the change event to the CKEditor instance
+editor.on('change', function() {
+  // Your onchange event handling code here
+    $("#storyDescriptionError").text("");
+
+            var storyDescription = editor.getData();
+
+            if (storyDescription.length == 0) {
+           
+                $("#storyDescriptionError").text("Please Enter Any Message");
+            }
+            else if (storyDescription.length > 1000) {
+              
+                $("#storyDescriptionError").text("Message text cannot be longer than 1000 characters");
+
+            }
+});
+        $('form').on('submit', function (event) {
+           
+            $("#storyDescriptionError").text("");
+
+           var storyDescription = editor.getData();
+
+            if (storyDescription.length == 0) {
+                event.preventDefault();
+                $("#storyDescriptionError").text("Please Enter Any Message");
+            }
+            else if (storyDescription.length > 1000) {
+                event.preventDefault();
+                $("#storyDescriptionError").text("Message text cannot be longer than 1000 characters");
+
+            }
+        });
+    });
+    </script>
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }

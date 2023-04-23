@@ -66,9 +66,20 @@ namespace CIProjectweb.Controllers
             {
                 ViewBag.AlertMessage = TempData["Message"];
             }
+
             return View();
         }
+        #region LoadBanner
 
+        [HttpPost]
+
+        public IActionResult LoadBanner()
+        {
+            var banner =_objUserInterface.LoadBannerGet();
+            return Json(new { data = banner });
+        }
+
+        #endregion
         #region Login
         [HttpPost]
         public IActionResult Login(LoginViewModel objlogin)
@@ -98,8 +109,9 @@ namespace CIProjectweb.Controllers
                         int u_id = int.Parse(userId);
                         User user = _objILogin.GetUsers(u_id);
                     HttpContext.Session.SetString("Avtar", user.Avatar == null ? "/images/user1.png" : user.Avatar);
+                    HttpContext.Session.SetString("Email", user.Email == null ? "Please provide email" : user.Email);
                     // Generate URL for the Index action in the Admin area
-    string areaUrl = Url.Action("Index", "Admin", new { area = "Admin",id=user.UserId });
+                    string areaUrl = Url.Action("Index", "Admin", new { area = "Admin",id=user.UserId });
 
                     // Redirect to the URL
                     

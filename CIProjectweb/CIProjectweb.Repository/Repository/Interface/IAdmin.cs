@@ -34,6 +34,25 @@ namespace CIProjectweb.Repository.Repository.Interface
         public void reject(long storyId);
         public void approve(long storyId);
         public void delete(long storyId);
+        public List<Banner> bannerlist();
 
+        public Banner banner(long bannerId);
+
+        public bool bannersave(CIProjectweb.Entities.AdminViewModel.BannerView bannerView);
+        public void deletebanner(long bannerId);
+
+
+        public List<Skill> skilllist();
+        public List<GoalMission> allgoalmissions();
+        public List<City> CountryByCityAdmin(long CountryId);
+        public Skill skilledit(long skillId);
+
+        public bool deleteskill(long skillId);
+
+        public void skillsave(CIProjectweb.Entities.AdminViewModel.SkillView skillView);
+        public MissionView findmission(long missionId);
+        public void deletemission(long missionId);
+
+        public void savemission(MissionView missionView, string[] selectedValues, string[] dataUrls, string[] docFiles, string[] docName, string videoUrls);
     }
 }
