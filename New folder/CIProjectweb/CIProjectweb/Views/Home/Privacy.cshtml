@@ -1,85 +1,113 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
-     Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
+    Layout = "~/Views/Shared/_HeaderLayoutcshtml.cshtml";
 }
-
+@model List<CIProjectweb.Entities.DataModels.CmsPage>
 
 <style>
     .content-section {
     display: none;
-}
-
-#content {
-    padding: 20px;
-    background-color: #fff;
-}
-
-    #content .active {
-        display: block;
     }
 
-.menu-link {
+    #content {
+    padding: 20px;
+    background-color: #fff;
+    }
+
+    #content .active {
+    display: block;
+    }
+
+    .menu-link {
     display: block;
     padding: 5px 10px;
     text-decoration: none;
     font-size: 16px;
     color: #333;
-}
+    }
 
     .menu-link.active {
-        background-color: #007bff;
-        color: #fff;
+    background-color: #007bff;
+    color: #fff;
     }
-  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
     width: 99%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-}
+    }
+    @{
+        int i = 0;
+        int d = 0;
+    }
 </style>
   <div class="container" style="width:99%;">
         <h2>Privacy and Cookies Policy</h2>
         <div class="row mt-3">
             <div class="col-lg-3 col-md-4 col-sm-12">
                 <div id="nav">
-                    <div class="d-flex">
+                    @foreach (var item in Model)
+                {
+                    @if(item.DeletedAt==null && item.Status==true){
+                         @if(i==0){
+                        <div class="d-flex">
                         <div class="w-75">
-                            <a href="#introduction" class="menu-link active text-decoration-none">Introduction</a>
+                            <a href="#@($"section-{GetSafeId(item.Title)}")" class="menu-link active text-decoration-none">@item.Title</a>
+                        </div>
+                        <div>
+                            <i class="bi bi-chevron-right "></i>
+                        </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                         <div class="d-flex">
+                        <div class="w-75">
+                            <a href="#@($"section-{GetSafeId(item.Title)}")" class="menu-link  text-decoration-none">@item.Title</a>
                         </div>
                         <div>
                             <i class="bi bi-chevron-right "></i>
                         </div>
                     </div>
-                    <div class="d-flex mt-2 ">
-                        <div class="w-75">
-                            <a href="#cookies" class="menu-link text-decoration-none">How does use cookies?</a>
-                        </div>
-                        <div>
-                            <i class="bi bi-chevron-right me-2 "></i>
-                        </div>
-                    </div>
-                    <div class="d-flex mt-2">
-                        <div class="w-75">
-                            <a href="#preferences" class="menu-link text-decoration-none">How to manage your cookie preferences?</a>
-                        </div>
-                        <div>
-                            <i class="bi bi-chevron-right me-2"></i>
-                        </div>
-                    </div>
+                    }
+                    }
+                   
+                   
+                    i++;
+                }
+                   
+                    
                 </div>
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12">
                 <div id="content" class="p-0">
-                    <section id="introduction" class="content-section active" style="
-    width: 95%;
-">
-                        <h2>Introduction</h2>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic, in numquam cum soluta sapiente animi, iusto mollitia a aliquam suscipit voluptatem deserunt blanditiis laboriosam minima ut ab alias nulla perferendis adipisci impedit dignissimos eligendi nisi rerum! Fugit illo dolorum ad pariatur qui beatae voluptatem error, ab fuga! Tempora ea laboriosam porro voluptatem nobis inventore totam quos minima magni praesentium consequatur ullam, itaque similique aperiam velit asperiores amet blanditiis repudiandae eligendi odio sapiente nisi commodi iste. Officia, nemo obcaecati reprehenderit quasi dolores numquam suscipit dolore eum distinctio assumenda, quam exercitationem! Amet aspernatur natus fugiat, ea qui cumque ducimus ad nobis illum! <br /> <br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt asperiores porro, repellat maxime earum iusto? Ad suscipit reiciendis fugiat, temporibus culpa pariatur quidem minus repudiandae? Quae voluptatum neque recusandae sequi, iste earum, doloremque, exercitationem modi necessitatibus unde nobis magni. Neque nemo, optio amet quisquam quae sed assumenda? Repudiandae voluptatum modi sunt inventore quas quo a incidunt, temporibus perferendis autem ipsam eveniet veniam, rerum porro alias architecto dignissimos sapiente id fuga consequatur voluptatem beatae odio amet nisi. Perferendis beatae vero est? </p>
+                   
+                @foreach(var item in Model){
+                    @if (item.DeletedAt == null && item.Status == true)
+                    {
+                         @if(d==0){
+                        <section id="@($"section-{GetSafeId(item.Title)}")"  class="content-section active" style="width: 95%">
+                        <h2>@item.Title</h2>
+                        <p>@Html.Raw(@item.Description)</p>
                     </section>
-                    <section id="cookies" class="content-section" style="
-    width: 95%;
-">
+                   
+                    }
+                    else{
+                        <section id="@($"section-{GetSafeId(item.Title)}")"  class="content-section " style="width: 95%;">
+                        <h2>@item.Title</h2>
+                        <p>@Html.Raw(@item.Description)</p>
+                    </section>
+                    }
+                       
+                    }
+                   
+                     
+                     d++;
+                }
+              @*  <section id="cookies" class="content-section" style="width: 95%;">
                         <h2>How does use cookies?</h2>
                         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic, in numquam cum soluta sapiente animi, iusto mollitia a aliquam suscipit voluptatem deserunt blanditiis laboriosam minima ut ab alias nulla perferendis adipisci impedit dignissimos eligendi nisi rerum! Fugit illo dolorum ad pariatur qui beatae voluptatem error, ab fuga! Tempora ea laboriosam porro voluptatem nobis inventore totam quos minima magni praesentium consequatur ullam, itaque similique aperiam velit asperiores amet blanditiis repudiandae eligendi odio sapiente nisi commodi iste. Officia, nemo obcaecati reprehenderit quasi dolores numquam suscipit dolore eum distinctio assumenda, quam exercitationem! Amet aspernatur natus fugiat, ea qui cumque ducimus ad nobis illum! <br /> <br />Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt asperiores porro, repellat maxime earum iusto? Ad suscipit reiciendis fugiat, temporibus. </p>
                         <p>Here you can write about how visitors can manage their cookie preferences on your website.</p>
@@ -105,11 +133,19 @@
                         <h5>The fifth heading.</h5>
                         <h6>The sixth heading.</h6>
                         <p>reiciendis consequuntur magnam provident ab laboriosam odit qui cumque dolorem, ut ducimus at, laudantium aut dolorum saepe commodi obcaecati. Explicabo architecto magni quam, aliquam maxime temporibus fugit pariatur non nulla! Repellat magni dolor expedita illo iusto! Quam eaque laborum nisi impedit sint aut ratione ut exercitationem non eveniet ipsum facere quibusdam vel voluptatem ea distinctio eius iure ad aperiam, quo facilis illum perspiciatis officiis.</p>
-                    </section>
+                    </section>*@
                 </div>
             </div>
         </div>
     </div>
+    @functions {
+    string GetSafeId(string value)
+    {
+        // Replace special characters with hyphen (-) and remove spaces
+        value = value.Replace(" ", "-").Replace("'", "").Replace("\"", "").Replace(".", "-").Replace(",", "-").Replace("?", "-").Replace("!", "-");
+        return value;
+    }
+}
         <script>
         const menuLinks = document.querySelectorAll('.menu-link');
         const contentSections = document.querySelectorAll('.content-section');

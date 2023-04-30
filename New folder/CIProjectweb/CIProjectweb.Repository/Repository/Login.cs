@@ -41,11 +41,11 @@ namespace CIProjectweb.Repository.Repository
         }
         public int validateUser(LoginViewModel objlogin)
         {
-            var user = _objdb.Users.Where(a => a.Email.Equals(objlogin.Email)).FirstOrDefault();
+            var user = _objdb.Users.Where(a => a.Email.Equals(objlogin.Email) ).FirstOrDefault();
             if (user != null)
             {
 
-                var obj = _objdb.Users.Where(a => a.Email.Equals(objlogin.Email) && a.Password.Equals(objlogin.Password)).FirstOrDefault();
+                var obj = _objdb.Users.Where(a => a.Email.Equals(objlogin.Email) && a.Password.Equals(objlogin.Password) && a.Status == true && a.DeletedAt == null).FirstOrDefault();
                 if (obj != null)
                 {
                     return (int)obj.UserId;
@@ -65,7 +65,7 @@ namespace CIProjectweb.Repository.Repository
 
         public List<User> Users(int id)
         {
-            return _objdb.Users.Where(u=>u.UserId!=id).ToList();
+            return _objdb.Users.Where(u=>u.UserId!=id && u.DeletedAt==null && u.Status==true).ToList();
         }
     }
 }

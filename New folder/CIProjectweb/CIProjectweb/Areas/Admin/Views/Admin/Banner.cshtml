@@ -1,0 +1,346 @@
+﻿@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    var i = 0;
+}
+@model CIProjectweb.Entities.AdminViewModel.BannerView
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+
+
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        
+           <div class="container-fluid px-4">
+                <div id="content">
+                    <section id="banner" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Banners</span>
+                        </div>
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form asp-area="Admin" asp-controller="Admin" asp-action="Banner" method="post">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" onClick="window.location.reload();" aria-label="Close" id="bannerclose"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="BannerId" asp-for="BannerId" id="bannerid" />
+                                            <label for="title">BannerText</label>
+                                            <textarea class="form-control" placeholder="Enter banner text" name="Text" asp-for="Text" id="text"></textarea>
+                                             <span asp-validation-for="Text" class="text-danger"></span>
+                                             <br />
+                                             
+                                            <label for="image">Select Image</label>
+                                            <input type="file" class="form-control" id="profile-img-input"/>
+                                            <input type="hidden" id="imgurl" name="Image" asp-for="Image" />
+                                             <span asp-validation-for="Image" class="text-danger"></span>
+                                             <span class="text-danger" id="ImgError" style="font-size:16px"></span>
+                                              <br />
+                                            <label for="order">Sort Order</label>
+                                            <input type="text" class="form-control" id="sortorder" name="SortOrder" onfocusout="checkbanner()" asp-for="SortOrder"/>
+                                             <span asp-validation-for="SortOrder" class="text-danger"></span>
+                                             <span id="SkillError" class="text-danger"></span>
+                                              
+                                             <br />
+                                            <div id="bannerpreview" style="width:100%; margin-top:10px;">
+                                                <img src=""  class="bannerimg"/>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary rounded-pill" onClick="window.location.reload();" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-orange rounded-pill">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="bannerrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">BannerText</th>
+                                        <th scope="col"> Image </th>
+                                        <th scope="col">Sort Order</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.banners)
+                                    {
+                                        i = i + 1;
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <td>@item.Text.Substring(0,100)</td>
+                                            <td ><image src="@item.Image" style="width: 100px; height: 79px;" ></image></td>
+                                            <td>@item.SortOrder</td>
+                                            <td>
+                                                <a type="button" class="border-0" onclick="bannerEdit(@item.BannerId)">
+                                                    <i class="bi bi-pencil-square text-warning"></i>
+                                                </a>
+                                                <a type="button" class="border-0 ms-2" onclick="bannerDelete(@item.BannerId)">
+                                                    <i class="bi bi-trash-fill text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                      <section id="cmspage" class="row my-5 content-section">
+            <h3>CMS Page</h3>
+        </section>
+        <section id="mission" class="row my-5 content-section">
+            <h3>Mission</h3>
+        </section>
+        <section id="theme" class="row my-5 content-section">
+            <h3>Mission Theme</h3>
+        </section>
+        <section id="skill" class="row my-5 content-section">
+            <h3>Mission Skill</h3>
+        </section>
+        <section id="application" class="row my-5 content-section">
+            <h3>Mission Application</h3>
+        </section>
+        <section id="story" class="row my-5 content-section">
+            <h3>Story</h3>
+        </section>
+        <section id="banner" class="row my-5 content-section">
+            <h3>Banner Management</h3>
+        </section>
+                </div>
+            </div>
+     
+    <!-- /#page-content-wrapper -->
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime = document.getElementById("dashboadtime");
+        var bannerimg = document.querySelector(".bannerimg");
+        var bannerpreview=document.getElementById("bannerpreview");
+        var imgurl = document.getElementById("imgurl");
+        var modalclose=document.getElementById("bannerclose");
+        var myModal = document.getElementById("exampleModaladd");
+        function currentTime() {
+            var time = new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML = dateString + ' ' + timeString;
+            let t = setTimeout(function () { currentTime() }, 1000);
+        }
+        currentTime();
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        const menulink = document.querySelectorAll(".list-group-item");
+
+        menulink.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                menulink.forEach((link) => {
+                    link.classList.remove('active');
+                });
+                link.classList.add('active');
+            });
+        });
+
+        // user record
+        $(document).ready(function () {
+            $('#bannerrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $('#bannerrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+
+
+        // bannerrecordbtn
+        var bannerrecordFilter = document.getElementById("bannerrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML = `<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("id", "ExampleModalAdd");
+        button.setAttribute("data-bs-target", "#exampleModaladd")
+        bannerrecordFilter.appendChild(button);
+
+
+        const profileImgInput = document.querySelector('#profile-img-input');
+        profileImgInput.addEventListener('change', () => {
+            const file = profileImgInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                    imgurl.value = reader.result;
+                    bannerimg.style.display = "flex";
+                    bannerimg.style.width="20%";
+                    bannerimg.src = reader.result;
+                });
+                reader.readAsDataURL(file);
+            }
+           
+        });
+        function bannerEdit(bannerId) {
+            $.ajax({
+                url:'/Admin/Admin/BannerEdit',
+                type:'POST',
+                data: { bannerId: bannerId },
+                success:function(result){
+                    myModal.classList.add("show");
+                    myModal.style.display = "block";
+                    document.getElementById("text").value=result.text;
+                    document.getElementById("bannerid").value=result.bannerId;
+                    document.getElementById("sortorder").value=result.sortOrder;
+                    bannerimg.style.display = "flex";
+                    bannerimg.style.width="20%";
+                    imgurl.value =result.image;
+                    bannerimg.src=result.image;
+                }
+            });
+        }
+
+        modalclose.onclick = function () {
+
+            myModal.style.display = "none";
+
+        };
+
+        var exampleModaladd = document.getElementById("ExampleModalAdd");
+        exampleModaladd.onclick = function () {
+            document.getElementById("text").value = '';
+            document.getElementById("bannerid").value = '';
+            document.getElementById("sortorder").value = '';
+            imgurl.value = '';
+            bannerimg.style.display = "none";
+            profileImgInput.value='';
+        }
+        function bannerDelete(bannerId) {
+            const swalWithBootstrapButtons = Swal.mixin({
+               customClass: {
+            confirmButton: 'btn btn-orange rounded-pill ms-2',
+            cancelButton: 'btn btn-secondary rounded-pill'
+        },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/Admin/Admin/BannerDelete',
+                        type: 'POST',
+                        data: { bannerId: bannerId },
+                        success: function (result) {
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                            ).then((res) => {
+                                location.reload();
+                            });
+                        }
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled'
+                    )
+                }
+            })
+        }
+        $(function () {
+            
+        $('form').on('submit', function (event) {
+
+            $("#profile-img-input").on("input", function () {
+            $("#ImgError").text("");
+            var storyImage = $("#profile-img-input").val();
+           
+            
+            if(storyImage.length == 0)
+            {
+                event.preventDefault();
+                $("#ImgError").text("Please Select at least one Image");
+            }
+        });
+            $("#ImgError").text("");
+
+            var storyImage = $("#imgurl").val();
+
+            
+            if(storyImage.length == 0)
+            {
+                event.preventDefault();
+                $("#ImgError").text("Please Select at least one Image");
+            }
+        });
+    });
+    function checkbanner()
+{
+     var order = $("#sortorder").val();
+     var banner =  document.getElementById("bannerid").value;
+  
+     if(banner==""){
+            // Make an AJAX call
+    $.ajax({
+      type: 'POST',
+      url: '/Admin/Admin/CheckBanner',
+      data: {order: order, banner: banner},
+      success: function(result) {
+          if(result.success){
+                   $("#SkillError").text("Banner With this order exists.");
+                   setTimeout(function(){
+        $("#SkillError").text("");
+    }, 2000); 
+                }
+                else{
+                       $("#SkillError").text("");
+                }
+      },
+      error: function() {
+        console.log('Error occurred while making AJAX call');
+      }
+    });
+     }
+ 
+}
+
+    </script>
+  @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }

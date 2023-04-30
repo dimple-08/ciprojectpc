@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CIProjectweb.Entities.DataModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,8 +49,8 @@ namespace CIProjectweb.Entities.ViewModels
 
         public string Country { get; set; } = null!;
         public string? MediaPath { get; set; }
-        public MissionCardModel? missionCardModel { get; set; } 
-
+        public MissionCardModel? missionCardModel { get; set; }
+        public List<MissionMedium>? Media { get; set; }
         public List<String?> MediaPaths { get; set; }
 
         public List<String?> UserNames { get; set; }
@@ -59,10 +60,11 @@ namespace CIProjectweb.Entities.ViewModels
         public bool isApplied { get; set; }
         public int ratingCount { get; set; }
         public bool isPending { get; set; }
-        public int GoalValue { get; set; }
+        public float? GoalValue { get; set; }
         public string? GoalObjectiveText { get; set; }
         public int Rating { get; set; }
         public float? avgRating { get; set; }
+        public float? progressBar { get; set; }
         public DateTime? deadline { get; set; }
 
         public List<String?> skill { get; set; }

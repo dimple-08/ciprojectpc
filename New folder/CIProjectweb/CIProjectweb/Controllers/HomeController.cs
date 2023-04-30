@@ -48,9 +48,12 @@ namespace CIProjectweb.Controllers
 
         }
 
-        public IActionResult Privacy()
+        public IActionResult Privacy(string slug)
         {
-            return View();
+            List<CmsPage> list = _db.CmsPages.Where(cms => cms.Slug == slug && cms.DeletedAt==null && cms.Status==true).ToList();
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+
+            return View(list);
         }
 
 
@@ -64,9 +67,20 @@ namespace CIProjectweb.Controllers
             {
                 ViewBag.AlertMessage = TempData["Message"];
             }
+
             return View();
         }
+        #region LoadBanner
 
+        [HttpPost]
+
+        public IActionResult LoadBanner()
+        {
+            var banner =_objUserInterface.LoadBannerGet();
+            return Json(new { data = banner });
+        }
+
+        #endregion
         #region Login
         [HttpPost]
         public IActionResult Login(LoginViewModel objlogin)
@@ -75,6 +89,10 @@ namespace CIProjectweb.Controllers
             {
                
                 int validate = _objILogin.validateUser(objlogin);
+                HttpContext.Session.SetString("UserId", validate.ToString());
+                var userId = HttpContext.Session.GetString("UserId");
+                int u_id = int.Parse(userId);
+                User user = _objILogin.GetUsers(u_id);
                 var name = _objILogin.getUserName(objlogin);
                 if (name != null)
                 {
@@ -82,28 +100,42 @@ namespace CIProjectweb.Controllers
                 }
                 if (validate!=0)
                 {
-
-               
-
                     var identity = new ClaimsIdentity(new[] {new Claim(ClaimTypes.Name,objlogin.Email)},CookieAuthenticationDefaults.AuthenticationScheme);
                     var principal=new ClaimsPrincipal(identity);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,principal);
-
-                    HttpContext.Session.SetString("UserId", validate.ToString());
-                    var userId = HttpContext.Session.GetString("UserId");
-
-                   
-                        int u_id = int.Parse(userId);
-                        User user = _objILogin.GetUsers(u_id);
                     HttpContext.Session.SetString("Avtar", user.Avatar == null ? "/images/user1.png" : user.Avatar);
+                    HttpContext.Session.SetString("Email", user.Email == null ? "Please provide email" : user.Email);
+                    // Generate URL for the Index action in the Admin area
+                    string areaUrl = Url.Action("Index", "Admin", new { area = "Admin",id=user.UserId });
 
+                    // Redirect to the URL
+                    
+                    if (user.Role == "Admin")
+                    {
+                        HttpContext.Session.SetString("User", name);
+                        return Redirect(areaUrl);
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("LandingPage", "Mission");
+                    }
                     //Session["UserName"] = listofuser.username.ToString();
-                    return RedirectToAction("LandingPage","Mission");
+                   
                 }
                 else
                 {
-                    ModelState.AddModelError("Email", "Your credentials are wrong");
-                    return View(objlogin);
+                    if (user==null)
+                    {
+                        ModelState.AddModelError("Email", "User don't exists.");
+                        return View(objlogin);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Email", "Your credentials are wrong");
+                        return View(objlogin);
+                    }
+                   
                 }
 
             }
@@ -367,6 +399,7 @@ namespace CIProjectweb.Controllers
                 ViewBag.user=user;
                 ViewBag.documents=missiondocument;
                 ViewBag.RelatedMission = relatedmission;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
                 int pageSize = 2; // Set the page size to 9
                 var volunteers = listVolunteering; // Retrieve all volunteers from data source
                 int totalCount = volunteers.Count(); // Get the total number of volunteers
@@ -406,6 +439,7 @@ namespace CIProjectweb.Controllers
                 ViewBag.documents = missiondocument;
                 ViewBag.comment = commentList;
                 ViewBag.Users=userlist;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
                 ViewBag.RelatedMission = relatedmission;
                 int pageSize = 2; // Set the page size to 9
                 var volunteers = listVolunteering; // Retrieve all volunteers from data source
@@ -444,6 +478,7 @@ namespace CIProjectweb.Controllers
                 ViewBag.recent = listVolunteering;
                 ViewBag.Users = userlist;
                 ViewBag.comment = commentList;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
                 ViewBag.RelatedMission = relatedmission;
                 int pageSize = 2; // Set the page size to 9
                 var volunteers = listVolunteering; // Retrieve all volunteers from data source
@@ -522,49 +557,66 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public async Task<IActionResult> SendRec(int missionId, string[] ToMail )
         {
-            var u_id = HttpContext.Session.GetString("UserId");
-            if( u_id!=null) {
-                int uIds = int.Parse(u_id);
-                var FromUser = _objILogin.GetUsers(uIds);
-                foreach (var item in ToMail)
+            try
+            {
+                var u_id = HttpContext.Session.GetString("UserId");
+                if (u_id != null)
                 {
-                    var uId = _objUserInterface.getuserEmail(item);
-                    
-                    var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = missionId, usersid = uId.UserId });
-                    var fromAddress = new MailAddress(FromUser.Email,FromUser.FirstName);
-                    var toAddress = new MailAddress(item);
-        ;
-                    var subject = "Message For Recommand Mission";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    int uIds = int.Parse(u_id);
+                    var FromUser = _objILogin.GetUsers(uIds);
+                    foreach (var item in ToMail)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
-                   
-                    
+                        var uId = _objUserInterface.getuserEmail(item);
+
+                        var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = missionId, usersid = uId.UserId });
+                        var fromAddress = new MailAddress(FromUser.Email, FromUser.FirstName);
+                        var toAddress = new MailAddress(item);
+                        ;
+                        var subject = "Message For Recommand Mission";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
+
+
                         MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)uId.UserId, missionId);
                         bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)uId.UserId, missionId);
-                    
-                   
-                    
-                    
+
+
+
+
+                    }
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false });
                 }
 
-                 return Json(new { success = true });
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+
 
         }
 
@@ -575,50 +627,65 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult RecomandUser(string EmailId, int MissionId)
         {
-            var u_id = HttpContext.Session.GetString("UserId");
-            if (u_id != null)
+            try
             {
-                int uIds = int.Parse(u_id);
-                var FromUser = _objILogin.GetUsers(uIds);
-                var recomandUser = _objUserInterface.getuserEmail(EmailId);
-                if (recomandUser != null)
+                var u_id = HttpContext.Session.GetString("UserId");
+                if (u_id != null)
                 {
-
-
-                    var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
-                    var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
-                    var toAddress = new MailAddress(EmailId)
-        ;
-                    var subject = "Message For Recommand Mission";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    int uIds = int.Parse(u_id);
+                    var FromUser = _objILogin.GetUsers(uIds);
+                    var recomandUser = _objUserInterface.getuserEmail(EmailId);
+                    if (recomandUser != null)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
-                    MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
-                    bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
-                    return Json(new { success = true });
 
+
+                        var resetLink = "https://localhost:44357" + Url.Action("RelatedMissionPage", "Home", new { id = MissionId, usersid = recomandUser.UserId });
+                        var fromAddress = new MailAddress("bhavsardEmailIdimple7@gmail.com", "Dimple");
+                        var toAddress = new MailAddress(EmailId)
+            ;
+                        var subject = "Message For Recommand Mission";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
+                        MissionInvite missionInviteExists = _objUserInterface.missionInviteExists((int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                        bool ADDInvite = _objUserInterface.ADDMissionInvite(missionInviteExists, (int)FromUser.UserId, (int)recomandUser.UserId, MissionId);
+                        return Json(new { success = true });
+
+                    }
+                    else
+                    {
+                        return Json(new { success = false });
+                    }
                 }
                 else
                 {
                     return Json(new { success = false });
                 }
-            }
-            else
-            {
-                return Json(new { success = false });
-            }   
 
+            }
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
              
         }
 
@@ -626,14 +693,28 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult Share_Story(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrls,string value)
         {
-            var story = _objUserInterface.getstory(Image, MissionId, Title, Date, Description, UserId, videoUrls,value);
-            if (story != null && story.Status == "DRAFT")
+            try
             {
-                return Json(new { success = true, storyid = story.StoryId });
+                var story = _objUserInterface.getstory(Image, MissionId, Title, Date, Description, UserId, videoUrls, value);
+                if (story != null && story.Status == "DRAFT")
+                {
+                    return Json(new { success = true, storyid = story.StoryId });
+                }
+                else
+                {
+                    return Json(new { success = false });
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
         }
         #region ShareStory saveto database
@@ -736,7 +817,7 @@ namespace CIProjectweb.Controllers
 
                         }
                         ratingdisplay = sum / ratings.Count;
-                        return Json(new { success = true, newRating, ratingDisplay = ratingdisplay, isRated = true });
+                        return Json(new { success = true, newRating, ratingDisplay = ratingdisplay, isRated = false });
                     }
                 }
                     
@@ -887,10 +968,11 @@ namespace CIProjectweb.Controllers
         }
 
         #region StoryListing
+        [Authorize]
         public IActionResult storyListingPage(int pg = 1)
         {
             List<storyListingViewModel> list = new List<storyListingViewModel>();
-            List<Story>stories= _db.Stories.ToList();
+            List<Story>stories= _db.Stories.Where(st=>st.Status=="DRAFT"&& st.DeletedAt==null).ToList();
             foreach (var data in stories)
             {
                 storyListingViewModel listView = new storyListingViewModel();
@@ -919,6 +1001,7 @@ namespace CIProjectweb.Controllers
                 list.Add(listView);
             }
             ViewBag.list= list;
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
             const int pageSize = 6;
             int recsCount = list.Count();
             var pager = new Pager(recsCount, pg, pageSize);
@@ -1001,6 +1084,7 @@ namespace CIProjectweb.Controllers
                     listView.MediaPaths = mediaPaths;
                 }
                 listView.Media = media;
+
                 listView.Views = (long)(stories.Views + 1);
                 listView.MissionId = stories.MissionId;
                 var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
@@ -1009,6 +1093,7 @@ namespace CIProjectweb.Controllers
                 listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
                 ViewBag.Users = userlist;
                 stories.Views = listView.Views;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
                 _db.Stories.Update(stories);
                 _db.SaveChanges();
 
@@ -1045,6 +1130,7 @@ namespace CIProjectweb.Controllers
                 listView.UserName = user.FirstName;
                 listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
                 ViewBag.Users = userlist;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
                 stories.Views = listView.Views;
                 _db.Stories.Update(stories);
                 _db.SaveChanges();
@@ -1064,6 +1150,7 @@ namespace CIProjectweb.Controllers
         {
             var U_Id = HttpContext.Session.GetString("UserId");
            ShareStoryViewModel sharestory = _objUserInterface.getsharestory(int.Parse(U_Id));
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
             return View(sharestory);
         }
 
@@ -1112,6 +1199,10 @@ namespace CIProjectweb.Controllers
                 var data = new { success = true, storypreview, pathList, VideoPath };
                 return Json(data);
             }
+            else if (storypreview.Status=="PENDING" && storypreview.DeletedAt!=null)
+            {
+                return Json(new { success = "Deleted" });
+            }
             else
             {
                 return Json(new { success = false });
@@ -1120,13 +1211,21 @@ namespace CIProjectweb.Controllers
         }
         #endregion
 
+        [Authorize]
         #region user edit
-        public IActionResult userEditProfile()
+        public IActionResult userEditProfile(long? CountryId)
         {
             var userId = HttpContext.Session.GetString("UserId");
-            List<City> city = _objUserInterface.cities();
+            List<City> city;
+            if (CountryId==null) {
+               city = _objUserInterface.cities();
+            }
+            else
+            {
+                city = _objUserInterface.cities((long)CountryId);
+            }
             List<Country> country = _objUserInterface.countries();
-            List<Skill> skill = _objUserInterface.skills();
+            List<Skill> skill = _objUserInterface.skills(int.Parse(userId));
             List<SelectListItem> listCities = new List<SelectListItem>();
             List<SelectListItem> listCountries = new List<SelectListItem>();
             List<SelectListItem> listSkills = new List<SelectListItem>();
@@ -1169,6 +1268,7 @@ namespace CIProjectweb.Controllers
             userviewmodel.ProfileText = user.ProfileText;
             userviewmodel.Title = user.Title;
             userviewmodel.LinkedInUrl = user.LinkedInUrl;
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
             return View(userviewmodel);
         }
         #endregion
@@ -1179,6 +1279,7 @@ namespace CIProjectweb.Controllers
         {
             var userId = HttpContext.Session.GetString("UserId");
             HttpContext.Session.SetString("Avtar", userViewModel.Avatar == null ? "/images/user1.png" : userViewModel.Avatar);
+            HttpContext.Session.SetString("UserName", userViewModel.FirstName == null ? "User" : userViewModel.FirstName);
             if (skill.Length > 0)
             {
                 _objUserInterface.saveskill(skill, int.Parse(userId));
@@ -1257,11 +1358,53 @@ namespace CIProjectweb.Controllers
             timesheetViewModel.timesheettime = sheetview2;
             timesheetViewModel.missionstime = listmissiontime;
             timesheetViewModel.missionsgoal = listmissiongoal;
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
             return View(timesheetViewModel);
             
         }
 
+        [HttpPost]
+        public IActionResult CheckAction(string inputValue, long missionId)
+        {
+            var goalvalue = _db.GoalMissions.Where(g => g.MissionId == missionId).FirstOrDefault();
+            if (goalvalue!=null)
+            {
+                if (goalvalue.GoalValue<int.Parse(inputValue))
+                {
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false });
+                }
+            }
+            else
+            {
+                return Json(new { success = false });
+            }
+        }
+        [HttpPost]
+        public IActionResult CheckDate(long missionid, DateTime volundate)
+        {
+            var findmissiondate = _db.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+            if (findmissiondate == null)
+            {
+                return Json(new { message = "Mission not found." });
+            }
 
+            DateTime? sdate = findmissiondate.StartDate ?? DateTime.MinValue;
+            DateTime startDate = sdate.HasValue ? sdate.Value.Date : DateTime.MinValue;
+            DateTime? edate = findmissiondate.EndDate ?? DateTime.MinValue;
+            DateTime endDate = edate.HasValue ? edate.Value.Date : DateTime.MinValue;
+            if (volundate < startDate || volundate > endDate)
+            {
+                return Json(new { message = "Please enter a date between " + startDate.ToString("yyyy-MM-dd") + " and " + endDate.ToString("yyyy-MM-dd") });
+            }
+            else
+            {
+                return Json(new { success = true });
+            }
+        }
         [HttpPost]
         public IActionResult editTime(int timesheetid)
         {
@@ -1352,6 +1495,7 @@ namespace CIProjectweb.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

@@ -112,16 +112,28 @@
         color: #414141;
         font-size: .8rem;
     }
-
+      .btn-outline-warning {
+        --bs-btn-border-color: #F88634 !important;
+        --bs-btn-active-bg: #F88634 !important;
+        --bs-btn-hover-color: #F88634 !important;
+        --bs-btn-color: #F88634 !important;
+        --bs-btn-hover-bg: white;
+        --bs-btn-hover-border-color: #F88634 !important;
+        --bs-btn-active-border-color: #F88634 !important;
+        --bs-btn-active-color: white;
+    }
+    
+  
     .img-btn {
         background: #000000 0% 0% no-repeat padding-box;
         opacity: 0.8;
         border-radius: 18px;
         width: fit-content;
         padding: 0 6px;
-        width: 7.5rem;
-        height: 2rem;
-        margin-left: -8rem;
+        width: 8.5rem;
+    height: 2rem;
+    margin-left: -9rem;
+       
         margin-top: 1rem !important;
     }
 
@@ -177,9 +189,11 @@
         });
     }
 
-    //$(document).ready(function() {
+    $(document).ready(function() {
 
     //    $("#countryDiv").change(function() {
+    //         //cityfill($("#divCountry").val());
+    //         //console.log($("#divCountry").val());
     //        FilterTag("#divCountry");
            
 
@@ -193,20 +207,51 @@
     //        FilterTag("#divTheme");
     //        Filter();
     //    });
-    //    $("#skillDiv").change(function() {
-    //        FilterTag("#divSkill");
-    //        Filter();
-    //    });
-    //    $("#divSort").change(function() {
-    //        Filter();
-    //    });
-    //});
-
+        //$("#skillDiv").change(function() {
+        //    FilterTag("#divSkill");
+        //    Filter();
+        //});
+        $("#divSort").change(function() {
+            Filter();
+        });
+    });
+   
     function Search() {
         Filter();
     }
    
-   
+    //function cityfill(countryId) {
+    //    $.ajax({
+    //        url: '/Mission/LandingPage',
+    //        type: 'POST',
+    //        dataType: 'json',
+    //        data: { ids: countryId },
+    //        success: function(data) {
+    //            var options = [];
+    //                    $.each(data, function (i, city) {
+    //                        options.push({ label: city.text, value: city.value })
+    //                    });
+    //                    document.querySelector('#divCity').setOptions(options);
+
+    //           // Set the value of the select element to the first option
+    //            //console.log(data);
+    //            //var cities = data.cities;
+    //            //var citySelect = $('#divCity');
+    //            //citySelect.empty();
+    //            //$.each(cities, function(index, city) {
+    //            //    citySelect.append($('<option>', {
+    //            //        value: city.value,
+    //            //        text: city.text
+    //            //    }, '</option>'));
+    //            //});
+
+    //        },
+    //        error: function() {
+    //            alert("error");
+    //        }
+
+    //    });
+    //}
     function favMission(Missionid, Missionfav) {
         $.ajax({
             url: '/Mission/FavMission',
@@ -246,48 +291,77 @@
     //    });
     //}
 
-    function FilterTag(str) {
+    //function FilterTag(str) {
        
-       var selectElement = document.querySelector(str);
-            var selectedOptions = selectElement.getSelectedOptions();
-            var containerElement = $(str + "Div");
-            containerElement.empty();
+    //   var selectElement = document.querySelector(str);
+    //        var selectedOptions = selectElement.getSelectedOptions();
+    //        var containerElement = $(str + "Div");
+    //        containerElement.empty();
 
-            // Append new tags
-            $.each(selectedOptions, function (i, text) {
-                containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
-            });
+    //        // Append new tags
+    //        $.each(selectedOptions, function (i, text) {
+    //            containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+    //        });
 
-            containerElement.on('click', 'button i.bi-x', function () {
-                // Get the index of the option to remove
-                var index = $(this).parent().attr('id').split('-')[1];
+    //        containerElement.on('click', 'button i.bi-x', function () {
+    //            // Get the index of the option to remove
+    //            var index = $(this).parent().attr('id').split('-')[1];
 
                 
 
-                // Deselect the corresponding option from the selected options list
-                var selectElement = document.querySelector(str);
-                var removedOption = selectElement.options[index];
-                   removedOption.selected = false;
+    //            // Deselect the corresponding option from the selected options list
+    //            var selectElement = document.querySelector(str);
+    //            var removedOption = selectElement.options[index];
+    //               removedOption.selected = false;
+    //            selectElement.options.splice(index, 1);
+    //            // Remove the button element
+    //            $(this).parent().remove();
+    //            // Get the latest selected values
                 
-                // Remove the button element
-                $(this).parent().remove();
-                // Get the latest selected values
-                
-                var selectedOptions = selectElement.getSelectedOptions();
-                if (selectedOptions) {
-                    const updatedValues = Array.from(selectedOptions).map(option => option.value);
+    //            var selectedOptions = selectElement.getSelectedOptions();
+    //            if (selectedOptions) {
+    //                const updatedValues = Array.from(selectedOptions).map(option => option.value);
                     
-                    // Call setValue with the latest values
-                    document.querySelector(str).setValue(updatedValues);
-                    Filter();
-                }
+    //                // Call setValue with the latest values
+    //                document.querySelector(str).setValue(updatedValues);
+    //                Filter();
+    //            }
                 
 
                
-            });
+    //        });
+
+    //}
+     function FilterTag(str) {
+       
+       console.log(str);
+        var selectElement = document.querySelector(str);
+        var selectedOptions = selectElement.getSelectedOptions();
+       
+        var containerElement = $(str + "Div");
+        containerElement.empty();
+        // Append new tags
+        $.each(selectedOptions, function (i, text) {
+            containerElement.append('<button type="button" class="btn btn-sm btn-outline-dark rounded-pill mt-1 me-2" id="option-' + i + '"><span class="text-wrap">' + text.label + '</span><i class="bi bi-x"></i></button>');
+        });
+        
+
+
+        containerElement.on('click', 'button i.bi-x', function () {
+            // Get the index of the option to remove
+            var index = $(this).parent().attr('id').split('-')[1];
+            // Remove the button element
+            $(this).parent().remove();
+           
+        
+           // Deselect the corresponding option from the selected options list
+    selectElement.options[index].selected = false;
+    document.querySelector(str).reset();
+   Filter();
+            
+        });
 
     }
-
  function getID(e){
             
             var abc = e.id;
@@ -345,7 +419,7 @@
             <div class="d-inline position-relative">
                 <img src="@(teacher.CardImg)" class="card-img-top"
                  alt="Mission Image">
-                @if (teacher.missionApplied == 0 && teacher.mission.Deadline < DateTime.Now && @Context.Session.GetString("UserId") != null)
+                @if (teacher.missionApplied == 0 && @teacher.mission.Deadline < DateTime.Now && @Context.Session.GetString("UserId") != null)
                 {
                     <button class="applied-btn position-absolute" type="button">Closed</button>
                 }
@@ -369,13 +443,13 @@
             <div id="myModal" class="modal" style="z-index:10">
 
                 <!-- Modal content -->
-                <div class="modal-content">
+                <div class="modal-content w-25">
                     <div class="modal-header">
                         <h2>Select Co-workers</h2>
                         <span class="close">&times;</span>
 
                     </div>
-                     <div class="modal-body">
+                     <div class="modal-body ">
                                     <div class="spinner-border text-success d-none" role="status" id="emailLoader">
                                             <span class="sr-only">Loading...</span>
                                         </div>
@@ -386,7 +460,7 @@
                                         {
                                                var missionId = @Model[outerIndex].mission.MissionId;
                                             <li class="dropdown-item">
-                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /> <img id="profileimg" src="@(items.Avatar == null ? "/images/user1.png" : items.Avatar)">@items.FirstName <span>(@items.Email)</span>
                                                 @*<button type="button" class="btn btn-success me-1" onclick="recomand1('@items.Email')" style="position:absolute; right:6px;" id="sent">
                                                         Send Email
                                                     </button>*@
@@ -398,7 +472,7 @@
                                 </div>
                     <div class="modal-footer">
 
-                        <button type="button" id="sent1" class="btn cardbtn" onclick="sendRec1();">Send Mail</button>
+                        <button type="button" id="sent1" class="btn btn-orange rounded-pill" onclick="sendRec1();">Send Mail</button>
                     </div>
                 </div>
 
@@ -435,7 +509,11 @@
                     else
                     {
                         <hr>
-                        <button class="hrbtn"><span>@teacher.goalMission.GoalObjectiveText</span></button>
+                        <button class="hrbtn"><span>
+                                @if(teacher.goalMission.GoalObjectiveText!=null){
+                                     @teacher.goalMission.GoalObjectiveText
+                                }
+                               </span></button>
                         <hr>
                     }
 
@@ -513,7 +591,8 @@
                                   style="width: @teacher.progressBar%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="75">
                                     </span>
                                 </span>
-                                <span>@((@teacher.progressBar)*100) achived</span>
+                                    
+                                <span>@((@teacher.progressBar)*((float)@teacher.goalMission.GoalValue/100))  achived</span>
                             </div>
                             </div>
 
@@ -528,7 +607,7 @@
                                   style="width: @teacher.progressBar%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="75">
                                     </span>
                                 </span>
-                                <span>@((@teacher.progressBar)*100) achived</span>
+                                <span>@((@teacher.progressBar)*((float)@teacher.goalMission.GoalValue/100)) achived</span>
                             </div>
                         </div>
 
@@ -553,21 +632,21 @@
                     @if (@Context.Session.GetString("UserId") == null)
                     {
 
-                        <button type="button" onclick="ApplyMission(@teacher.mission.MissionId)" class="btn btn-outline-warning rounded-pill mx-auto">
+                        <button type="button" onclick="ApplyMission(@teacher.mission.MissionId)" class="btn btn-orange rounded-pill mx-auto">
                             <span class="text-wrap">Apply</span>
                             <i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     }
                     else if (teacher.approvalPending == 1)
                     {
-                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-outline-warning rounded-pill mx-auto">
+                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-orange rounded-pill mx-auto">
                             <span class="text-wrap">Pending...</span>
                             <i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     }
                     else if (teacher.mission.Deadline > DateTime.Now && teacher.seatsLeft > 0 && teacher.missionApplied == 0)
                     {
-                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-outline-warning rounded-pill mx-auto">
+                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-orange rounded-pill mx-auto">
                             <span class="text-wrap">Apply</span>
                             <i class="bi bi-arrow-right ms-2"></i>
 
@@ -576,7 +655,7 @@
                     }
                     else if (teacher.mission.MissionType == "Goal" && teacher.seatsLeft > 0 && teacher.progressBar < 100 && teacher.missionApplied == 0)
                     {
-                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-outline-warning rounded-pill mx-auto">
+                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-orange rounded-pill mx-auto">
                             <span class="text-wrap">Apply</span>
                             <i class="bi bi-arrow-right ms-2"></i>
                         </button>
@@ -584,14 +663,14 @@
                     }
                     else if (teacher.missionApplied == 1 && teacher.approvalPending == 0)
                     {
-                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-outline-warning rounded-pill" style="margin-left: auto; margin-right: auto;">
+                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-orange rounded-pill" style="margin-left: auto; margin-right: auto;">
                             <span class="text-wrap">Detail</span>
                             <i class="bi bi-arrow-right ms-2"></i>
                         </button>
                     }
                     else
                     {
-                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-outline-warning rounded-pill" style="margin-left: auto; margin-right: auto;">
+                        <button type="button" onclick="return location.href=' @Url.Action("RelatedMissionPage","Home",new {id=@teacher.mission.MissionId}) '" class="btn btn-orange rounded-pill" style="margin-left: auto; margin-right: auto;">
                             <span class="text-wrap">ViewDetail</span>
                             <i class="bi bi-arrow-right ms-2"></i>
                         </button>

@@ -11,155 +11,260 @@
 
 }
 <style>
-     .sliderimagehite {
-    height: 450px;
+    .sliderimagehite {
+        height: 450px;
+    }
+
+    .mySlides {
+        display: none;
+    }
+
+    .slider-img {
+        position: relative;
+    }
+
+    .cursor {
+        cursor: pointer;
+    }
+
+    .numbertext {
+        color: #f2f2f2;
+        font-size: 12px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 0;
+    }
+
+    .carousel-control-next, .carousel-control-prev {
+            position: absolute;
+    top: 16%;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    background: 0 0;
+    border: 0;
+    opacity: .5;
+    height: 47%;
 }
 
-.mySlides {
-    display: none;
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .column {
+        float: left;
+        width: 16.66% !important;
+    }
+
+    .demo {
+        opacity: 0.6;
+        height: 60px;
+    }
+
+    .active {
+        opacity: 1;
+    }
+
+    .demo:hover {
+        opacity: 0.7;
+    }
+    /*carousel*/
+
+    .next-and-prev-btn {
+        background-color: black !important;
+        width: 26px !important;
+    }
+
+  
+
+
+.volunteering-sec-1 {
+    margin-top: 5%;
 }
 
-.slider-img {
-    position: relative;
+
+.vol-page-crousel {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    overflow: hidden;
 }
 
-.cursor {
+.vol-page-crousel .row .col .img-fluid {
     cursor: pointer;
 }
-.numbertext {
-    color: #f2f2f2;
-    font-size: 12px;
-    padding: 8px 12px;
-    position: absolute;
-    top: 0;
+
+.vol-img-change-n {
+    height: 100px;
 }
-
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.column {
-    float: left;
-    width: 16.66% !important;
-}
-
-.demo {
-    opacity: 0.6;
-    height:60px;
-}
-
-.active {
-    opacity: 1;
-}
-
-.demo:hover {
-    opacity: 0.7;
-}
-
 </style>
+
 @model storyListingViewModel
-
-<div class="container main mt-3">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="" style="height:100%;">
-
-                @{
+@{
                     var count = Model.Media.Count;
                     int i = 1;
                 }
-                @foreach (var theme in Model.Media)
+<div class="container main mt-3">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+           
+            <div style="height:calc(100% - 120px);">
+                @if (Model.Media.Count() != 0)
                 {
-                    if (theme != null)
+                    @for (i = 0; i < 1; i++)
                     {
-                        if (theme.Type == "image")
+                       @if  (@Model.Media[i].Type == "image")
                         {
-                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                                <div class="numbertext">@i/@count </div>
-                                <img src="@theme.Path" style="height:100%;object-fit:cover;width:100%" class="border border-5 border-primary" />
-                            </div>
-                            i++;
-                        }
-                        if (theme.Type == "Video")
-                        {
-                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                                <div class="numbertext">@i/@count</div>
-                                <iframe class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%" src="@theme.Path" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                            </div>
-                            i++;
-                        }
-                        @* i = i + 1;
+                            <img class="img-fluid vol-page-crousel" id="vol-page-crousel"
+                     src="@Model.Media[i].Path" style="height:100%;object-fit:cover;width:100%" alt="">
 
-                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
-                            <div class="numbertext">@i / @count</div>
-                            <img src="@theme" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                            </div>*@
+                        }
+                       @if  (@Model.Media[i].Type == "Video")
+                        {
+                            <iframe class="img-fluid vol-page-crousel" id="vol-page-crousel"
+                        src="@Model.Media[i].Path" style="height:100%;object-fit:cover;width:100%" alt=""></iframe>
+
+                        }
+
                     }
+                }
+                else
+                {
+                    <img class="img-fluid vol-page-crousel" id="vol-page-crousel"
+                     src="~/Images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-3.png" style="height:100%;object-fit:cover;width:100%" alt="">
+
                 }
 
 
-                 <a class="carousel-control-prev-icon prev" style="display:flex;justify-content:flex-start" onclick="plusSlides(-1)">
-                <span class=""
-                      style="position: relative;top: 77px;background-color: black;width: 15px;height: 60px;"
-                      aria-hidden="true"></span>
-            </a>
-            <a class="carousel-control-next-icon next" style="display:flex;justify-content:flex-end" onclick="plusSlides(1)">
-                <span class=""
-                      style="position: relative;top: 77px;background-color: black;width: 15px;height: 60px;"
-                      aria-hidden="true"></span>
-            </a>
+            </div>
+            @if (Model.Media.Count() != 0)
+            {
+                <div class="d-flex mt-2" id="inneritem" style="height: 100px;position: absolute;">
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner" style="height: 100px;">
+                            <div class="carousel-item active vol-page-crousel">
+                                <div class="row">
 
-                <div class="row padding-row mt-2" style="height:100px;overflow-y:scroll;">
-                    @{
 
-                        int d = 0;
-                    }
-                    @foreach (var theme in Model.Media)
-                    {
-                        if (theme != null)
-                        {
-                            d = d + 1;
-                            if (theme.Type == "image")
-                            {
-                                <div class="column">
-                                    <img class="demo cursor" src="@theme.Path" style="width: 100%" onclick="currentSlide(@d)"
-                             alt="The Wood" />
+                                    @if (Model.Media.Count() > 4)
+                                    {
+                                        @for (i = 0; i < 4; i++)
+                                        {
+                                            <div class="col">
+                                                @if  (@Model.Media[i].Type == "image")
+                                                {
+                                               <img class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)">
+
+                                                }
+                                                @if  (@Model.Media[i].Type == "Video")
+                                                {
+                                                <iframe class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)"></iframe>
+
+                                                }
+
+                                                
+                                            </div>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @for (i = 0; i < Model.Media.Count(); i++)
+                                        {
+                                            <div class="col">
+                                                @if (@Model.Media[i].Type == "image")
+                                                {
+                                               <img class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)">
+
+                                                }
+                                                @if  (@Model.Media[i].Type == "Video")
+                                                {
+                                                 <iframe class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)"></iframe>
+
+                                                }
+                                               
+                                            </div>
+                                        }
+                                    }
+
+
+
+
+
                                 </div>
+                            </div>
 
-                            }
-                            if (theme.Type == "Video")
-                            {
-                                <div class="column">
-                                    <iframe class="demo cursor" src="@theme.Path" style="width: 100%" onclick="currentSlide(@d)"></iframe>
+                            <div class="carousel-item vol-page-crousel">
+                                <div class="row">
+
+                                    @for (i = 4; i < Model.Media.Count(); i++)
+                                    {
+                                        if (i > 7)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            <div class="col">
+                                                @if (@Model.Media[i].Type == "image")
+                                                {
+                                              <img class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)">
+
+                                                }
+                                                @if  (@Model.Media[i].Type == "Video")
+                                                {
+                                                <iframe class="img-fluid vol-img-change-@i vol-img-change-n"
+                                         src="@Model.Media[i].Path" alt=""
+                                         onclick="onImageChange(@i)"></iframe>
+
+                                                }
+                                               
+                                                
+                                            </div>
+                                        }
+
+                                    }
 
                                 </div>
+                            </div>
 
-                            }
-                            @* <div class="column1" style="width:25%">
-                                <img class="demo cursor" src="@theme" style="width:100%;height:100%;" onclick="currentSlide(@d)" alt="The Woods">
-                                </div>*@
-                        }
-                    }@*
-                        <div class="column1" style="width:25%">
-                        <img class="demo cursor" src="~/lib/images/CSR-initiative-stands-for-Coffee--and-Farmer-Equity-1.png" style="width:100%;height:100%;" onclick="currentSlide(1)" alt="The Woods">
                         </div>
-                        <div class="column1" style="width:25%">
-                        <img class="demo cursor" src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-1.png" style="width:100%;height:100%;" onclick="currentSlide(2)" alt="Cinque Terre">
-                        </div>
-                        <div class="column1" style="width:25%">
-                        <img class="demo cursor" src="~/lib/images/Education-Supplies-for-Every--Pair-of-Shoes-Sold-1.png" style="width:100%;height:100%;" onclick="currentSlide(3)" alt="Mountains and fjords">
-                        </div>
-                        <div class="column1" style="width:25%">
-                        <img class="demo cursor" src="~/lib/images/image1.png" style="width:100%;height:100%;" onclick="currentSlide(4)" alt="Northern Lights">
-                        </div>*@
+                        <button class="carousel-control-prev next-and-prev-btn" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next next-and-prev-btn" type="button" data-bs-target="#carouselExample"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
 
                 </div>
-            </div>
+            }
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="col-lg-6 col-md-6 col-sm-12" id="contentstory">
             <div class="sidestory d-flex">
                 <div>
                     <img src="@Model.Avtar" alt="" class="sidestoryimage">
@@ -174,68 +279,68 @@
                 <p>@Model.why_i_volunteer</p>
             </div>
             @*   <div class="favandinvibtn container row mt-4">
-                <div class="col-md-6 col-sm-12 mb-2 text-center">
-                <button type="button" class="btn btn-outline-secondary border-3" id="myBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius:20px;">
-                <img src="~/images/heart1.png" alt="" class="bg-secondary">
-                Recommend to a Co-Worker
-                </button>
-                <div id="myModal" class="modal">
+            <div class="col-md-6 col-sm-12 mb-2 text-center">
+            <button type="button" class="btn btn-outline-secondary border-3" id="myBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="border-radius:20px;">
+            <img src="~/images/heart1.png" alt="" class="bg-secondary">
+            Recommend to a Co-Worker
+            </button>
+            <div id="myModal" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content">
-                <div class="modal-header">
-                <h2>Select Co-workers</h2>
-                <span class="close">&times;</span>
+            <!-- Modal content -->
+            <div class="modal-content">
+            <div class="modal-header">
+            <h2>Select Co-workers</h2>
+            <span class="close">&times;</span>
 
-                </div>
-                <div class="modal-body">
+            </div>
+            <div class="modal-body">
 
-                <ul style="list-style-type:none">
-                @foreach (var items in @ViewBag.Users)
-                {
-                <li class="dropdown-item">
-                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
-                </li>
-                }
-                </ul>
+            <ul style="list-style-type:none">
+            @foreach (var items in @ViewBag.Users)
+            {
+            <li class="dropdown-item">
+            <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+            </li>
+            }
+            </ul>
 
-                </div>
-                <div class="modal-footer">
+            </div>
+            <div class="modal-footer">
 
-                <button type="button" class="btn cardbtn" onclick="sendRec(@Model.MissionId);">Send Mail</button>
-                </div>
-                </div>
+            <button type="button" class="btn cardbtn" onclick="sendRec(@Model.MissionId);">Send Mail</button>
+            </div>
+            </div>
 
-                </div>
-                @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body modaltext">
-                <ul style="list-style-type:none" class="ps-0">
-                @foreach (var items in @ViewBag.AllUsers)
-                {
-                <li class="dropdown-item">
-                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
-                </li>
-                }
-                </ul>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.StoryDetail.MissionId);">Send</button>
-                </div>
-                </div>
-                </div>
-                </div>*@
+            </div>
+            @*<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Select Coworker</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body modaltext">
+            <ul style="list-style-type:none" class="ps-0">
+            @foreach (var items in @ViewBag.AllUsers)
+            {
+            <li class="dropdown-item">
+            <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" /><span class="ms-1">@items.FirstName (@items.Email)</span>
+            </li>
+            }
+            </ul>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="sendRec(@ViewBag.StoryDetail.MissionId);">Send</button>
+            </div>
+            </div>
+            </div>
+            </div>*@
             @* </div>
-                <div class="col-md-6 col-sm-12 text-center">
-                <a asp-controller="Home" asp-action="RelatedMissionPage" asp-route-id="@Model.MissionId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="~/images/right-arrow.png" alt=""> </a>
-                </div>
-                </div>*@
+            <div class="col-md-6 col-sm-12 text-center">
+            <a asp-controller="Home" asp-action="RelatedMissionPage" asp-route-id="@Model.MissionId" class="btn border-3" style="border-color: #F88634; border-radius: 30px;"><span style="color: #F88634;">Open Mission</span><img src="~/images/right-arrow.png" alt=""> </a>
+            </div>
+            </div>*@
             <div class="d-flex">
                 <button type="button" class="btn btn-outline-secondary border-3 rounded-pill" style="width: 62%;" id="myBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <img src="~/images/heart1.png" alt="" class="bg-secondary">
@@ -253,8 +358,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="spinner-border text-success d-none" role="status" id="emailLoader">
-                                            <span class="sr-only">Loading...</span>
-                                        </div>
+                                <span class="sr-only">Loading...</span>
+                            </div>
                             <ul style="list-style-type:none" id="emaillist">
                                 @foreach (var items in @ViewBag.Users)
                                 {
@@ -294,34 +399,40 @@
 </div>
 <hr>
 <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+     function onImageChange(imgCount) {
+   
+                    var img = document.getElementById("vol-page-crousel");
+                    var subImage = document.getElementsByClassName(`vol-img-change-${imgCount}`);
+                    img.src = subImage[0].src
+                    }
+    //let slideIndex = 1;
+    //showSlides(slideIndex);
 
-    function plusSlides(n) {
-        showSlides(slideIndex += n);
-    }
+    //function plusSlides(n) {
+    //    showSlides(slideIndex += n);
+    //}
 
-    function currentSlide(n) {
-        showSlides(slideIndex = n);
-    }
+    //function currentSlide(n) {
+    //    showSlides(slideIndex = n);
+    //}
 
-    function showSlides(n) {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("demo");
+    //function showSlides(n) {
+    //    let i;
+    //    let slides = document.getElementsByClassName("mySlides");
+    //    let dots = document.getElementsByClassName("demo");
 
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        for (i = 0; i < dots.length; i++) {
-            dots[i].className = dots[i].className.replace(" active", "");
-        }
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].className += " active";
+    //    if (n > slides.length) { slideIndex = 1 }
+    //    if (n < 1) { slideIndex = slides.length }
+    //    for (i = 0; i < slides.length; i++) {
+    //        slides[i].style.display = "none";
+    //    }
+    //    for (i = 0; i < dots.length; i++) {
+    //        dots[i].className = dots[i].className.replace(" active", "");
+    //    }
+    //    slides[slideIndex - 1].style.display = "block";
+    //    dots[slideIndex - 1].className += " active";
 
-    }
+    //}
 
 </script>
 <script>
@@ -336,54 +447,54 @@
 
     // When the user clicks the button, open the modal
     btn.onclick = function() {
-      modal.style.display = "block";
+        modal.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-      modal.style.display = "none";
+        modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 </script>
 <script>
     function sendRec(storyId) {
         console.log(storyId);
-    $("#emailLoader").removeClass('d-none');
-    $("#emaillist").addClass('d-none');
-    const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
-    if (toMail.length > 0) {
-        $.ajax({
-            url: '/Home/SendRecStory',
-            type: 'POST',
-            data: {StoryId: storyId, ToMail: toMail },
-            success: function (result) {
+        $("#emailLoader").removeClass('d-none');
+        $("#emaillist").addClass('d-none');
+        const toMail = Array.from(document.querySelectorAll('input[name="Checkme"]:checked')).map(el => el.value);
+        if (toMail.length > 0) {
+            $.ajax({
+                url: '/Home/SendRecStory',
+                type: 'POST',
+                data: { StoryId: storyId, ToMail: toMail },
+                success: function(result) {
 
-                $("#emailLoader").addClass('d-none');
-                $("#emaillist").removeClass('d-none');
-                var send = document.getElementById('sent1').innerText = "Sent";
+                    $("#emailLoader").addClass('d-none');
+                    $("#emaillist").removeClass('d-none');
+                    var send = document.getElementById('sent1').innerText = "Sent";
 
-                setTimeout(() => {
+                    setTimeout(() => {
 
 
-                    var send = document.getElementById('sent1').innerText = "Send Email";
+                        var send = document.getElementById('sent1').innerText = "Send Email";
 
-                }, 4000);
-                Swal.fire('send');
-            }
-        });
+                    }, 4000);
+                    Swal.fire('send');
+                }
+            });
+        }
+        else {
+            $("#emailLoader").addClass('d-none');
+            $("#emaillist").removeClass('d-none');
+            Swal.fire('Select Co-worker');
+        }
+
     }
-    else {
-        $("#emailLoader").addClass('d-none');
-        $("#emaillist").removeClass('d-none');
-        Swal.fire('Select Co-worker');
-    }
-   
-}
 </script>
 

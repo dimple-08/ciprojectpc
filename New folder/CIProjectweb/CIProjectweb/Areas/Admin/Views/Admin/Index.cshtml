@@ -1,0 +1,349 @@
+﻿@{
+
+
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int index = 1;
+    var cities = ViewBag.city;
+    var countries = ViewBag.country;
+}
+@model CIProjectweb.Entities.AdminViewModel.UserView
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<div class="container-fluid px-4">
+    <div id="content">
+        <section id="user" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">User</span>
+                        </div>
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form  id="userform" asp-controller="Admin" asp-action="AddUser" method="post">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content" >
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                                        <button type="button" id="modalclose"class="btn-close" data-bs-dismiss="modal" onClick="window.location.reload();" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body usermodalbody" style=" height: 514px; overflow-y: auto;">
+                                         
+                                                <div class="row">
+                                                    <div id="profilecard" class="col-12">
+                                                        <img src="" class="profileimgcard" />
+                                                    </div>
+                                                </div>
+                                                <input type="text" name="UserId" id="userId" asp-for="UserId" hidden/>
+                                        <label for="fname">First Name</label>
+                                        
+                                        <input type="text"  class="form-control" id="firstName" asp-for="FirstName"/>
+                                        <span asp-validation-for="FirstName" class="text-danger d-flex"></span>
+                                        <label for="lname"  class="mt-2">Last Name</label>
+                                       
+                                        <input type="text"  class="form-control" id="lastName" asp-for="LastName"/>
+                                        <span asp-validation-for="LastName" class="text-danger d-flex"></span>
+                                        <label for="mail" class="mt-2">Email</label>
+                                       
+                                        <input type="email"  class="form-control" id="email" asp-for="Email"/>
+                                         <span asp-validation-for="Email" class="text-danger d-flex"></span>
+                                          <span id="emailError" class="text-danger d-flex"></span>
+                                        <label for="password"  class="mt-2">Password</label>
+                                       
+                                        <input type="password"   class="form-control" id="password" asp-for="Password"/>
+                                         <span asp-validation-for="Password" class="text-danger d-flex"></span>
+                                        <label for="empid" class="mt-2">Employee Id</label>
+                                       
+                                        <input type="text"  class="form-control" id="employeeId" asp-for="EmployeeId"/>
+                                          <span asp-validation-for="EmployeeId" class="text-danger d-flex"></span>
+                                        <label for="avatar"  class="mt-2">Avatar</label>
+                                        <input type="file" id="profile-img-input" class="form-control" placeholder="Upload profile image">
+                                       <input type="hidden" class="form-control"  id="profileImg"  value="" asp-for="Avatar">
+                                       <span asp-validation-for="Avatar" class="text-danger d-flex"></span>
+
+                                        <label for="department" class="mt-2">Department</label>
+                                        
+                                        <input type="text" id="department" name="Department" class="form-control" placeholder="Enter your department" asp-for="Department">
+                                         <span asp-validation-for="Department" class="text-danger d-flex"></span>
+                                        <label for="city" class="mt-2">City</label>
+                                          <select class="form-control form-select" id="city" name="CityId" asp-for="CityId">
+                                                <option value=""></option>
+                                                @foreach(var item in ViewBag.City)
+                                                {
+                                                    <option value="@item.CityId">@item.Name</option>
+                                                }
+                                            </select>
+                                      <span asp-validation-for="CityId" class="text-danger d-flex"></span>
+
+                                        <label for="country" class="mt-2">Country</label>
+                                        
+                                        <select class="form-control form-select" id="country"  onchange="countryByCity()" name="CountryId" asp-for="CountryId">
+                                                <option value=""></option>
+                                                @foreach(var item in ViewBag.Country)
+                                                {
+                                                    <option value="@item.CountryId">@item.Name</option>
+                                                }
+                                            </select>
+                                            <span asp-validation-for="CountryId" class="text-danger d-flex"></span>
+
+                                        <label for="Profile Text" class="mt-2">Profile text</label>
+                                       
+                                         <textarea cols="20" class="form-control" id="profileText" name="ProfileText" asp-for="ProfileText"></textarea>
+                                          <span asp-validation-for="ProfileText" class="text-danger d-flex"></span>
+                                       
+                                        <label for="status" class="mt-2">Status</label>
+                                            <select class="form-control form-select" id="status" name="Status" asp-for="Status">
+                                                <option></option>
+                                                <option value="Active">Active</option>
+                                                <option value="In-Active">In-Active</option>
+                                            </select>
+                                        <span asp-validation-for="Status" class="text-danger d-flex"></span>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary rounded-pill" onClick="window.location.reload();" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-orange rounded-pill">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="userrecord" class="table bg-white rounded shadow-sm  table-hover">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Employee Id</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.userdata)
+                                   {
+                                       <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.FirstName</td>
+                                        <td>@item.LastName</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.EmployeeId</td>
+                                        <td>@item.Department</td>
+                                        @if(item.Status)
+                                    { <td style="color:green">Active</td> }
+                                    else
+                                    {
+                                        <td style="color:red">In-Active</td> 
+
+                                    }
+                                        
+                                        <td>
+                                            <button onclick="USerEdit(@item.UserId)" type="button" class="border-0">
+                                                <i class="bi bi-pencil-square text-warning"></i>
+                                            </button>
+                                            <a onclick="userDelete(@item.UserId)" class="border-0 ms-2">
+                                                <i class="bi bi-trash-fill text-danger"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    index=index+1;
+                                   }
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+        <section id="cmspage" class="row my-5 content-section">
+            <h3>CMS Page</h3>
+        </section>
+        <section id="mission" class="row my-5 content-section">
+            <h3>Mission</h3>
+        </section>
+        <section id="theme" class="row my-5 content-section">
+            <h3>Mission Theme</h3>
+        </section>
+        <section id="skill" class="row my-5 content-section">
+            <h3>Mission Skill</h3>
+        </section>
+        <section id="application" class="row my-5 content-section">
+            <h3>Mission Application</h3>
+        </section>
+        <section id="story" class="row my-5 content-section">
+            <h3>Story</h3>
+        </section>
+        <section id="banner" class="row my-5 content-section">
+            <h3>Banner Management</h3>
+        </section>
+    </div>
+</div>
+          
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime=document.getElementById("dashboadtime");
+        var userrecordFilter = document.getElementById("userrecord_filter");
+        function countryByCity() {
+    var countryId = document.getElementById("country").value;
+    $.ajax({
+
+
+
+        url: '/Admin/Admin/CountryByCityAdmin',
+        type: 'POST',
+        data: { CountryId: countryId },
+        dataType: 'json',
+
+        success: function (result) {
+            console.log(result.data);
+            var cityOption = "";
+            var cityDropdown = document.getElementById("city");
+            if (result.data.length == 0) {
+
+                cityOption += `<option>No cities Found</option>`
+            }
+            else {
+                for (let i = 0; i < result.data.length; i++) {
+                    cityOption += `<option value="${result.data[i].cityId}">${result.data[i].name}</option>`
+                }
+            }
+           
+
+            cityDropdown.innerHTML = cityOption;
+        }
+    });
+}
+        function currentTime() {
+            var time = new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML = dateString + ' ' + timeString;
+            let t = setTimeout(function () { currentTime() }, 1000);
+        }
+        currentTime();
+
+         toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+        const menulink=document.querySelectorAll(".list-group-item");
+        const contentSections = document.querySelectorAll('.content-section');
+
+        //menulink.forEach((link)=>{
+        //    link.addEventListener('click',(event)=>{
+        //        event.preventDefault();
+        //        const targetId = link.getAttribute('href');
+        //        const targetSection = document.querySelector(targetId);
+        //        contentSections.forEach((section)=>{
+        //            section.classList.remove('active');
+        //        });
+                
+        //        menulink.forEach((link)=> {
+        //    link.classList.remove('active');
+        //    link.classList.add("bg-transparent");
+        //  });
+        //  link.classList.add('active');
+        //  link.classList.remove("bg-transparent");
+        //    });
+        //});
+        
+
+        $(document).ready(function () {
+            $('#userrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+       $('#userrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+        var userrecordFilter = document.getElementById("userrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML=`<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn","btn-outline-warning","rounded-pill","addbtn");
+        button.setAttribute("data-bs-toggle","modal");
+        button.setAttribute("id","Examplemodal");
+        button.setAttribute("data-bs-target","#exampleModaladd");
+        userrecordFilter.appendChild(button);
+        const profileimgcard=document.querySelector(".profileimgcard");
+        const profileImgInput = document.querySelector('#profile-img-input');
+        profileImgInput.addEventListener('change', () => {
+    const file = profileImgInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        profileImg.value = reader.result;
+        profileimgcard.style.display = "flex";
+        profileimgcard.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    }
+  });
+    </script>
+    <script>
+        $(function () {
+        
+        $('form').on('submit', function (event)
+        {
+            var email=document.getElementById("email").value;
+             var userId = document.getElementById("userId").value;
+            
+            if(userId=="0" || userId == null){
+                 $.ajax({
+        url: '/Admin/Admin/checkuserexists',
+        type: 'POST',
+        data: { email: email },
+        dataType: 'json',
+        success: function (result) {
+            console.log(result.success);
+            if(result.success){
+                 event.preventDefault();
+                   document.getElementById("userform").submit();
+            }
+            else{
+              $("#emailError").text("With This Email User Exists.");
+                event.preventDefault();
+            }
+      
+        },
+           error: function () {
+            swalWithBootstrapButtons.fire(
+                'Alert!',
+                'Could not load your draft.',
+                'error'
+            )
+           
+        }
+     
+    });
+            }
+            else{
+                 
+                
+                   document.getElementById("userform").submit();
+            }
+           
+               event.preventDefault();
+        });
+        
+    });
+    </script>
+    <script src="~/js/Admin.js"></script>
+     @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }

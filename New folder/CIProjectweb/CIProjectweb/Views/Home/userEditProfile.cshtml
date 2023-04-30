@@ -44,10 +44,10 @@
                     </button>
                     <form>
                         <div id="myModal" class="modal">
-                            <div class="modal-content" style="height: 50%;">
+                            <div class="modal-content w-25" style="height: 50%;">
                                 <div class="modal-header" style="background-color: white; color: black;">
                                     <h2>Change Password</h2>
-                                    <span class="close" style="color:black;">&times;</span>
+                                    <span class="close" onClick="window.location.reload();" style="color:black;">&times;</span>
 
                                 </div>
                                 <div class="modal-body">
@@ -61,8 +61,8 @@
                                 </div>
                                 <div class="modal-footer" style="background-color: white; color: black;">
 
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="button" class="btn btn-primary" onclick="changePass();">Save</button>
+                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal" onClick="window.location.reload();">Cancel</button>
+                                    <button type="button" class="btn btn-orange rounded-pill " onclick="changePass();">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -76,18 +76,21 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-6">
-                        <label for="name">Name</label>
-                        <input type="text" asp-for="FirstName" class="form-control" placeholder="Enter your name">
+                        <label for="name">Name*</label>
+                        <input type="text"  asp-for="FirstName" class="form-control" placeholder="Enter your name" required>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                     <div class="col-lg-6">
-                        <label for="surname">SurName</label>
-                        <input type="text"asp-for="LastName" class="form-control" placeholder="Enter your Surname">
+                        <label for="surname">SurName*</label>
+                        <input type="text"  asp-for="LastName" class="form-control" placeholder="Enter your Surname" required>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-6">
-                        <label for="empid">Employee ID</label>
-                        <input type="text" asp-for="EmployeeId"class="form-control" placeholder="Enter your employee id">
+                        <label for="empid">Employee ID*</label>
+                        <input type="text"  asp-for="EmployeeId"class="form-control" placeholder="Enter your employee id" required>
+                       <span asp-validation-for="EmployeeId" class="text-danger"></span>
                     </div>
                     <div class="col-lg-6">
                         <label for="empid">Manager</label>
@@ -115,15 +118,16 @@
                 <div class="row mt-3">
                     <div class="col-lg-6">
                         <label for="city">City</label>
-                        <select class="form-control form-select" asp-items="@Model.cities" asp-for="CityId">
+                        <select class="form-control form-select citydiv" asp-items="@Model.cities" asp-for="CityId">
                             <option>Enter your city</option>
                         </select>
                     </div>
                     <div class="col-lg-6">
-                        <label for="city">Country</label>
-                        <select class="form-control form-select" asp-items="@Model.countries" asp-for="CountryId">
+                        <label for="city">Country*</label>
+                        <select class="form-control form-select "  asp-items="@Model.countries" id="country" onchange="profileCityList()" asp-for="CountryId">
                             <option>Enter your country</option>
                         </select>
+                          <span asp-validation-for="CountryId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="border-bottom mt-4">
@@ -141,6 +145,7 @@
                     <div class="col-lg-6">
                         <label for="url">LinkedIn</label>
                         <input type="text" class="form-control" asp-for="LinkedInUrl" placeholder="Enter linkedIn URL">
+                        <span asp-validation-for="LinkedInUrl" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="border-bottom mt-4">
@@ -156,13 +161,13 @@
                     <div class="skillbtn">
                         <button type="button" class="btn btn-outline-dark rounded-pill mt-2" id="myBtnSkill">Add Skills</button>
                             <div id="myModalskill" class="modal">
-                         <div class="modal-content" style="height: 50%;">
+                         <div class="modal-content w-50" >
                                 <div class="modal-header" style="background-color: white; color: black;">
                                     <h2>Add skill</h2>
                                     <span class="closeSkill" style="color:black;">&times;</span>
 
                                 </div>
-                                <div class="modal-body">
+                                <div class="modal-body" style="height: 100%;">
                                     <div class="row">
                                     <div class="col-6">
                                         <div class="card addskill p-2" >
@@ -196,15 +201,15 @@
                                 </div>
                                 <div class="modal-footer" style="background-color: white; color: black;">
 
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                  <button type="button" class="btn btn-primary skillsavebtn">Save</button>
+                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+                                  <button type="button" class="btn btn-orange rounded-pill skillsavebtn">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br />
                     <div class="d-flex justify-content-end" style="width:97.5%;">
-                        <button type="button" class="btn btn-outline-danger rounded-pill" onclick="sendskill()">Save</button>
+                        <button type="submit" class="btn btn-outline-danger rounded-pill" >Save</button>
                     </div>
                 </div>
             </div>
@@ -212,6 +217,11 @@
     </div>
 </div>
 </form>
+@section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
     <script>
         // Get the modal
         var modal = document.getElementById("myModal");
@@ -370,6 +380,14 @@ addedskill.addEventListener('click', (event) => {
         event.target.classList.toggle('selected');
     }
 });
+// Add a click event listener to the addskill div
+addedskill.addEventListener('click', (event) => {
+    // Check if the clicked element is a skill name
+    if (event.target.tagName === 'P') {
+        // Check if the skill name has already been added
+       event.target.style.backgroundColor = '#F0F0F0';
+    }
+});
 
 //addedskill.addEventListener('click', (event) => {
 //    // Check if the clicked element is a skill name
@@ -484,15 +502,15 @@ const regexPattern = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[
     document.getElementById("errorContainerOld").textContent = "Old password is required";
      errorContainer.style.color = "red";
   }
-  else if(confp === null || confp === ""){
+  if(confp === null || confp === ""){
       document.getElementById("errorContainer").textContent = "Confirm password is required";
      errorContainer.style.color = "red";
   }
-  else if(newp === null || newp === ""){
+  if(newp === null || newp === ""){
        document.getElementById("errorContainerNew").textContent = "New password is required";
      errorContainer.style.color = "red";
   }
-  else if(!regexPattern.test(newp)){
+ if(!regexPattern.test(newp)){
       document.getElementById("errorContainerNew").textContent = "Password must meet the minimum strength requirements.";;
      errorContainer.style.color = "red";
   }
@@ -523,6 +541,30 @@ const regexPattern = /^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[
     });
   }
   }
+    
+}
+    </script>
+    <script>
+        function profileCityList() {
+  
+
+    var getCountryId = document.getElementById('country').value;
+    // Make an AJAX call with the data
+    $.ajax({
+        url: '/home/userEditProfile', // Replace with your endpoint URL
+        type: 'GET',
+        data: { CountryId: getCountryId }, // Send the array of skill names as data
+        success: function (result) {
+            // Handle success
+           
+           $('.citydiv').html($(result).find('.citydiv').html());
+
+        },
+        error: function () {
+            // Handle error
+            console.error(error);
+        }
+    });
     
 }
     </script>

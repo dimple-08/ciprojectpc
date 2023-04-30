@@ -68,7 +68,7 @@ namespace CIProjectweb.Repository.Repository.Interface
         public StoryInvite storyInviteExists(int fromUserid, int ToUserId, long storyId);
         public List<City> cities();
         public List<Country> countries();
-        public List<Skill> skills();
+        public List<Skill> skills(int userid);
         public void adduser(Userviewmodel userViewModel, int userid);
         public void saveskill(string[] skill, int userid);
         public List<Skill> oneuserskill(int userid);
@@ -82,5 +82,7 @@ namespace CIProjectweb.Repository.Repository.Interface
         public void sheetime(TimesheetViewModel timesheetViewModel, int userid);
         public List<Timesheet> timesheetlistTime(int userId);
         public Timesheet findtimerecord(int timesheetid);
+        public List<City> cities(long countryId);
+        public DisplayBannerModel LoadBannerGet();
     }
 }

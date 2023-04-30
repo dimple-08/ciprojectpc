@@ -30,7 +30,7 @@ namespace CIProjectweb.Repository.Repository
         }
         public bool AddUser(RegistrationViewModel objuser)
         {
-           var userexsists= _objdb.Users.Where(a => a.Email.Equals(objuser.Email)).FirstOrDefault();
+           var userexsists= _objdb.Users.Where(a => a.Email.Equals(objuser.Email)&& a.DeletedAt==null && a.Status==true).FirstOrDefault();
             if (userexsists == null)
             {
                 var user = new User()
@@ -53,7 +53,7 @@ namespace CIProjectweb.Repository.Repository
         }
         public bool ValideUserEmail(ForgotPasswordViewModel objFpvm,string token)
         {
-            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objFpvm.Email)).FirstOrDefault();
+            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objFpvm.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
             if (userexsists != null)
             {
                 
@@ -93,7 +93,7 @@ namespace CIProjectweb.Repository.Repository
 
         public bool updatePassword(ResetPAsswordViewModel objreset)
         {
-            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objreset.Email) ).FirstOrDefault();
+            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objreset.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
             if (userexsists == null)
             {
                 return false;
@@ -351,7 +351,7 @@ namespace CIProjectweb.Repository.Repository
            
            
                 MissionViewModel missionView = new MissionViewModel();
-                missionView.Availability = mission.Availability;
+                missionView.Availability = mission.Availability == null? "Daily":mission.Availability;
                 missionView.Title = mission.Title;
                 var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
                 if (city != null)
@@ -432,8 +432,13 @@ namespace CIProjectweb.Repository.Repository
             var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
             if (goalvalue != null)
             {
+               float action = (float)(_objdb.Timesheets.Where(x => x.MissionId == mission.MissionId && x.DeletedAt == null).Select(x => x.Action).Sum());
+            float totalGoal = goalvalue.GoalValue;
+            missionView.progressBar = action * 100 / totalGoal;
                 missionView.GoalValue = goalvalue.GoalValue;
             }
+           missionView.Media=_objdb.MissionMedia.Where(m=>m.MissionId==mission.MissionId).ToList();
+           
             var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
             if (goalvalue != null)
             {
@@ -470,7 +475,15 @@ namespace CIProjectweb.Repository.Repository
                     sum = sum + int.Parse(entry.Rating);
 
                 }
+            if (ratings.Count>0)
+            {
                 rating = sum / ratings.Count;
+            }
+            else
+            {
+                rating=5;
+            }
+                
                 if (rating != null)
                 {
                     missionView.Rating = rating;
@@ -692,21 +705,38 @@ namespace CIProjectweb.Repository.Repository
             List<City> cities = _objdb.Cities.ToList();
             return cities;
         }
+
+        public List<City> cities(long countryId)
+        {
+            List<City> cities = _objdb.Cities.Where(ct=>ct.CountryId==countryId).ToList();
+            return cities;
+        }
         public List<Country> countries()
         {
             List<Country> countries = _objdb.Countries.ToList();
             return countries;
         }
 
-        public List<Skill> skills()
+        public List<Skill> skills(int userid)
         {
-            List<Skill> skills=_objdb.Skills.ToList();  
+            List<Skill> skill = new List<Skill>();
+            var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
+            List<Skill> skills=_objdb.Skills.Where(s=>s.Status==1 && s.DeletedAt==null).ToList();  
+            foreach(var i in skills)
+           {
+                if (userskill.Find(x=>x.SkillId==i.SkillId)==null)
+                {
+                    skill.Add(i);
+
+                }
+            }
+            skills = skill;
             return skills;
         }
         public List<Skill> oneuserskill(int userid)
         {
             var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
-            List<Skill> skills = _objdb.Skills.ToList();
+            List<Skill> skills = _objdb.Skills.Where(s => s.Status == 1 && s.DeletedAt == null).ToList();
             var oneuserskill = (from u in userskill join s in skills on u.SkillId equals s.SkillId select s).ToList();
             return oneuserskill;
         }
@@ -714,7 +744,7 @@ namespace CIProjectweb.Repository.Repository
         {
             User user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
             user.FirstName = userViewModel.FirstName == null ? user.FirstName : userViewModel.FirstName;
-            user.LastName = userViewModel.LastName == null ? user.LastName : userViewModel.LastName;
+            user.LastName = userViewModel.LastName;
             user.Avatar = userViewModel.Avatar == null ? user.Avatar : userViewModel.Avatar;
             user.EmployeeId = userViewModel.EmployeeId == null ? user.EmployeeId : userViewModel.EmployeeId;
             user.Department = userViewModel.Department == null ? user.Department : userViewModel.Department;
@@ -765,15 +795,15 @@ namespace CIProjectweb.Repository.Repository
         }
         public List<Mission> missionstime(int userId)
         {
-            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
-            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Time").ToList();
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId && ma.ApprovalStatus == "ACCEPT").ToList();
+            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Time" && m.DeletedAt == null).ToList();
             List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
             return appliedbyuser;
         }
         public List<Mission> missionsgoal(int userId)
         {
-            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId).ToList();
-            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Goal").ToList();
+            var missionappliedbyuser = _objdb.MissionApplications.Where(ma => ma.UserId == userId && ma.ApprovalStatus=="ACCEPT").ToList();
+            List<Mission> missions = _objdb.Missions.Where(m => m.MissionType == "Goal" && m.DeletedAt == null).ToList();
             List<Mission> appliedbyuser = (from ma in missionappliedbyuser join ms in missions on ma.MissionId equals ms.MissionId select ms).ToList();
             return appliedbyuser;
         }
@@ -955,6 +985,19 @@ namespace CIProjectweb.Repository.Repository
                 _objdb.SaveChanges();
             }
         }
+        #region LoadBanner
+
+        public DisplayBannerModel LoadBannerGet()
+        {
+            var banners = _objdb.Banners.Where(b => b.DeletedAt == null).ToList();
+            var sortedBanners = banners.OrderBy(b => b.SortOrder).ToList();
+            DisplayBannerModel bannerModel = new()
+            {
+                Banners = sortedBanners,
+            };
+            return bannerModel;
+        }
+        #endregion
         public bool Update_Rating(MissionRating ratingExists,string rating,int u_id,long missionId)
         {
             if (ratingExists != null)
@@ -1457,108 +1500,6 @@ namespace CIProjectweb.Repository.Repository
         //        return story;
         //    }
         //}
-        //#region Landing Page
-        //public MissionListingModel LandingPageGet()
-        //{
-        //    MissionListingModel model = new MissionListingModel()
-        //    {
-        //        City = _objdb.Cities.ToList(),
-        //        Country = _objdb.Countries.ToList(),
-        //        MissionThemes = _objdb.MissionThemes.ToList()
-
-        //    };
-        //    return model;
-        //}
-
-        //public MissionListingModel LandingPagePost(string[]? country, string[]? city, string[]? theme, string? searchTerm, string? sortValue, int pg)
-        //{
-        //    List<Mission> miss = _objdb.Missions.ToList();
-
-
-        //    MissionListingModel model = new MissionListingModel
-        //    {
-        //        Missions = _objdb.Missions.ToList(),
-        //        Country = _objdb.Countries.ToList(),
-        //        City = _objdb.Cities.ToList(),
-        //        MissionThemes = _objdb.MissionThemes.ToList(),
-        //        MissionSkills = _objdb.MissionSkills.ToList(),
-        //        GoalMission = _objdb.GoalMissions.ToList(),
-        //        FavMissionData = _objdb.FavouriteMissions.ToList(),
-        //        MissionApplications = _objdb.MissionApplications.ToList(),
-        //        MissionRatings = _objdb.MissionRatings.ToList(),
-        //        Users = _objdb.Users.ToList(),
-
-
-        //    };
-
-
-        //    if (country.Count() > 0 || city.Count() > 0 || theme.Count() > 0)
-        //    {
-        //        miss = GetFilteredMission(miss, country, city, theme);
-        //    }
-
-
-
-        //    if (searchTerm != null)
-        //    {
-        //        miss = miss.Where(m => m.Title.ToLower().Contains(searchTerm)).ToList();
-
-        //    }
-
-
-
-        //    miss = GetSortedMissions(miss, sortValue);
-
-        //    model.Missions = miss;
-
-        //    return model;
-        //}
-
-        //#endregion
-
-        //#region GetSortedMissions Method
-        //public List<Mission> GetSortedMissions(List<Mission> miss, string sortValue)
-        //{
-        //    switch (sortValue)
-        //    {
-        //        case "Newest":
-        //            return miss.OrderBy(m => m.StartDate).ToList();
-        //        case "Oldest":
-        //            return miss.OrderByDescending(m => m.StartDate).ToList();
-        //        case "lowest":
-        //            return miss.OrderBy(m => m.Availability).ToList();
-        //        case "highest":
-        //            return miss.OrderByDescending(m => m.Availability).ToList();
-        //        default:
-        //            return miss.ToList();
-
-        //    }
-        //}
-
-        //#endregion
-
-        //#region GetFilteredMission Method
-        //public List<Mission> GetFilteredMission(List<Mission> miss, string[] country, string[] city, string[] theme)
-        //{
-        //    if (country.Length > 0)
-        //    {
-        //        miss = miss.Where(m => country.Contains(m.Country.Name)).ToList();
-        //    }
-
-        //    if (city.Length > 0)
-        //    {
-        //        miss = miss.Where(m => city.Contains(m.City.Name)).ToList();
-        //    }
-
-        //    if (theme.Length > 0)
-        //    {
-        //        miss = miss.Where(m => theme.Contains(m.Theme.Title)).ToList();
-        //    }
-
-        //    return miss;
-        //}
-
-        //#endregion
         public Story getstory(string[] Image, int MissionId, string Title, DateTime Date, string Description, int UserId, string[] videoUrl, string value)
         {
             var story1 = _objdb.Stories.FirstOrDefault(st => st.MissionId == MissionId && st.UserId == UserId);

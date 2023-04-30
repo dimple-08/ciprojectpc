@@ -126,16 +126,32 @@
                     var count = Model.MediaPaths.Count;
                     int i = 0;
                 }
-                @foreach (var theme in Model.MediaPaths)
+                @foreach (var theme in Model.Media)
                 {
                     if (theme != null)
                     {
                         i = i + 1;
 
-                        <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                        @*<div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
                             <div class="numbertext">@i / @count</div>
                             <img src="@theme" class="border border-5 border-primary" style="height:100%;object-fit:cover;width:100%">
-                        </div>
+                        </div>*@
+                          if (theme.MediaType == "imag")
+                        {
+                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                                <div class="numbertext">@i/@count </div>
+                                <img src="@theme.MediaPath" style="height:100%;object-fit:cover;width:100%" class="border border-5" />
+                            </div>
+                            i++;
+                        }
+                        if (theme.MediaType == "video")
+                        {
+                            <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
+                                <div class="numbertext">@i/@count</div>
+                                <iframe class="border border-5 " style="height:100%;object-fit:cover;width:100%" src="@theme.MediaPath" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            </div>
+                            i++;
+                        }
                     }
                 }
                 @* <div class="mySlides border border-5 border-dark" style="height:calc(100% - 120px);">
@@ -164,15 +180,28 @@
 
                         int d = 0;
                     }
-                    @foreach (var theme in Model.MediaPaths)
+                    @foreach (var theme in Model.Media)
                     {
                         if (theme != null)
                         {
                             d = d + 1;
+                             if (theme.MediaType == "imag")
+                            {
+                                <div class="column">
+                                    <img class="demo cursor" src="@theme.MediaPath" style="width: 100%;" onclick="currentSlide(@d)"
+                             alt="The Wood" />
+                                </div>
 
-                            <div class="column1" style="width:25%">
+                            }
+                            if (theme.MediaType == "video")
+                            {
+                                <div class="column">
+                                    <iframe class="demo cursor" src="@theme.MediaPath" style="width: 100%;" onclick="currentSlide(@d)"></iframe>
+                                </div>
+                            }
+                            @*<div class="column1" style="width:25%">
                                 <img class="demo cursor" src="@theme" style="width:100%;height:100%;" onclick="currentSlide(@d)" alt="The Woods">
-                            </div>
+                            </div>*@
                         }
                     }@*
                         <div class="column1" style="width:25%">
@@ -225,10 +254,10 @@
 
                                 <div class="d-flex flex-column ms-2 " style="margin-top:9%">
                                     <div class="progress">
-                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width:  @Model.progressBar%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
-                                    <p class="seat">8000 achieved</p>
+                                    <p class="seat">@((@Model.progressBar)*(@Model.GoalValue/100)) achived</p>
                                 </div>
 
                             </div>
@@ -244,10 +273,10 @@
 
                                 <div class="d-flex flex-column ms-2 " style="margin-top:9%">
                                     <div class="progress" style="width:284% !important">
-                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.GoalValue%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                        <div id="one" class="progress-bar" style="background-color: #F88634 !important;width: @Model.progressBar%;" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
                                         </div>
                                     </div>
-                                    <p class="seat">@((@Model.GoalValue)*100) achived</p>
+                                    <p class="seat">@((@Model.progressBar)*(@Model.GoalValue/100)) achived</p>
                                      
                                 </div>
 
@@ -393,7 +422,7 @@
                         <div id="myModal" class="modal">
 
                             <!-- Modal content -->
-                            <div class="modal-content">
+                            <div class="modal-content w-25">
                                 <div class="modal-header">
                                     <h2>Select Co-workers</h2>
                                     <span class="close">&times;</span>
@@ -407,7 +436,8 @@
                                         @foreach (var items in @ViewBag.Users)
                                         {
                                             <li class="dropdown-item">
-                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />@items.FirstName <span>(@items.Email)</span>
+                                               
+                                                <input class="form-check-input" type="checkbox" value=@items.Email name="Checkme" />  <img id="profileimg" src="@(items.Avatar == null ? "/images/user1.png" : items.Avatar)"> @items.FirstName 
                                                @* <button class="btn btn-success me-1" onclick="recomand('@items.Email',@Model.MissionId)" style="position:absolute; right:6px;" id="sent">
                                                         Send Email
                                                     </button>*@
@@ -554,7 +584,7 @@
                                     }
                                 }
 
-                                else if (Model.MissionType == "Goal" && int.Parse(Model.SeatAvailable) > 0 && Model.GoalValue < 100 && Model.deadline > DateTime.Now)
+                                else if (Model.MissionType == "Goal" && int.Parse(Model.SeatAvailable) > 0 && Model.progressBar < 100 )
                                 {
                                     if (Model.isPending)
                                     {
@@ -657,7 +687,7 @@
                             <div class="d-flex flex-row mt-4">
                                 @foreach (var docs in @ViewBag.documents)
                                 {
-                                    <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center "><a href="@Url.Content(docs.DocumentPath)"><img src="~/lib/images/pdf.png" /><span class="ms-1">@docs.DocumentName</span></a></button>
+                                    <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center "> <a href="@Url.Content(docs.DocumentPath)"  download><img src="~/lib/images/pdf.png" /><span class="ms-1">@docs.DocumentName</span></a></button>
                                 }
                                 @*     <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center "><img src="~/lib/images/pdf.png" /><span class="ms-1">lorem-ipsm.pdf</span></button>
                                     <button class="hrbtn pdf-btn d-flex justify-content-center align-items-center ms-3"><img src="~/lib/images/pdf.png" /><span class="ms-1">lorem-ipsm.pdf</span></button>
@@ -872,8 +902,9 @@
                                         </div>*@
 
                                     <div class="Stars" id="displaystar" style="--rating: @Model.avgRating;"></div>
+                                    (BY @Model.ratingCount Volunteers)
                                     <div>
-                               (BY @Model.ratingCount Volunteers)
+                               
                            </div>
                                 </div>
 

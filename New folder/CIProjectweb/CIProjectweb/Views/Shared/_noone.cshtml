@@ -2,7 +2,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+   int i = 0;
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +20,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="~/css/custom.css">
 </head>
-<body>
+<body onload="loadBanner()">
     
         <main role="main">
        <div class="container-fluid">
@@ -26,18 +28,16 @@
             <div class="col-sm-12 col-md-8 col-lg-8 p-0">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
-                        <li data-target="#myCarousel" data-slide-to="3"></li>
-                        <li data-target="#myCarousel" data-slide-to="4"></li>
-                        <li data-target="#myCarousel" data-slide-to="5"></li>
+                    <ol class="carousel-indicators" id="carousel-indicators">
+                       
+                       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                       
                     </ol>
-
-                    <!-- Wrapper for slides -->
-                    <div class="carousel-inner">
-                        <div class="item active">
+                        
+                        <!-- Wrapper for slides -->
+                    <div class="carousel-inner" id="display-banner">
+                         <div id="preloader"></div>
+                        @*<div class="item active">
                             <img src="~/lib/images/Grow-Trees-On-the-path-to-environment-sustainability-login.png"
                                  style="width:100%">
                             
@@ -120,7 +120,8 @@
                                     fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
                                     qui officia deserunt mollit anim id est laborum.</p>
                             </div>
-                        </div>
+                        </div>*@
+                     
                     </div>
 
                     <!-- Left and right controls -->
@@ -161,9 +162,75 @@
     </div>
             
         </main>
-  
+  <script>
+     var loader = document.getElementById('preloader');
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function() {
+        loader.style.display = "none";
+    }, 5000);
+});
+window.addEventListener("load", function () {
+    loader.style.display = "none";
+});
 
-   
+          function loadBanner() {
+            $.ajax({
+                url: '/Home/LoadBanner',
+                type: 'POST',
+                dataType: 'json',
+                success: async function (result) {
+                    console.log(result.data["banners"])
+                    if (result.data != null) {
+                        var banner = "";
+                        var btn = "";
+                        var carIndecator = document.getElementById("carousel-indicators");
+
+                        var displayBanner = document.getElementById("display-banner");
+
+                        for (let i = 0; i < result.data["banners"].length; i++) {
+                            if (i == 0) {
+                                var banner = `
+
+
+                                <div class="item active">
+                            <img src="${result.data["banners"][i].image}"
+                                 style="width:100%">
+                            
+                            <div class="carousel-caption container-fluid">
+                                <h3 id="imginfo">Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
+                                <p id="imginfosmall">${result.data["banners"][i].text}</p>
+                            </div>
+                        </div>`;
+                        }
+                        else{
+                                banner = ` 
+                                
+                                
+                                
+                                
+                                  <div class="item">
+                            <img src="${result.data["banners"][i].image}" 
+                                style="width:100%">
+                            <div class="carousel-caption container-fluid">
+                                <h3 id="imginfo">Sed ut perspiciatis unde omnis iste natus voluptatem.</h3>
+                                <p id="imginfosmall">${result.data["banners"][i].text}</p>
+                            </div>
+                        </div>`;
+                        
+                                  btn = `<li data-target="#myCarousel" data-slide-to="${i}"></li>
+                                             `;
+                                            }
+                            carIndecator.innerHTML += btn;
+                            displayBanner.innerHTML += banner;
+
+                        }
+                    }
+                }
+            });
+
+        }
+
+   </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

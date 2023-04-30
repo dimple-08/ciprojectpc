@@ -1,4 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var slugs = new List<dynamic>();
+    var uniqueSlugs = new List<dynamic>();
+    foreach (var item in ViewBag.slugs)
+    {
+        if (!uniqueSlugs.Any(s => s.Slug == item.Slug))
+        {
+            uniqueSlugs.Add(item);
+        }
+        slugs.Add(item);
+    }
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -15,6 +27,41 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CIProjectweb.styles.css" asp-append-version="true" />
      <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <style>
+        .copyright {
+            padding: 28px 0;
+           /* margin-top: 175px;*/
+            background-color: black;
+        }
+
+            .copyright span,
+            .copyright a {
+                color: #f88634;
+            }
+
+                .copyright a:hover {
+                    color: white;
+                }
+
+        .copyright-menu ul {
+            text-align: left;
+            margin: 0;
+        }
+
+            .copyright-menu ul li a {
+                text-decoration: none;
+            }
+
+        .copyright-menu li {
+            display: inline-block;
+            padding-left: 20px;
+        }
+
+        .rights {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
    <header>
@@ -74,10 +121,15 @@
                                 <img class="ic-down" src="~/images/drop-down.png">
                             </a>
                             <ul class="dropdown-menu">
-
-                                <li><a class="dropdown-item dd-color" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider dd-color"></li>
-                                <li><a class="dropdown-item dd-color" href="#">Something else here</a></li>
+                                 @foreach (var item in uniqueSlugs)
+                                {
+                                    <li>
+                                        <a class="dropdown-item dd-color" asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-slug="@item.Slug">
+                                            @item.Slug
+                                        </a>
+                                    </li>
+                                }
+                               
                             </ul>
                         </li>
 
@@ -104,11 +156,10 @@
                             <a class=" nav-link text-dark font-color " href="#" role="button" data-bs-toggle="dropdown"
                                                                                 aria-expanded="false" font-family: Roboto;><label> @Context.Session.GetString("UserName")</label>  <img class="ic-down" src="~/images/drop-down.png"></a>
                             <ul class="dropdown-menu ">
-                                <li><a class="dropdown-item dd-color" href="#">Dashbord</a></li>
                                 <li><a class="dropdown-item dd-color" asp-action="userEditProfile" asp-controller="Home">Add profile</a></li>
                                 <li><a class="dropdown-item dd-color" asp-action="VolunteeerTimesheet" asp-controller="Home">Volunteer Timesheet</a></li>
 
-                                <li><a class="dropdown-item dd-color" href="#">Help Center</a></li>
+                                
                                 <li><a class="dropdown-item dd-color" asp-action="LogOut" asp-controller="Home">Log out</a></li>
                             </ul>
                         }
@@ -126,26 +177,54 @@
         
        
     </header>
-    
-        <main role="main">
+    <div class="container-fluid p-0 m-0 d-flex flex-column" style="height: 93vh;">
+<main role="main">
+                @RenderBody()
+            </main>
+<footer class="copyright" style="background-color:black">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="copyright-menu">
+                        <ul>
+                            <li>
+                                <a asp-controller="Home" asp-action="Privacy" style="text-decoration:none; color: #f88634;" asp-route-slug="privacy">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a class="btn" id="myBtn" data-bs-toggle="modal" style="text-decoration:none; color: #f88634;">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 rights" >
+                    <span style="color: #f88634;" > © 2023 optimy.com. All Right Reserved </span>
+                </div>
+                <!-- End Col -->
+                <!-- End col -->
+            </div>
+            <!-- End Row -->
+        </div>
+        <!-- End Copyright Container -->
+    </footer>
+</div>
+        @*<main role="main">
             @RenderBody()
-        </main>
+        </main>*@
   
-
-    <footer class=" footer text-muted">
+    @*<footer class=" footer text-muted">
         <div class="container" style="margin-top:23px;">
-             <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-              <button class="btn" id="myBtn" data-bs-toggle="modal" >
+            <a asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-slug="privacy">Privacy Policy</a>
+              <button class="btn" id="myBtncontact"  >
                 Contact us
             </button>
 
 
             <!-- Modal content -->
-            <div id="myModal" class="modal">
-                <div class="modal-content" style="height:61%;">
+            <div id="myModalcontact" class="modal">
+                <div class="modal-content w-50" style="height:61%;">
                     <div class="modal-header" style="background-color: white; color: black;">
-                        <h2>Change Password</h2>
-                        <span class="close" style="color:black;">&times;</span>
+                        <h2>Contact Us</h2>
+                        <span class="close" id="closespan" style="color:black;">&times;</span>
 
                     </div>
                     
@@ -174,7 +253,7 @@
 
             </div>
         </div>
-    </footer>
+    </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
         
@@ -209,12 +288,29 @@ function closeFilter() {
 
 </script>
   <script>
-        function contactUs() {
+         function contactUs() {
+             const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success ms-2',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    })
             var name = document.getElementById("name").value;
             var mail = document.getElementById("email").value;
             var subject = document.getElementById("subject").value;
             var message = document.getElementById("message").value;
-            $.ajax({
+            const regex =  /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (name.trim() && mail.trim() && subject.trim() && message.trim()) {
+                if (!regex.test(mail)) {
+                    swalWithBootstrapButtons.fire(
+                        'Warning!',
+                        'Please Enter Valid Email.',
+                        'info'
+                    )
+                }
+                else {
+                    $.ajax({
                 url: '/Home/Contactus',
                 type: 'POST',
                 data: { "name": name, "mail": mail, "subject": subject, "message": message },
@@ -226,32 +322,44 @@ function closeFilter() {
                     }
                 }
             });
+                }
+                
+
+            }
+            else{
+                swalWithBootstrapButtons.fire(
+                        'Alert!',
+                        'Every field id required.',
+                        'error'
+                    )
+            }
+            
         }
    </script>
     <script>
         // Get the modal
-        var modal = document.getElementById("myModal");
+        var modalcontact = document.getElementById("myModalcontact");
 
         // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
+        var btncontact = document.getElementById("myBtncontact");
 
         // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+var spancontact = document.getElementById("closespancontact");
 
         // When the user clicks the button, open the modal
-        btn.onclick = function() {
-          modal.style.display = "block";
+        btncontact.onclick = function() {
+          modalcontact.style.display = "block";
         }
 
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-          modal.style.display = "none";
+        spancontact.onclick = function() {
+          modalcontact.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
+          if (event.target == modalcontact) {
+            modalcontact.style.display = "none";
           }
         }
     </script>

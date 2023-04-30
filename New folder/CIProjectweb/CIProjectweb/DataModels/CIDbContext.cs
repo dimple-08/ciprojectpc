@@ -866,6 +866,9 @@ public partial class CIDbContext : DbContext
             entity.Property(e => e.ProfileText)
                 .HasColumnType("text")
                 .HasColumnName("profile_text");
+            entity.Property(e => e.Role)
+                .HasMaxLength(500)
+                .IsUnicode(false);
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
                 .HasMaxLength(255)

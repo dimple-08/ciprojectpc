@@ -13,9 +13,10 @@ namespace CIProjectweb.Entities.ViewModels
     {
         public long UserId { get; set; }
 
-        public string? FirstName { get; set; }
-
-        public string? LastName { get; set; }
+        [Required(ErrorMessage = "Field can't be empty")]
+        public string FirstName { get; set; } = null!;
+        [Required(ErrorMessage = "Field can't be empty")]
+        public string LastName { get; set; } = null!;
 
         public string Email { get; set; } = null!;
 
@@ -39,7 +40,7 @@ namespace CIProjectweb.Entities.ViewModels
         public string? Avatar { get; set; }
 
         public string? WhyIVolunteer { get; set; }
-
+        [Required(ErrorMessage = "Field can't be empty")]
         public string? EmployeeId { get; set; }
 
         public string? Department { get; set; }
@@ -47,10 +48,11 @@ namespace CIProjectweb.Entities.ViewModels
 
         public long? CityId { get; set; }
 
+        [Required(ErrorMessage = "Field can't be empty")]
         public long? CountryId { get; set; }
 
         public string? ProfileText { get; set; }
-
+        [RegularExpression(@"^(https:\/\/)?(www\.)?linkedin\.com\/(in|pub)\/[a-zA-Z0-9\-]+(\/)?$", ErrorMessage = "Please enter a valid LinkedIn profile URL.")]
         public string? LinkedInUrl { get; set; }
 
         public string? Title { get; set; }

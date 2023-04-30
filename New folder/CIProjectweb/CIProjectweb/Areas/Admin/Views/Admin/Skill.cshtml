@@ -1,0 +1,283 @@
+﻿
+
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    var i = 0;
+}
+@model CIProjectweb.Entities.AdminViewModel.SkillView
+<!-- /#sidebar-wrapper -->
+<!-- Page Content -->
+
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
+
+<div class="container-fluid px-4">
+                <div id="content">
+                    <section id="skill" class="row my-3 content-section active">
+                        <div class="border-bottom">
+                            <span class="text-muted fs-4" style="border-bottom: 3px solid black !important; padding-bottom:2px;">Skills</span>
+                        </div>
+                        <div class="modal fade" id="exampleModaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form asp-area="Admin" asp-controller="Admin" asp-action="Skill" method="post">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Skill</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" onClick="window.location.reload();" aria-label="Close" id="skillclose"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="text" name="SkillId" asp-for="SkillId" id="skillid" hidden/>
+                                            <label for="title">SkillTitle</label>
+                                            <input type="text" class="form-control" placeholder="Enter skill title" name="SkillName" id="title" onfocusout="checkskill()" asp-for="SkillName" />
+                                            <span asp-validation-for="SkillName" class="text-danger d-flex"></span>
+                                           <span id="SkillError" class="text-danger"></span>
+                                                <br />
+                                            <label for="status">Status</label>
+                                            <select class="form-control form-select" name="Status" id="status" asp-for="Status">
+                                                <option value=""></option>
+                                                <option value="Active">Active</option>
+                                                <option value="In-Active">In-Active</option>
+                                            </select>
+                                            <span asp-validation-for="Status" class="text-danger d-flex"></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary rounded-pill" onClick="window.location.reload();" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-orange rounded-pill">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col mt-4">
+                            <table id="skillrecord" class="table bg-white rounded shadow-sm  table-hover" width="100%">
+                                <thead style="background-color: #F8F9FC;">
+                                    <tr>
+                                        <th scope="col" width="50">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.skills)
+                                    {
+                                        i = i + 1;
+                                        <tr>
+                                            <th scope="row">@i</th>
+                                            <td>@item.SkillName</td>
+                                            @if (item.Status == 1)
+                                            {
+                                                <td style="color:#14C506;">Active</td>
+                                            }
+                                            else
+                                            {
+                                                <td style="color:red;">In-Active</td>
+                                            }
+                                            <td>
+                                                <a type="button" class="border-0" onclick="skillEdit(@item.SkillId)">
+                                                    <i class="bi bi-pencil-square text-warning"></i>
+                                                </a>
+                                                <a type="button" class="border-0 ms-2" onclick="skillDelete(@item.SkillId)">
+                                                    <i class="bi bi-trash-fill text-danger"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var el = document.getElementById("wrapper");
+        var toggleButton = document.getElementById("menu-toggle");
+        var dashboadtime = document.getElementById("dashboadtime");
+        var modalclose = document.getElementById("skillclose");
+        var myModal = document.getElementById("exampleModaladd");
+
+        function currentTime(){
+            var time=new Date();
+            var dateString = time.toDateString();
+            var timeString = time.toLocaleTimeString();
+            dashboadtime.innerHTML=dateString + ' ' + timeString;
+            let t = setTimeout(function(){ currentTime() }, 1000);
+        }
+        currentTime();
+        toggleButton.onclick = function () {
+            el.classList.toggle("toggled");
+        };
+
+        const menulink = document.querySelectorAll(".list-group-item");
+
+        menulink.forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                menulink.forEach((link) => {
+                    link.classList.remove('active');
+                });
+                link.classList.add('active');
+            });
+        });
+
+        // skill record
+        $(document).ready(function () {
+            $('#skillrecord').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+        });
+        $('#skillrecord').DataTable({
+            "ordering": false,
+            "lengthChange": false,
+            "pagingType": "full_numbers",
+            "oLanguage": {
+                "sEmptyTable": " ",
+                "oPaginate": {
+                    "sNext": '<i class="bi bi-chevron-right"></i>',
+                    "sPrevious": '<i class="bi bi-chevron-left"></i>',
+                    "sFirst": '<i class="bi bi-chevron-double-left"></i>',
+                    "sLast": '<i class="bi bi-chevron-double-right"></i>',
+                }
+            }
+        });
+
+        // themerecordbtn
+        var skillrecordFilter = document.getElementById("skillrecord_filter");
+        var button = document.createElement("button");
+        button.innerHTML = `<i class="bi bi-plus">Add</i>`;
+        button.classList.add("btn", "btn-outline-warning", "rounded-pill", "addbtn");
+        button.setAttribute("data-bs-toggle", "modal");
+        button.setAttribute("id", "ExampleModalAdd");
+        button.setAttribute("data-bs-target", "#exampleModaladd")
+        skillrecordFilter.appendChild(button);
+
+        function skillEdit(skillId) {
+            $.ajax({
+                url: '/Admin/Admin/SkillEdit',
+                type: 'POST',
+                data: { skillId: skillId },
+                success: function (result) {
+                    myModal.classList.add("show");
+                    myModal.style.display = "block";
+                    document.getElementById("title").value = result.skillName;
+                     
+                    document.getElementById("skillid").value = result.skillId;
+                    if (result.status == 1) {
+                        document.getElementById("status").value = "Active";
+                    }
+                    else {
+                        document.getElementById("status").value = "In-Active";
+                    }
+                }
+            });
+        }
+        modalclose.onclick = function () {
+
+            myModal.style.display = "none";
+
+        };
+
+        var exampleModaladd = document.getElementById("ExampleModalAdd");
+        exampleModaladd.onclick = function () {
+            document.getElementById("title").value = '';
+            document.getElementById("status").value = '';
+            document.getElementById("skillid").value = '';
+        }
+        function skillDelete(skillId) {
+            
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: 'darkorange',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+
+
+            $.ajax({
+
+                url: '/Admin/Admin/SkillDelete',
+                type: 'POST',
+                dataType: "json",
+                data: { skillId: skillId },
+                success: function (result) {
+                   
+                    if (result.success == true) {
+                        Swal.fire({
+                            //icon: 'error',
+                            text: 'Your Skill has been suceesfully deleted !',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }
+                        })
+
+                    }
+                    else {
+
+                        Swal.fire({
+                            //icon: 'error',
+                            title: 'Oops...',
+                            text: 'This skill is currently in Use! you can not delete ',
+                            confirmButtonText: 'OK'
+                        })
+                    }
+                },
+                error: function () {
+                    alert("couldn't delete your data");
+                },
+
+            });
+
+
+
+        }
+    });
+
+}
+function checkskill()
+{
+     var title = $("#title").val();
+     var skill =  document.getElementById("skillid").value;
+  
+     if(skill==""){
+            // Make an AJAX call
+    $.ajax({
+      type: 'POST',
+      url: '/Admin/Admin/CheckSkill',
+      data: {Title: title, Skill: skill},
+      success: function(result) {
+          if(result.success){
+                   $("#SkillError").text("Skill With this Name exists.");
+                    setTimeout(function(){
+        $("#SkillError").text("");
+    }, 2000); 
+                }
+                else{
+                       $("#SkillError").text("");
+                }
+      },
+      error: function() {
+        console.log('Error occurred while making AJAX call');
+      }
+    });
+     }
+ 
+}
+
+    </script>
+     @section Scripts{
+        @{
+    <partial name="_ValidationScriptsPartial" />
+        }
+    }
