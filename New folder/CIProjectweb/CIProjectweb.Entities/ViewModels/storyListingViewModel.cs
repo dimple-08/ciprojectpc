@@ -36,6 +36,7 @@ namespace CIProjectweb.Entities.ViewModels
         public string? Avtar { get; set; }
         public string? UserName { get; set; }
         public List<String?> MediaPaths { get; set; }
-        public long Views { get; set; }
+        public long? Views { get; set; }
+       
     }
 }

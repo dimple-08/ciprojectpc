@@ -134,8 +134,21 @@
                 </div>
                 <div class="collapse navbar-collapse me-auto ms-auto" id="navbarSupportedContent1">
                     <ul class="navbar-nav flex-grow-1" style="margin-left:15%">
+                         <li class="nav-item ms-4 dropdown">
+                            <a class="nav-link text-dark font-color" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Explore
+                                <img class="ic-down" src="~/images/drop-down.png">
+                            </a>
+                            <ul class="dropdown-menu">
+                               
+                                <li> <a class="dropdown-item dd-color" onclick="GetExplore(1)">Top Themes</a></li>
+                                 <li> <a class="dropdown-item dd-color" onclick="GetExplore(2)">Most Rated</a></li>
+                                  <li> <a class="dropdown-item dd-color" onclick="GetExplore(3)">Top Favourite</a></li>
+                                   <li> <a class="dropdown-item dd-color" asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-slug="privacy">Random</a></li>
 
-                        <li class="nav-item">
+                            </ul>
+                        </li>
+                        <li class="nav-item ms-4">
                             <a class="nav-link text-dark font-color" asp-area="" asp-controller="Home" asp-action="storyListingPage">Stories</a>
                         </li>
                         <li class="nav-item ms-4 dropdown">
@@ -162,6 +175,7 @@
                         </li>
 
 
+
                     </ul>
                     <div class="d-flex me-5  justify-content-end dropdown mx-5 my-auto">
 
@@ -180,8 +194,15 @@
                         @if (@Context.Session.GetString("UserName") != null)
                         {
 
-                            <img id="profileimg" src="@Context.Session.GetString("Avtar")">
-
+                            <img id="profileimg" src="@Context.Session.GetString("Avtar")" >
+                              <a class=" nav-link text-dark font-color " href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" font-family: Roboto;><label>Notifiction (<span id="countNotify">0</span>) <span class="caret"></span></label>  <img class="ic-down" src="~/images/drop-down.png"></a>
+                              
+                                <ul class="dropdown-menu" id="myNotifyList">   
+                                      <li><a class="dropdown-item dd-color" asp-action="userEditProfile" asp-controller="Home">Add profile</a></li>
+                                <li><a class="dropdown-item dd-color" asp-action="VolunteeerTimesheet" asp-controller="Home">Volunteer Timesheet</a></li>
+                                </ul>  
+                             
                             <a class=" nav-link text-dark font-color " href="#" role="button" data-bs-toggle="dropdown"
                            aria-expanded="false" font-family: Roboto;><label> @Context.Session.GetString("UserName")</label>  <img class="ic-down" src="~/images/drop-down.png"></a>
                             <ul class="dropdown-menu ">
@@ -612,7 +633,7 @@
 
         </div>
         </footer>*@
-    <div class="copyright" style="background-color:black">
+  @*  <div class="copyright" style="background-color:black">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
@@ -630,9 +651,9 @@
                                 <a href="#">Terms of use</a>
                                 </li>*@
 
-                        </ul>
+                       @* </ul>
                         <div id="myModal" class="modal">
-                            <div class="modal-content w-50" >
+                            <div class="modal-content w-25" >
                                 <div class="modal-header" style="background-color: white; color: black;">
                                     <h2>Contact Us</h2>
                                     <span class="close" style="color:black;">&times;</span>
@@ -676,8 +697,8 @@
             <!-- End Row -->
         </div>
         <!-- End Copyright Container -->
-    </div>
-   @* <footer class=" footer text-muted">
+    </div>*@
+    <footer class=" footer text-muted">
         <div class="container">
             <a asp-area="" asp-controller="Home" asp-action="Privacy" asp-route-slug="privacy">Privacy Policy</a>
             <!-- Button trigger modal -->
@@ -688,7 +709,7 @@
 
             <!-- Modal content -->
             <div id="myModal" class="modal">
-                <div class="modal-content w-50" style="height:82%;">
+                <div class="modal-content w-25" >
                     <div class="modal-header" style="background-color: white; color: black;">
                         <h2>Contact Us</h2>
                         <span class="close" style="color:black;">&times;</span>
@@ -722,7 +743,7 @@
 
             </div>
         </div>
-    </footer>*@
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -758,6 +779,63 @@
 
     </script>
     <script>
+    //    $(document).ready(function () {  
+    //    setInterval(function () {  
+    //        UpdateNotifications();  
+    //    }, 3000);  
+    //});  
+    function UpdateNotifications() {  
+        $.ajax({  
+            type: "GET",  
+            url: "/Home/GetNotifications",  
+            data: '{}',  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (response) {  
+                console.log(response);  
+                if (response != null) {  
+                                      
+                    var j = ""; var p = 0; var Q = "";  
+                    $.each(response, function (k, v) {  
+                        p++;  
+                        if (p < 6) {  
+                            j += "<li><a><img src='/images/bell.png' style='height:20px;width:20px'/> <strong>  " + v.notification.toString() + " </strong> <br /> <div style='text-align:right;font-size:smaller;font-style:italic'> <i style='font-size:smaller'> updated : " + v.lastUpdated.toString() + "</i></div></a></li>";  
+                        }  
+                        Q += "<a><img src='/images/bell.png' style='height:20px;width:20px'/> <strong>  " + v.notification.toString() + " </strong> <br /> <div style='text-align:right;font-size:smaller;font-style:italic'> <i style='font-size:smaller'> updated : " + v.lastUpdated.toString() + "</i></div></a>";  
+                    });  
+                    $('#myNotifyList').html("");  
+                    j += "<li><a data-toggle='modal' data-target='#myModal'><div style='text-align:center'><strong> Show more </strong></div></li>";  
+                    $('#myNotifyList').append(j);  
+                    $('#countNotify').html("<span>" + p + "</span>");  
+                    $('#myAllNotifications').html("");  
+                    $('#myAllNotifications').append(Q);  
+                }  
+            },  
+            failure: function (response) {  
+                alert(response.d);  
+            }  
+        });  
+    } 
+    
+     function GetExplore(value) {
+        $.ajax({
+            url: '/Mission/GetExplore',
+            type: 'POST',
+            dataType: 'html',
+            data: { value: value },
+            success: function(d) {
+
+                $("#missionpartialView").empty();
+                $("#missionpartialView").html(d);
+               
+
+            },
+            error: function() {
+                Swal.fire('Error.');
+            }
+        });
+
+    }
             function contactUs() {
                  const swalWithBootstrapButtons = Swal.mixin({
             customClass: {

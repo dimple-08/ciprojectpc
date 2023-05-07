@@ -23,6 +23,7 @@ namespace CIProjectweb.Repository.Repository.Interface
         public List<Mission> getmission(string missionName);
 
         public List<MissionViewModel> getmissions(int u_id);
+        public long getviewcount(int userId, int storyId);
 
         public List<MissionViewModel> getmissions();
 

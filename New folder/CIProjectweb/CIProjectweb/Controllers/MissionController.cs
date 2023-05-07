@@ -137,28 +137,44 @@ namespace CI_Plateform.Controllers
         [HttpPost]
         public IActionResult LandingPage(long?[] ids, int pg = 1)
         {
-
-            MissionListingModel model = new MissionListingModel();
-            List<SelectListItem> list = new List<SelectListItem>();
-            if (ids != null && ids.Length > 0)
+            try
             {
-                var cities = _db.Cities.Where(x => x.DeletedAt == null && ids.Contains(x.CountryId)).ToList();
-                foreach (var item in cities)
+                MissionListingModel model = new MissionListingModel();
+                List<SelectListItem> list = new List<SelectListItem>();
+                if (ids != null && ids.Length > 0)
                 {
-                    list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+                    var cities = _db.Cities.Where(x => x.DeletedAt == null && ids.Contains(x.CountryId)).ToList();
+                    foreach (var item in cities)
+                    {
+                        list.Add(new SelectListItem() { Text = item.Name, Value = item.CityId.ToString() });
+                    }
                 }
-            }
-            else
-            {
-                var tempCity = _db.Cities.Where(m => m.DeletedAt == null).ToList();
-                foreach (var city in tempCity)
+                else
                 {
-                    list.Add(new SelectListItem() { Text = city.Name, Value = city.CityId.ToString() });
+                    var tempCity = _db.Cities.Where(m => m.DeletedAt == null).ToList();
+                    foreach (var city in tempCity)
+                    {
+                        list.Add(new SelectListItem() { Text = city.Name, Value = city.CityId.ToString() });
+                    }
                 }
+
+                model.cities = list;
+                return Json(model.cities);
             }
 
-            model.cities = list;
-            return Json(model.cities);
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+
+            
         }
         public PartialViewResult Filter(List<int>? CountryId, List<int>? CityId, List<int>? ThemeId, List<int>? SkillId, string? searchText, int? sort, string pg = "")
         {
@@ -482,8 +498,129 @@ namespace CI_Plateform.Controllers
 
             return PartialView("_MissionGridPartial", cardData);
         }
+        [HttpPost]
+        public PartialViewResult GetExplore(int value)
+        {
+          
+                switch (value)
+                {
+                    case 1:
+                    var topThemeMission = _db.Missions
+                        .Where(m => m.ThemeId != null && m.DeletedAt==null && m.Status==true)
+                        .AsEnumerable()
+                        .GroupBy(m => m.ThemeId)
+                        .OrderByDescending(g => g.Count())
+                        .FirstOrDefault();
+                    var cardData = new List<MissionCardModel>();
+                    if (topThemeMission!=null)
+                    {
+                        foreach (var items in topThemeMission)
+                        {
+                            cardData.Add(CreateCard(items));
+                            
+                        }
+                    }
+                    var userId = HttpContext.Session.GetString("UserId");
+                    int u_id = int.Parse(userId);
+                    List<User> userlist = _objILogin.Users(u_id);
+                    this.ViewBag.count = cardData.Count;
+                    ViewBag.Users = userlist;
+                    return PartialView("_MissionGridPartial", cardData);
+                    case 2:
+                            var topRatedMission = _db.MissionRatings
+                           .Where(m => m.DeletedAt == null)
+                           .AsEnumerable()
+                           .GroupBy(m => m.MissionId)
+                           .OrderByDescending(g => g.Count())
+                           .FirstOrDefault();
+                    List<Mission> missions = new List<Mission>();
+                    if (topRatedMission != null)
+                    {
+                        foreach (var item in topRatedMission)
+                        {
+                            var m = _db.Missions.Where(m => m.MissionId == item.MissionId && m.DeletedAt == null && m.Status == true).FirstOrDefault();
+                            if (m!=null)
+                            {
+                                bool t = missions.Any(x => x.MissionId == m.MissionId);
+                                if (t == false)
+                                {
+                                    missions.Add(m);
+                                }
+                            }
+                           
+                        }
+                        
+                    }
+                    var cardData2 = new List<MissionCardModel>();
+                    if (missions != null)
+                    {
+                        foreach (var items in missions)
+                        {
+                            cardData2.Add(CreateCard(items));
+
+                        }
+                    }
+                    var userId2 = HttpContext.Session.GetString("UserId");
+                    int u_id2 = int.Parse(userId2);
+                    List<User> userlist2 = _objILogin.Users(u_id2);
+
+                    ViewBag.Users = userlist2;
+                    this.ViewBag.count = cardData2.Count;
+                    return PartialView("_MissionGridPartial", cardData2);
+
+                case 3:
+                    var topFavMission = _db.FavouriteMissions
+                   .Where(m => m.DeletedAt == null)
+                   .AsEnumerable()
+                   .GroupBy(m => m.MissionId)
+                   .OrderByDescending(g => g.Count())
+                   .FirstOrDefault();
+                    List<Mission> missions3 = new List<Mission>();
+                    if (topFavMission != null)
+                    {
+                        foreach (var item in topFavMission)
+                        {
+                            var m = _db.Missions.Where(m => m.MissionId == item.MissionId && m.DeletedAt == null && m.Status == true).FirstOrDefault();
+                            if (m != null)
+                            {
+                                bool t = missions3.Any(x => x.MissionId == m.MissionId);
+                                if (t == false)
+                                {
+                                    missions3.Add(m);
+                                }
+                            }
+
+                        }
+
+                    }
+                    var cardData3 = new List<MissionCardModel>();
+                    if (missions3 != null)
+                    {
+                        foreach (var items in missions3)
+                        {
+                            cardData3.Add(CreateCard(items));
+
+                        }
+                    }
+                    var userId3 = HttpContext.Session.GetString("UserId");
+                    int u_id3 = int.Parse(userId3);
+                    List<User> userlist3 = _objILogin.Users(u_id3);
+
+                    ViewBag.Users = userlist3;
+                    this.ViewBag.count = cardData3.Count;
+                    return PartialView("_MissionGridPartial", cardData3);
+
+                default:
+                        // logic for default case
+                       
+                    return PartialView("_MissionGridPartial");
+            }
+                // return a default view if none of the cases match
+              
 
 
+           
+        }
         #region Create Card
         public MissionCardModel CreateCard(Mission mission)
         {

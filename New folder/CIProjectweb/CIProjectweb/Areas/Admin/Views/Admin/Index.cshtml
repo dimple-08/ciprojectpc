@@ -47,9 +47,11 @@
                                         <span asp-validation-for="LastName" class="text-danger d-flex"></span>
                                         <label for="mail" class="mt-2">Email</label>
                                        
-                                        <input type="email"  class="form-control" id="email" asp-for="Email"/>
+                                        <input type="email"  class="form-control" id="email" onfocusout="checkEmail()"  asp-for="Email"/>
                                          <span asp-validation-for="Email" class="text-danger d-flex"></span>
                                           <span id="emailError" class="text-danger d-flex"></span>
+                                             <span id="SkillError" class="text-danger"></span>
+                                             <br />
                                         <label for="password"  class="mt-2">Password</label>
                                        
                                         <input type="password"   class="form-control" id="password" asp-for="Password"/>
@@ -218,6 +220,36 @@
         }
     });
 }
+ function countryEditByCity(countryId) {
+   
+    $.ajax({
+
+
+
+        url: '/Admin/Admin/CountryByCityAdmin',
+        type: 'POST',
+        data: { CountryId: countryId },
+        dataType: 'json',
+
+        success: function (result) {
+            console.log(result.data);
+            var cityOption = "";
+            var cityDropdown = document.getElementById("city");
+            if (result.data.length == 0) {
+
+                cityOption += `<option>No cities Found</option>`
+            }
+            else {
+                for (let i = 0; i < result.data.length; i++) {
+                    cityOption += `<option value="${result.data[i].cityId}">${result.data[i].name}</option>`
+                }
+            }
+           
+
+            cityDropdown.innerHTML = cityOption;
+        }
+    });
+}
         function currentTime() {
             var time = new Date();
             var dateString = time.toDateString();
@@ -294,52 +326,85 @@
   });
     </script>
     <script>
-        $(function () {
+    //    $(function () {
         
-        $('form').on('submit', function (event)
-        {
-            var email=document.getElementById("email").value;
-             var userId = document.getElementById("userId").value;
+    //    $('form').on('submit', function (event)
+    //    {
+    //        var email=document.getElementById("email").value;
+    //         var userId = document.getElementById("userId").value;
             
-            if(userId=="0" || userId == null){
-                 $.ajax({
-        url: '/Admin/Admin/checkuserexists',
-        type: 'POST',
-        data: { email: email },
-        dataType: 'json',
-        success: function (result) {
-            console.log(result.success);
-            if(result.success){
-                 event.preventDefault();
-                   document.getElementById("userform").submit();
-            }
-            else{
-              $("#emailError").text("With This Email User Exists.");
-                event.preventDefault();
-            }
+    //        if(userId=="0" || userId == null){
+    //             $.ajax({
+    //    url: '/Admin/Admin/checkuserexists',
+    //    type: 'POST',
+    //    data: { email: email },
+    //    dataType: 'json',
+    //    success: function (result) {
+    //        console.log(result.success);
+    //        if(result.success){
+    //             event.preventDefault();
+    //               document.getElementById("userform").submit();
+    //        }
+    //        else{
+    //          $("#emailError").text("With This Email User Exists.");
+    //            event.preventDefault();
+    //        }
       
-        },
-           error: function () {
-            swalWithBootstrapButtons.fire(
-                'Alert!',
-                'Could not load your draft.',
-                'error'
-            )
+    //    },
+    //       error: function () {
+    //        swalWithBootstrapButtons.fire(
+    //            'Alert!',
+    //            'Could not load your draft.',
+    //            'error'
+    //        )
            
-        }
+    //    }
      
-    });
-            }
-            else{
+    //});
+    //        }
+    //        else{
                  
                 
-                   document.getElementById("userform").submit();
-            }
+    //               document.getElementById("userform").submit();
+    //        }
            
-               event.preventDefault();
-        });
+    //           event.preventDefault();
+    //    });
         
+    //});
+
+      function checkEmail()
+{
+     var email = $("#email").val();
+     var user =  document.getElementById("userId").value;
+  alert("in function");
+  console.log(user);
+     if(user=="0"){
+         alert();
+            // Make an AJAX call
+    $.ajax({
+      type: 'POST',
+      url: '/Admin/Admin/CheckEmail',
+      data: {Email: email, User: user},
+      success: function(result) {
+          if(result.success){
+              
+                   $("#SkillError").text("User With this Email exists.");
+                   setTimeout(function(){
+        $("#SkillError").text("");
+    }, 2000); 
+                }
+                else{
+                       $("#SkillError").text("");
+                }
+      },
+      error: function() {
+        console.log('Error occurred while making AJAX call');
+      }
     });
+     }
+ 
+}
     </script>
     <script src="~/js/Admin.js"></script>
      @section Scripts{

@@ -47,7 +47,7 @@ namespace CIProjectweb.Controllers
          
 
         }
-
+        #region Privacy
         public IActionResult Privacy(string slug)
         {
             List<CmsPage> list = _db.CmsPages.Where(cms => cms.Slug == slug && cms.DeletedAt==null && cms.Status==true).ToList();
@@ -56,19 +56,35 @@ namespace CIProjectweb.Controllers
             return View(list);
         }
 
+        #endregion
 
 
 
-       
 
         public IActionResult Login()
         {
-            if (TempData.ContainsKey("Message"))
+            try
             {
-                ViewBag.AlertMessage = TempData["Message"];
+                if (TempData.ContainsKey("Message"))
+                {
+                    ViewBag.AlertMessage = TempData["Message"];
+                }
+
+                return View();
             }
 
-            return View();
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+           
         }
         #region LoadBanner
 
@@ -85,82 +101,113 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel objlogin)
         {
-            if (ModelState.IsValid)
+            try
             {
-               
-                int validate = _objILogin.validateUser(objlogin);
-                HttpContext.Session.SetString("UserId", validate.ToString());
-                var userId = HttpContext.Session.GetString("UserId");
-                int u_id = int.Parse(userId);
-                User user = _objILogin.GetUsers(u_id);
-                var name = _objILogin.getUserName(objlogin);
-                if (name != null)
+                if (ModelState.IsValid)
                 {
-                    HttpContext.Session.SetString("UserName", name);
-                }
-                if (validate!=0)
-                {
-                    var identity = new ClaimsIdentity(new[] {new Claim(ClaimTypes.Name,objlogin.Email)},CookieAuthenticationDefaults.AuthenticationScheme);
-                    var principal=new ClaimsPrincipal(identity);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,principal);
-                    HttpContext.Session.SetString("Avtar", user.Avatar == null ? "/images/user1.png" : user.Avatar);
-                    HttpContext.Session.SetString("Email", user.Email == null ? "Please provide email" : user.Email);
-                    // Generate URL for the Index action in the Admin area
-                    string areaUrl = Url.Action("Index", "Admin", new { area = "Admin",id=user.UserId });
 
-                    // Redirect to the URL
-                    
-                    if (user.Role == "Admin")
+                    int validate = _objILogin.validateUser(objlogin);
+                    HttpContext.Session.SetString("UserId", validate.ToString());
+                    var userId = HttpContext.Session.GetString("UserId");
+                    int u_id = int.Parse(userId);
+                    User user = _objILogin.GetUsers(u_id);
+                    var name = _objILogin.getUserName(objlogin);
+                    if (name != null)
                     {
-                        HttpContext.Session.SetString("User", name);
-                        return Redirect(areaUrl);
+                        HttpContext.Session.SetString("UserName", name);
+                    }
+                    if (validate != 0)
+                    {
+                        var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, objlogin.Email) }, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var principal = new ClaimsPrincipal(identity);
+                        HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        HttpContext.Session.SetString("Avtar", user.Avatar == null ? "/images/user1.png" : user.Avatar);
+                        HttpContext.Session.SetString("Email", user.Email == null ? "Please provide email" : user.Email);
+                        // Generate URL for the Index action in the Admin area
+                        string areaUrl = Url.Action("Index", "Admin", new { area = "Admin", id = user.UserId });
+
+                        // Redirect to the URL
+
+                        if (user.Role == "Admin")
+                        {
+                            HttpContext.Session.SetString("User", name);
+                            return Redirect(areaUrl);
+
+                        }
+                        else
+                        {
+                            return RedirectToAction("LandingPage", "Mission");
+                        }
+                        //Session["UserName"] = listofuser.username.ToString();
 
                     }
                     else
                     {
-                        return RedirectToAction("LandingPage", "Mission");
+                        if (user == null)
+                        {
+                            ModelState.AddModelError("Email", "User don't exists.");
+                            return View(objlogin);
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("Email", "Your credentials are wrong");
+                            return View(objlogin);
+                        }
+
                     }
-                    //Session["UserName"] = listofuser.username.ToString();
-                   
+
                 }
                 else
                 {
-                    if (user==null)
-                    {
-                        ModelState.AddModelError("Email", "User don't exists.");
-                        return View(objlogin);
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("Email", "Your credentials are wrong");
-                        return View(objlogin);
-                    }
-                   
+                    return View();
                 }
+            }
 
-            }
-            else
+            catch (Exception ex)
             {
-                return View();
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
-            return View();
+            
         }
         #endregion
 
         #region LogOut
         public IActionResult LogOut()
         {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Remove("UserName");
-            HttpContext.Session.Remove("UserId");
-            HttpContext.Session.Remove("Avtar");
-            var storecookies = Request.Cookies.Keys;
-            foreach(var cookie in storecookies)
+            try
             {
-                Response.Cookies.Delete(cookie);
-                      
+                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                HttpContext.Session.Remove("UserName");
+                HttpContext.Session.Remove("UserId");
+                HttpContext.Session.Remove("Avtar");
+                var storecookies = Request.Cookies.Keys;
+                foreach (var cookie in storecookies)
+                {
+                    Response.Cookies.Delete(cookie);
+
+                }
+                return RedirectToAction("Login");
             }
-            return RedirectToAction("Login");
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+           
         }
         #endregion
 
@@ -172,45 +219,61 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult ForgotPAasword(ForgotPasswordViewModel objFpvm)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var Email = objFpvm.Email;
-                
-                var token = Guid.NewGuid().ToString();
-                bool usercheck = _objUserInterface.ValideUserEmail(objFpvm,token);
-                if (usercheck)
+                if (ModelState.IsValid)
                 {
-                    
-                    // Send an email with the password reset link to the user's email address
-                    var resetLink = Url.Action("ResetPassword", "Home", new { email = Email , token }, Request.Scheme);
-                    // Send email to user with reset password link
-                    // ...
-                    var fromAddress = new MailAddress("gajeravirajpareshbhai@gmail.com", "Sender Name");
-                    var toAddress = new MailAddress(objFpvm.Email);
-                    var subject = "Password reset request";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    var Email = objFpvm.Email;
+
+                    var token = Guid.NewGuid().ToString();
+                    bool usercheck = _objUserInterface.ValideUserEmail(objFpvm, token);
+                    if (usercheck)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+
+                        // Send an email with the password reset link to the user's email address
+                        var resetLink = Url.Action("ResetPassword", "Home", new { email = Email, token }, Request.Scheme);
+                        // Send email to user with reset password link
+                        // ...
+                        var fromAddress = new MailAddress("gajeravirajpareshbhai@gmail.com", "Sender Name");
+                        var toAddress = new MailAddress(objFpvm.Email);
+                        var subject = "Password reset request";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
+                        return RedirectToAction("Login");
+                    }
+                    else
                     {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
-                    return RedirectToAction("Login");
+                        ModelState.AddModelError("Email", "User don't Exists");
+                        return View(objFpvm);
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("Email", "User don't Exists");
-                    return View(objFpvm);
-                }
+                return View();
             }
-            return View();
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+            
         }
         #endregion
         public IActionResult registration()
@@ -219,7 +282,13 @@ namespace CIProjectweb.Controllers
         }
 
         #region registartion post
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="objredistervm"></param>
+        /// <returns></returns>
         [HttpPost]
+        
         public IActionResult registration(RegistrationViewModel objredistervm)
         {
             
@@ -246,7 +315,14 @@ namespace CIProjectweb.Controllers
         #endregion
 
         #region Reset Password get
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         [HttpGet]
+       
         public IActionResult ResetPAssword(string email, string token)
         {
             
@@ -352,7 +428,7 @@ namespace CIProjectweb.Controllers
            
             return RedirectToAction("LandingPage", "Mission", new {pg=1});
         }
-
+                   
         [HttpPost]
         public JsonResult SearchMission(string missionName)
         {
@@ -500,57 +576,74 @@ namespace CIProjectweb.Controllers
 
         #endregion
 
+        #region storymail
         [HttpPost]
         public async Task<IActionResult> SendRecStory(long StoryId, string[] ToMail)
         {
-            var u_id = HttpContext.Session.GetString("UserId");
-            if (u_id != null)
+            try
             {
-                int uIds = int.Parse(u_id);
-                var FromUser = _objILogin.GetUsers(uIds);
-                foreach (var item in ToMail)
+                var u_id = HttpContext.Session.GetString("UserId");
+                if (u_id != null)
                 {
-                    var uId = _objUserInterface.getuserEmail(item);
-
-                    var resetLink = "https://localhost:44357" + Url.Action("StoryDetailPage", "Home", new { storyid = StoryId, usersid = uId.UserId });
-                    var fromAddress = new MailAddress(FromUser.Email, FromUser.FirstName);
-                    var toAddress = new MailAddress(item);
-                    ;
-                    var subject = "Message For Recommand Mission";
-                    var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
-                    var message = new MailMessage(fromAddress, toAddress)
+                    int uIds = int.Parse(u_id);
+                    var FromUser = _objILogin.GetUsers(uIds);
+                    foreach (var item in ToMail)
                     {
-                        Subject = subject,
-                        Body = body,
-                        IsBodyHtml = true
-                    };
-                    var smtpClient = new SmtpClient("smtp.gmail.com", 587)
-                    {
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
-                        EnableSsl = true
-                    };
-                    smtpClient.Send(message);
+                        var uId = _objUserInterface.getuserEmail(item);
+
+                        var resetLink = "https://localhost:44357" + Url.Action("StoryDetailPage", "Home", new { storyid = StoryId, usersid = uId.UserId });
+                        var fromAddress = new MailAddress(FromUser.Email, FromUser.FirstName);
+                        var toAddress = new MailAddress(item);
+                        ;
+                        var subject = "Message For Recommand Mission";
+                        var body = $"Hi,<br /><br />Please click on the following link to reset your password:<br /><br /><a href='{resetLink}'>{resetLink}</a>";
+                        var message = new MailMessage(fromAddress, toAddress)
+                        {
+                            Subject = subject,
+                            Body = body,
+                            IsBodyHtml = true
+                        };
+                        var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+                        {
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential("bhavsardimple7@gmail.com", "ibjlmmwrsmhvtbeh"),
+                            EnableSsl = true
+                        };
+                        smtpClient.Send(message);
 
 
-                    StoryInvite storyInviteExists = _objUserInterface.storyInviteExists((int)FromUser.UserId, (int)uId.UserId, StoryId);
-                    bool ADDInvite = _objUserInterface.ADDstoryInvite(storyInviteExists, (int)FromUser.UserId, (int)uId.UserId, StoryId);
+                        StoryInvite storyInviteExists = _objUserInterface.storyInviteExists((int)FromUser.UserId, (int)uId.UserId, StoryId);
+                        bool ADDInvite = _objUserInterface.ADDstoryInvite(storyInviteExists, (int)FromUser.UserId, (int)uId.UserId, StoryId);
 
 
 
 
+                    }
+
+                    return Json(new { success = true });
                 }
+                else
+                {
+                    return Json(new { success = false });
+                }
+            }
 
-                return Json(new { success = true });
-            }
-            else
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+           
 
         }
 
-
+        #endregion
         #region multiple mail
 
 
@@ -754,18 +847,35 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public  IActionResult AddFav( long missionId)
         {
-            var id = HttpContext.Session.GetString("UserId");
-            if(id != null) {
-            int u_id = int.Parse(id);
-            FavouriteMission favoriteMission = _objUserInterface.FavouriteMission(u_id, missionId);
-            bool success = _objUserInterface.Update_favourite(favoriteMission, missionId, u_id);
-                return Json(new { success = true, isLiked = success });
-            }
-            else
+            try
             {
-                ViewBag.rating = "Login First";
-                return View();
+                var id = HttpContext.Session.GetString("UserId");
+                if (id != null)
+                {
+                    int u_id = int.Parse(id);
+                    FavouriteMission favoriteMission = _objUserInterface.FavouriteMission(u_id, missionId);
+                    bool success = _objUserInterface.Update_favourite(favoriteMission, missionId, u_id);
+                    return Json(new { success = true, isLiked = success });
+                }
+                else
+                {
+                    ViewBag.rating = "Login First";
+                    return View();
+                }
             }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+            
 
         }
         #endregion
@@ -775,59 +885,75 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult AddRating(string rating ,long missionId)
         {
-            var id = HttpContext.Session.GetString("UserId");
-           
-            if (id != null)
+            try
             {
-                int u_id = int.Parse(id);
-               
-               
+                var id = HttpContext.Session.GetString("UserId");
 
-                MissionRating ratingExists = _objUserInterface.Rating(u_id, missionId);
-                MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT");
-                if (Applied != null)
+                if (id != null)
                 {
-                    if (ratingExists != null)
+                    int u_id = int.Parse(id);
+
+
+
+                    MissionRating ratingExists = _objUserInterface.Rating(u_id, missionId);
+                    MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT"); _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT");
+                    if (Applied != null)
                     {
-                        _objUserInterface.Update_Rating(ratingExists, rating, u_id, missionId);
-                        var ratings = _db.MissionRatings.Where(t => t.MissionId == missionId).ToList();
-                        var count = ratings.Count;
-
-                        float ratingdisplay = 0;
-                        float sum = 0;
-                        foreach (var entry in ratings)
+                        if (ratingExists != null)
                         {
-                            sum = sum + int.Parse(entry.Rating);
+                            _objUserInterface.Update_Rating(ratingExists, rating, u_id, missionId);
+                            var ratings = _db.MissionRatings.Where(t => t.MissionId == missionId).ToList();
+                            var count = ratings.Count;
 
+                            float ratingdisplay = 0;
+                            float sum = 0;
+                            foreach (var entry in ratings)
+                            {
+                                sum = sum + int.Parse(entry.Rating);
+
+                            }
+                            ratingdisplay = sum / ratings.Count;
+                            return Json(new { success = true, ratingExists, ratingDisplay = ratingdisplay, isRated = true });
                         }
-                        ratingdisplay = sum / ratings.Count;
-                        return Json(new { success = true, ratingExists, ratingDisplay = ratingdisplay, isRated = true });
-                    }
-                    else
-                    {
-                        MissionRating newRating = _objUserInterface.ADD_Rating(ratingExists, rating, u_id, missionId);
-                        var ratings = _db.MissionRatings.Where(t => t.MissionId == missionId).ToList();
-                        var count = ratings.Count;
-
-                        float ratingdisplay = 0;
-                        float sum = 0;
-                        foreach (var entry in ratings)
+                        else
                         {
-                            sum = sum + int.Parse(entry.Rating);
+                            MissionRating newRating = _objUserInterface.ADD_Rating(ratingExists, rating, u_id, missionId);
+                            var ratings = _db.MissionRatings.Where(t => t.MissionId == missionId).ToList();
+                            var count = ratings.Count;
 
+                            float ratingdisplay = 0;
+                            float sum = 0;
+                            foreach (var entry in ratings)
+                            {
+                                sum = sum + int.Parse(entry.Rating);
+
+                            }
+                            ratingdisplay = sum / ratings.Count;
+                            return Json(new { success = true, newRating, ratingDisplay = ratingdisplay, isRated = false });
                         }
-                        ratingdisplay = sum / ratings.Count;
-                        return Json(new { success = true, newRating, ratingDisplay = ratingdisplay, isRated = false });
                     }
+
+                    return View();
+
                 }
-                    
-                return View();
-                
+                else
+                {
+                    return View();
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                return View();
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+          
             
 
         }
@@ -837,28 +963,45 @@ namespace CIProjectweb.Controllers
         [HttpPost]
         public IActionResult Addcomment(string coment,int missionId)
         {
-            var id = HttpContext.Session.GetString("UserId");
-           
-           
-            if (id != null && coment!=null)
+            try
             {
-                int u_id = int.Parse(id);
+                var id = HttpContext.Session.GetString("UserId");
 
-                MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId==missionId && MA.ApprovalStatus=="ACCEPT");
-                if (Applied!=null) {
-                    _objUserInterface.Add_Comment(coment, missionId, u_id);
-                    List<CommentViewModel> commentList = _objUserInterface.getcomment(missionId);
-                    return PartialView("_commentPartial", commentList);
+
+                if (id != null && coment != null)
+                {
+                    int u_id = int.Parse(id);
+
+                    MissionApplication Applied = _db.MissionApplications.FirstOrDefault(MA => MA.UserId == u_id && MA.MissionId == missionId && MA.ApprovalStatus == "ACCEPT");
+                    if (Applied != null)
+                    {
+                        _objUserInterface.Add_Comment(coment, missionId, u_id);
+                        List<CommentViewModel> commentList = _objUserInterface.getcomment(missionId);
+                        return PartialView("_commentPartial", commentList);
+                    }
+
+                    return View();
+
                 }
-                
-                return View();
+                else
+                {
+                    ViewBag.rating = "Login First";
+                    return View();
+                }
+            }
 
-            }
-            else
+            catch (Exception ex)
             {
-                ViewBag.rating = "Login First";
-                return View();
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+          
 
 
         }
@@ -914,14 +1057,32 @@ namespace CIProjectweb.Controllers
         }
         #endregion
 
-
+        #region ContactUS
         [HttpPost]
         public IActionResult Contactus(string name, string mail, string subject, string message)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            _objUserInterface.contactadd(name, mail, subject, message, int.Parse(userId));
-            return Json(new { success = true });
+            try
+            {
+                var userId = HttpContext.Session.GetString("UserId");
+                _objUserInterface.contactadd(name, mail, subject, message, int.Parse(userId));
+                return Json(new { success = true });
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+            
         }
+
+        #endregion
         public MissionCardModel CreateCard(Mission mission)
         {
             var userId = HttpContext.Session.GetString("UserId");
@@ -971,49 +1132,65 @@ namespace CIProjectweb.Controllers
         [Authorize]
         public IActionResult storyListingPage(int pg = 1)
         {
-            List<storyListingViewModel> list = new List<storyListingViewModel>();
-            List<Story>stories= _db.Stories.Where(st=>st.Status=="DRAFT"&& st.DeletedAt==null).ToList();
-            foreach (var data in stories)
+            try
             {
-                storyListingViewModel listView = new storyListingViewModel();
-                listView.Title = data.Title;
-                listView.Description = data.Description;
-                
-                var mission=_db.Missions.Where(x => x.MissionId==data.MissionId).FirstOrDefault();
-                var themeName=_db.MissionThemes.Where(x => x.MissionThemeId==mission.ThemeId).FirstOrDefault();
-                var imageNull = _db.MissionMedia.Where(x => x.MissionId == data.MissionId).FirstOrDefault();
-                var image= _db.StoryMedia.Where(x => x.StoryId == data.StoryId).FirstOrDefault();
-                if (image!=null)
+                List<storyListingViewModel> list = new List<storyListingViewModel>();
+                List<Story> stories = _db.Stories.Where(st => st.Status == "PUBLISH" && st.DeletedAt == null).ToList();
+                foreach (var data in stories)
                 {
-                    listView.image = image.Path;
-                }
-                else
-                {
-                    listView.image = imageNull.MediaPath;
-                }
-               
-                listView.Theme = themeName.Title;
-                listView.StoryId = data.StoryId;
-                listView.MissionId=data.MissionId;
-                var user=_db.Users.Where(x => x.UserId==data.UserId).FirstOrDefault();
-                listView.UserName = user.FirstName;
-                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
-                list.Add(listView);
-            }
-            ViewBag.list= list;
-            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
-            const int pageSize = 6;
-            int recsCount = list.Count();
-            var pager = new Pager(recsCount, pg, pageSize);
-            int recSkip = (pg - 1) * pageSize;
-           
-            var datas = list.Skip(recSkip).Take(pager.PageSize).ToList();
-            ViewBag.list = datas;
-            this.ViewBag.Pager = pager;
-            this.ViewBag.count = recsCount;
-          
+                    storyListingViewModel listView = new storyListingViewModel();
+                    listView.Title = data.Title;
+                    listView.Description = data.Description;
 
-            return View();
+                    var mission = _db.Missions.Where(x => x.MissionId == data.MissionId).FirstOrDefault();
+                    var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
+                    var imageNull = _db.MissionMedia.Where(x => x.MissionId == data.MissionId).FirstOrDefault();
+                    var image = _db.StoryMedia.Where(x => x.StoryId == data.StoryId).FirstOrDefault();
+                    if (image != null)
+                    {
+                        listView.image = image.Path;
+                    }
+                    else
+                    {
+                        listView.image = imageNull.MediaPath;
+                    }
+
+                    listView.Theme = themeName.Title;
+                    listView.StoryId = data.StoryId;
+                    listView.MissionId = data.MissionId;
+                    var user = _db.Users.Where(x => x.UserId == data.UserId).FirstOrDefault();
+                    listView.UserName = user.FirstName;
+                    listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
+                    list.Add(listView);
+                }
+                ViewBag.list = list;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+                const int pageSize = 6;
+                int recsCount = list.Count();
+                var pager = new Pager(recsCount, pg, pageSize);
+                int recSkip = (pg - 1) * pageSize;
+
+                var datas = list.Skip(recSkip).Take(pager.PageSize).ToList();
+                ViewBag.list = datas;
+                this.ViewBag.Pager = pager;
+                this.ViewBag.count = recsCount;
+
+
+                return View();
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
         
         }
 
@@ -1057,86 +1234,108 @@ namespace CIProjectweb.Controllers
         [Authorize]
         public IActionResult StoryDetailPage(int storyid, int? usersid)
         {
-            if (usersid==null)
+            try
             {
-                var id = HttpContext.Session.GetString("UserId");
-
-                int u_id = int.Parse(id);
-                storyListingViewModel list = new storyListingViewModel();
-                Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
-                List<User> userlist = _objILogin.Users(u_id);
-                storyListingViewModel listView = new storyListingViewModel();
-                listView.Title = stories.Title;
-                listView.StoryId = stories.StoryId;
-                listView.Description = stories.Description;
-                var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
-                var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
-                listView.Theme = themeName.Title;
-                var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
-                var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
-                if (images != null)
+                if (usersid == null)
                 {
-                    var mediaPaths = new List<string>();
-                    foreach (var image1 in images)
+                    var id = HttpContext.Session.GetString("UserId");
+
+                    int u_id = int.Parse(id);
+                    long viewcount = _objUserInterface.getviewcount(u_id, storyid);
+                    
+                    storyListingViewModel list = new storyListingViewModel();
+                    Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
+                    List<User> userlist = _objILogin.Users(u_id);
+                    storyListingViewModel listView = new storyListingViewModel();
+                    listView.Title = stories.Title;
+                    listView.StoryId = stories.StoryId;
+                    if (viewcount != 0)
                     {
-                        mediaPaths.Add(image1.Path);
+                        listView.Views = viewcount;
                     }
-                    listView.MediaPaths = mediaPaths;
+                    listView.Description = stories.Description;
+                    var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
+                    var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
+                    listView.Theme = themeName.Title;
+                    var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
+                    var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
+                    if (images != null)
+                    {
+                        var mediaPaths = new List<string>();
+                        foreach (var image1 in images)
+                        {
+                            mediaPaths.Add(image1.Path);
+                        }
+                        listView.MediaPaths = mediaPaths;
+                    }
+                    listView.Media = media;
+
+                   
+                    listView.MissionId = stories.MissionId;
+                    var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
+                    listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
+                    listView.UserName = user.FirstName;
+                    listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
+                    ViewBag.Users = userlist;
+                    stories.Views = listView.Views;
+                    ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+                    _db.Stories.Update(stories);
+                    _db.SaveChanges();
+
+                    return View(listView);
                 }
-                listView.Media = media;
+                else
+                {
+                    int u_id = (int)usersid;
+                    storyListingViewModel list = new storyListingViewModel();
+                    Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
+                    List<User> userlist = _objILogin.Users(u_id);
+                    storyListingViewModel listView = new storyListingViewModel();
+                    listView.Title = stories.Title;
+                    listView.Description = stories.Description;
+                    var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
+                    var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
+                    listView.Theme = themeName.Title;
+                    var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
+                    var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
+                    if (images != null)
+                    {
+                        var mediaPaths = new List<string>();
+                        foreach (var image1 in images)
+                        {
+                            mediaPaths.Add(image1.Path);
+                        }
+                        listView.MediaPaths = mediaPaths;
+                    }
+                    listView.Media = media;
+                    listView.Views = (long)(stories.Views + 1);
+                    listView.MissionId = stories.MissionId;
+                    var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
+                    listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
+                    listView.UserName = user.FirstName;
+                    listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
+                    ViewBag.Users = userlist;
+                    ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+                    stories.Views = listView.Views;
+                    _db.Stories.Update(stories);
+                    _db.SaveChanges();
 
-                listView.Views = (long)(stories.Views + 1);
-                listView.MissionId = stories.MissionId;
-                var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
-                listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
-                listView.UserName = user.FirstName;
-                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
-                ViewBag.Users = userlist;
-                stories.Views = listView.Views;
-                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
-                _db.Stories.Update(stories);
-                _db.SaveChanges();
-
-                return View(listView);
+                    return View(listView);
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                int u_id = (int)usersid;
-                storyListingViewModel list = new storyListingViewModel();
-                Story stories = _db.Stories.Where(st => st.StoryId == storyid).FirstOrDefault();
-                List<User> userlist = _objILogin.Users(u_id);
-                storyListingViewModel listView = new storyListingViewModel();
-                listView.Title = stories.Title;
-                listView.Description = stories.Description;
-                var mission = _db.Missions.Where(x => x.MissionId == stories.MissionId).FirstOrDefault();
-                var themeName = _db.MissionThemes.Where(x => x.MissionThemeId == mission.ThemeId).FirstOrDefault();
-                listView.Theme = themeName.Title;
-                var images = _db.StoryMedia.Where(t => t.StoryId == storyid && t.Type == "image").ToList();
-                var media = _db.StoryMedia.Where(t => t.StoryId == storyid).ToList();
-                if (images != null)
-                {
-                    var mediaPaths = new List<string>();
-                    foreach (var image1 in images)
-                    {
-                        mediaPaths.Add(image1.Path);
-                    }
-                    listView.MediaPaths = mediaPaths;
-                }
-                listView.Media = media;
-                listView.Views = (long)(stories.Views + 1);
-                listView.MissionId = stories.MissionId;
-                var user = _db.Users.Where(x => x.UserId == stories.UserId).FirstOrDefault();
-                listView.why_i_volunteer = user.WhyIVolunteer != null ? user.WhyIVolunteer : "Lorem ipsum dolor sit amet . The graphic and typographic operators know this well, in reality all the professions dealing with the universe of communication have a stable relationship with these words, but what is it ? Lorem ipsum is a dummy text without any sense.It is a sequence of Latin words that, as they are positioned, do not form sentences with a complete sense, but give life to a test text useful to fill spaces that will subsequently be occupied from ad hoc texts composed by communication professionals.It is certainly the most famous placeholder text even if there are different versions distinguishable from the order in which the Latin words are repeated.Lorem ipsum contains the typefaces more in use, an aspect that allows you to have an overview of the rendering of the text in terms of font choice and font siz";
-                listView.UserName = user.FirstName;
-                listView.Avtar = user.Avatar == null ? "/images/user1.png" : user.Avatar;
-                ViewBag.Users = userlist;
-                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
-                stories.Views = listView.Views;
-                _db.Stories.Update(stories);
-                _db.SaveChanges();
 
-                return View(listView);
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+            
             
         }
 
@@ -1199,7 +1398,7 @@ namespace CIProjectweb.Controllers
                 var data = new { success = true, storypreview, pathList, VideoPath };
                 return Json(data);
             }
-            else if (storypreview.Status=="PENDING" && storypreview.DeletedAt!=null)
+            else if (storypreview.Status=="PENDING" && storypreview.Status=="DECLINE")
             {
                 return Json(new { success = "Deleted" });
             }
@@ -1307,196 +1506,410 @@ namespace CIProjectweb.Controllers
         }
         #endregion
 
-
+        #region Volunteer timesheet
         public IActionResult VolunteeerTimesheet()
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
-            List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
-            List<SelectListItem> listmissiontime = new List<SelectListItem>();
-            List<SelectListItem> listmissiongoal = new List<SelectListItem>();
-            List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
-            List<TimesheetViewModel> sheetview2 = new List<TimesheetViewModel>();
-
-            List<Timesheet> sheetviewtime = _objUserInterface.timesheetlistTime(int.Parse(userId));
-            var sheetrecordtime = (from sv in sheetviewtime join mt in missiontime on sv.MissionId equals mt.MissionId select new { sheetid = sv.TimesheetId, Name = mt.Title, Timespend = sv.Time, Date = sv.DateVolunteered }).ToList();
-
-            foreach (var item in sheetrecordtime)
+            try
             {
-                TimesheetViewModel timesheetViewModel2 = new TimesheetViewModel();
-                timesheetViewModel2.TimesheetId = item.sheetid;
-                timesheetViewModel2.Title = item.Name;
-                timesheetViewModel2.Timehour = item.Timespend.Split(':').First();
-                timesheetViewModel2.Timeminute = item.Timespend.Split(':').Last();
-                timesheetViewModel2.DateVolunteered = item.Date;
-                sheetview2.Add(timesheetViewModel2);
+                var userId = HttpContext.Session.GetString("UserId");
+                List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
+                List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
+                List<SelectListItem> listmissiontime = new List<SelectListItem>();
+                List<SelectListItem> listmissiongoal = new List<SelectListItem>();
+                List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
+                List<TimesheetViewModel> sheetview2 = new List<TimesheetViewModel>();
+
+                List<Timesheet> sheetviewtime = _objUserInterface.timesheetlistTime(int.Parse(userId));
+                var sheetrecordtime = (from sv in sheetviewtime join mt in missiontime on sv.MissionId equals mt.MissionId select new { sheetid = sv.TimesheetId, Name = mt.Title, Timespend = sv.Time, Date = sv.DateVolunteered }).ToList();
+
+                foreach (var item in sheetrecordtime)
+                {
+                    TimesheetViewModel timesheetViewModel2 = new TimesheetViewModel();
+                    timesheetViewModel2.TimesheetId = item.sheetid;
+                    timesheetViewModel2.Title = item.Name;
+                    timesheetViewModel2.Timehour = item.Timespend.Split(':').First();
+                    timesheetViewModel2.Timeminute = item.Timespend.Split(':').Last();
+                    timesheetViewModel2.DateVolunteered = item.Date;
+                    sheetview2.Add(timesheetViewModel2);
+                }
+
+
+
+                List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
+                var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
+                TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
+                foreach (var item in missiontime)
+                {
+                    listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                }
+                foreach (var item in missiongoal)
+                {
+                    listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                }
+                foreach (var item in sheetrecord)
+                {
+                    TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
+                    timesheetViewModel1.TimesheetId = item.sheetid;
+                    timesheetViewModel1.Title = item.Name;
+                    timesheetViewModel1.Action = item.Action.ToString();
+                    timesheetViewModel1.DateVolunteered = item.Date;
+                    sheetview.Add(timesheetViewModel1);
+                }
+                timesheetViewModel.timesheets = sheetview;
+                timesheetViewModel.timesheettime = sheetview2;
+                timesheetViewModel.missionstime = listmissiontime;
+                timesheetViewModel.missionsgoal = listmissiongoal;
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+                return View(timesheetViewModel);
+
             }
 
+            catch (Exception ex)
+            {
 
-           
-            List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
-            var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
-            TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
-            foreach (var item in missiontime)
-            {
-                listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
-            foreach (var item in missiongoal)
-            {
-                listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
-            }
-            foreach (var item in sheetrecord)
-            {
-                TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
-                timesheetViewModel1.TimesheetId = item.sheetid;
-                timesheetViewModel1.Title = item.Name;
-                timesheetViewModel1.Action = item.Action.ToString();
-                timesheetViewModel1.DateVolunteered = item.Date;
-                sheetview.Add(timesheetViewModel1);
-            }
-            timesheetViewModel.timesheets = sheetview;
-            timesheetViewModel.timesheettime = sheetview2;
-            timesheetViewModel.missionstime = listmissiontime;
-            timesheetViewModel.missionsgoal = listmissiongoal;
-            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
-            return View(timesheetViewModel);
             
         }
+        #endregion
 
+        #region checkAction for goal timesheet
         [HttpPost]
         public IActionResult CheckAction(string inputValue, long missionId)
         {
-            var goalvalue = _db.GoalMissions.Where(g => g.MissionId == missionId).FirstOrDefault();
-            if (goalvalue!=null)
+            try
             {
-                if (goalvalue.GoalValue<int.Parse(inputValue))
+                var goalvalue = _db.GoalMissions.Where(g => g.MissionId == missionId).FirstOrDefault();
+                if (goalvalue != null)
                 {
-                    return Json(new { success = true });
+                    if (goalvalue.GoalValue < int.Parse(inputValue))
+                    {
+                        return Json(new { success = true });
+                    }
+                    else
+                    {
+                        return Json(new { success = false });
+                    }
                 }
                 else
                 {
                     return Json(new { success = false });
                 }
             }
-            else
+
+            catch (Exception ex)
             {
-                return Json(new { success = false });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
+         
         }
+        #endregion
+
+        #region check date 
         [HttpPost]
         public IActionResult CheckDate(long missionid, DateTime volundate)
         {
-            var findmissiondate = _db.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
-            if (findmissiondate == null)
+            try
             {
-                return Json(new { message = "Mission not found." });
+                var findmissiondate = _db.Missions.Where(m => m.MissionId == missionid).FirstOrDefault();
+                if (findmissiondate == null)
+                {
+                    return Json(new { message = "Mission not found." });
+                }
+
+                DateTime? sdate = findmissiondate.StartDate ?? DateTime.MinValue;
+                DateTime startDate = sdate.HasValue ? sdate.Value.Date : DateTime.MinValue;
+                DateTime? edate = findmissiondate.EndDate ?? DateTime.MinValue;
+                DateTime endDate = edate.HasValue ? edate.Value.Date : DateTime.MinValue;
+                if (volundate < startDate || volundate > endDate)
+                {
+                    return Json(new { message = "Please enter a date between " + startDate.ToString("yyyy-MM-dd") + " and " + endDate.ToString("yyyy-MM-dd") });
+                }
+                else
+                {
+                    return Json(new { success = true });
+                }
             }
 
-            DateTime? sdate = findmissiondate.StartDate ?? DateTime.MinValue;
-            DateTime startDate = sdate.HasValue ? sdate.Value.Date : DateTime.MinValue;
-            DateTime? edate = findmissiondate.EndDate ?? DateTime.MinValue;
-            DateTime endDate = edate.HasValue ? edate.Value.Date : DateTime.MinValue;
-            if (volundate < startDate || volundate > endDate)
+            catch (Exception ex)
             {
-                return Json(new { message = "Please enter a date between " + startDate.ToString("yyyy-MM-dd") + " and " + endDate.ToString("yyyy-MM-dd") });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
-            else
-            {
-                return Json(new { success = true });
-            }
+         
         }
+        #endregion
+
+        #region edittimeTimesheet
         [HttpPost]
         public IActionResult editTime(int timesheetid)
         {
-            var find = _objUserInterface.findtimerecord(timesheetid);
-            return Json(new { find = find });
+            try
+            {
+                var find = _objUserInterface.findtimerecord(timesheetid);
+                return Json(new { find = find });
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
         }
+        #endregion
+
+        #region saveToDatabase Time timesheet
         [HttpPost]
         public IActionResult TimesheetTime(TimesheetViewModel timesheetviewmodel)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            _objUserInterface.sheetime(timesheetviewmodel, int.Parse(userId));
-            return RedirectToAction("VolunteeerTimesheet", "Home");
+            try
+            {
+                var userId = HttpContext.Session.GetString("UserId");
+                _objUserInterface.sheetime(timesheetviewmodel, int.Parse(userId));
+                return RedirectToAction("VolunteeerTimesheet", "Home");
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+           
         }
+        #endregion
+
+        #region Goal Timesheet save to database
         [HttpPost]
         public IActionResult VolunteeerTimesheet(TimesheetViewModel timesheetviewmodel)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            _objUserInterface.timesheet(timesheetviewmodel, int.Parse(userId));
-            List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
-            List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
-            List<SelectListItem> listmissiontime = new List<SelectListItem>();
-            List<SelectListItem> listmissiongoal = new List<SelectListItem>();
-            List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
-            List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
-            var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
-            TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
-            foreach (var item in missiontime)
+            try
             {
-                listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                var userId = HttpContext.Session.GetString("UserId");
+                _objUserInterface.timesheet(timesheetviewmodel, int.Parse(userId));
+                List<Mission> missiontime = _objUserInterface.missionstime(int.Parse(userId));
+                List<Mission> missiongoal = _objUserInterface.missionsgoal(int.Parse(userId));
+                List<SelectListItem> listmissiontime = new List<SelectListItem>();
+                List<SelectListItem> listmissiongoal = new List<SelectListItem>();
+                List<TimesheetViewModel> sheetview = new List<TimesheetViewModel>();
+                List<Timesheet> timesheets = _objUserInterface.timesheetlist(int.Parse(userId));
+                var sheetrecord = (from ts in timesheets join mg in missiongoal on ts.MissionId equals mg.MissionId select new { sheetid = ts.TimesheetId, Name = mg.Title, Action = ts.Action, Date = ts.DateVolunteered }).ToList();
+                TimesheetViewModel timesheetViewModel = new TimesheetViewModel();
+                foreach (var item in missiontime)
+                {
+                    listmissiontime.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                }
+                foreach (var item in missiongoal)
+                {
+                    listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+                }
+                foreach (var item in sheetrecord)
+                {
+                    TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
+                    timesheetViewModel1.TimesheetId = item.sheetid;
+                    timesheetViewModel1.Title = item.Name;
+                    timesheetViewModel1.Action = item.Action.ToString();
+                    timesheetViewModel1.DateVolunteered = item.Date;
+                    sheetview.Add(timesheetViewModel1);
+                }
+                timesheetviewmodel.timesheets = sheetview;
+                timesheetviewmodel.missionstime = listmissiontime;
+                timesheetviewmodel.missionsgoal = listmissiongoal;
+                return RedirectToAction("VolunteeerTimesheet", "Home");
             }
-            foreach (var item in missiongoal)
+
+            catch (Exception ex)
             {
-                listmissiongoal.Add(new SelectListItem { Text = item.Title, Value = item.MissionId.ToString() });
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
             }
-            foreach (var item in sheetrecord)
-            {
-                TimesheetViewModel timesheetViewModel1 = new TimesheetViewModel();
-                timesheetViewModel1.TimesheetId = item.sheetid;
-                timesheetViewModel1.Title = item.Name;
-                timesheetViewModel1.Action = item.Action.ToString();
-                timesheetViewModel1.DateVolunteered = item.Date;
-                sheetview.Add(timesheetViewModel1);
-            }
-            timesheetviewmodel.timesheets = sheetview;
-            timesheetviewmodel.missionstime = listmissiontime;
-            timesheetviewmodel.missionsgoal = listmissiongoal;
-            return RedirectToAction("VolunteeerTimesheet", "Home");
+          
 
         }
+        #endregion
 
+
+        #region TimesheetTime
         [HttpPost]
         public IActionResult edit(long missionid)
         {
-            Timesheet timesheetviewmodel = _db.Timesheets.Where(tm=>tm.TimesheetId==missionid).FirstOrDefault();
-            return Json(new { timesheet = timesheetviewmodel });
+            try
+            {
+                Timesheet timesheetviewmodel = _db.Timesheets.Where(tm => tm.TimesheetId == missionid).FirstOrDefault();
+                return Json(new { timesheet = timesheetviewmodel });
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
 
         }
+        #endregion
+
+        #region delete timesheet
         [HttpPost]
         public IActionResult delete_post(long missionId)
         {
-            Timesheet timesheetviewmodel = _db.Timesheets.Where(tm => tm.TimesheetId == missionId).FirstOrDefault();
-            _db.Timesheets.Remove(timesheetviewmodel);
-            _db.SaveChanges();
-            return Json(new { success = true });
+            try
+            {
+                Timesheet timesheetviewmodel = _db.Timesheets.Where(tm => tm.TimesheetId == missionId).FirstOrDefault();
+                _db.Timesheets.Remove(timesheetviewmodel);
+                _db.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+           
 
         }
+        #endregion
 
+
+        #region changePassword userEdit Profile
         [HttpPost]
         public IActionResult changePassword(Userviewmodel userViewModel)
         {
-            var userId = HttpContext.Session.GetString("UserId");
-            var savepass = _objUserInterface.savePassword(userViewModel.Password, userViewModel.NewPassword, userViewModel.confirmPasswrd, int.Parse(userId));
-            if (savepass == true)
+            try
             {
-                return RedirectToAction("userEditProfile","home");
-            }
-            else
-            {
-                return RedirectToAction("userEditProfile", "home"); ;
+                var userId = HttpContext.Session.GetString("UserId");
+                var savepass = _objUserInterface.savePassword(userViewModel.Password, userViewModel.NewPassword, userViewModel.confirmPasswrd, int.Parse(userId));
+                if (savepass == true)
+                {
+                    return RedirectToAction("userEditProfile", "home");
+                }
+                else
+                {
+                    return RedirectToAction("userEditProfile", "home"); ;
+                }
+
             }
 
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
+          
         }
+        #endregion
         public IActionResult dummy()
         {
             return View();
         }
 
+
+        #region ErrorPage
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            try
+            {
+                ViewBag.slugs = _db.CmsPages.Where(m => m.DeletedAt == null).ToList();
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+
+            }
+
+            catch (Exception ex)
+            {
+
+                var errorViewModel = new ErrorViewModel
+                {
+
+                    RequestId = ex.ToString()
+                };
+                // Redirect to an error page or show a generic error message
+                return RedirectToAction("Error", "Home");
+            }
         }
+        #endregion
+        #region Notification
+        [HttpGet]  
+            public JsonResult GetNotifications()  
+            {  
+                  List<Notification> lstDataSubmit = new List<Notification>();
+            List<DataSubmit> lstDataSubmit2 = new List<DataSubmit>();
+            var userid = HttpContext.Session.GetString("UserId");
+            if(userid != null)
+            {
+                lstDataSubmit = _db.Notifications.Where(n => n.UserId == int.Parse(userid)).ToList();
+            }
+            else
+            {
+                lstDataSubmit = _db.Notifications.ToList();
+            }
+            foreach (var item in lstDataSubmit)
+            {
+                var no = item.NotificationId;
+                lstDataSubmit2.Add(new DataSubmit() { Notification = item.NotificationText+no , LastUpdated = DateTime.Now.ToString("ss") + " seconds ago..." });
+            }
+                  /// Should update from DB  
+                  ///  
+                  ///e.g. Generating Notification manually  
+                
+                  return Json(lstDataSubmit2);              
+            }  
+        #endregion
     }
 }

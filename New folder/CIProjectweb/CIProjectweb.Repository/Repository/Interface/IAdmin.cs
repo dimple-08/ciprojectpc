@@ -52,8 +52,9 @@ namespace CIProjectweb.Repository.Repository.Interface
         public bool SkillExists(string Title, long skillID);
         public bool ThemeExists(string Title, long themeID);
         public bool BannerExists(int order, long bannerId);
+        public bool MissionExists(string Title, long missionID);
         public bool deleteskill(long skillId);
-
+        public bool EmailExists(string Email, long User);
         public bool skillsave(CIProjectweb.Entities.AdminViewModel.SkillView skillView);
         public MissionView findmission(long missionId);
         public bool deletemission(long missionId);

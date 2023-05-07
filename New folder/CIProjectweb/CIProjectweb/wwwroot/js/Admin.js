@@ -141,7 +141,9 @@ function USerEdit(UserId) {
                 EmployeeId.value = result.employeeId;
                 Department.value = result.department;
                 City.value = result.cityId;
+
                 Country.value = result.countryId;
+                countryEditByCity(result.countryId);
                 Profile.value = result.profileText;
                 profileimgcard.style.display = "flex";
                 if (result.avatar !== null) {

@@ -14,6 +14,7 @@ namespace CIProjectweb.Entities.ViewModels
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? StoryTitle { get; set; }
+        public long? viewCount { get; set; }
         public string? MissionTitle { get; set; }
     }
 }

@@ -524,7 +524,17 @@
                 <div class="d-flex flex-row justify-content-between">
                     @if (teacher.missionApplied == 1 || teacher.mission.Deadline > DateTime.Now || teacher.progressBar < 100)
                     {
-                        if(int.Parse(teacher.mission.SeatAvailable) > 0)
+                         if (teacher.mission.MissionType=="Goal" && teacher.progressBar==100)
+                        {
+                             <div class="d-flex flex-row align-items-center">
+                            <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
+                            <div class="d-flex flex-column ms-2">
+                                <p class="d-inline mb-0 pt-2">0</p>
+                                <p class="seat">Seats Left</p>
+                            </div>
+                            </div>
+                        }
+                        else if(int.Parse(teacher.mission.SeatAvailable) > 0)
                         {
                             <div class="d-flex flex-row align-items-center">
                             <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
@@ -534,6 +544,7 @@
                             </div>
                             </div>
                         }
+                      
                         else if(teacher.mission.MissionType == "Time")
                         {
                             <div class="d-flex flex-row align-items-center">
@@ -763,7 +774,7 @@
                     $(".hrbtn-img").removeClass("hr-btn");
                     $(".card-img-top").removeClass("card-img-top-listview");
                 }
-                if (country.length > 0 || city.length > 0 || theme.length > 0) {
+                if (country.length > 0 || city.length > 0 || theme.length > 0 || skill.length>0) {
                     document.querySelector(".clearAllFilter").classList.remove("d-none");
                 }
                 else {

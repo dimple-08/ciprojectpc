@@ -160,7 +160,7 @@ function sendRec(missionId) {
                     var send = document.getElementById('sent1').innerText = "Send Email";
 
                 }, 4000);
-                Swal.fire('send');
+                Swal.fire('Send');
             }
         });
     }

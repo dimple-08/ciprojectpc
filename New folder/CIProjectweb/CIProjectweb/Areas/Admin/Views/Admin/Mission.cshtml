@@ -30,11 +30,12 @@
                                             <div class="container-fluid p-0">
                                                 <div class="row">
                                                    <div class="col-4">
-                                            <input type="hidden" name="MissionId" asp-for="MissionId" id="missionId" />
+                                            <input type="text" name="MissionId" asp-for="MissionId" id="missionId" hidden />
                                             <div class="text-danger" id="error-msg"></div>
                                             <label for="title">Mission Title</label>
-                                            <input type="text" class="form-control" placeholder="Enter title" asp-for="Title" id="title" required />
+                                            <input type="text" class="form-control" onfocusout="CheckMission()" placeholder="Enter title" asp-for="Title" id="title" required />
                                             <span class="text-danger invalid-feedback" id="titleError" style="font-size:16px"></span>
+                                             <span id="SkillError" class="text-danger"></span>
                                         </div>
                                         <div class="col-4">
                                             <label for="short description">Mission Short Description</label>
@@ -136,7 +137,7 @@
                                             </select>
                                         </div>
                                         <div class="col-4">
-                                            <label for="image">Mission Images</label>ImgError
+                                            <label for="image">Mission Images</label>
                                             <input type="file" id="missionimg" class="form-control" name="images[]" multiple>
                                              <span class="text-danger" id="ImgError" style="font-size:16px"></span>
                                         </div>
@@ -228,6 +229,36 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+       function CheckMission()
+{
+     var Title = $("#title").val();
+     var mission =  document.getElementById("missionId").value;
+  
+     if(mission==""){
+            // Make an AJAX call
+    $.ajax({
+      type: 'POST',
+      url: '/Admin/Admin/CheckMission',
+      data: {Title: Title, Mission: mission},
+      success: function(result) {
+          if(result.success){
+              
+                   $("#SkillError").text("Mission With this order exists.");
+                   setTimeout(function(){
+        $("#SkillError").text("");
+    }, 2000); 
+                }
+                else{
+                       $("#SkillError").text("");
+                }
+      },
+      error: function() {
+        console.log('Error occurred while making AJAX call');
+      }
+    });
+     }
+ 
+}
             var el = document.getElementById("wrapper");
             var toggleButton = document.getElementById("menu-toggle");
             var dashboadtime = document.getElementById("dashboadtime");
@@ -235,6 +266,36 @@
             var modalclose = document.getElementById("btnclose");
             function countryByCity() {
     var countryId = document.getElementById("countryid").value;
+    $.ajax({
+
+
+
+        url: '/Admin/Admin/CountryByCityAdmin',
+        type: 'POST',
+        data: { CountryId: countryId },
+        dataType: 'json',
+
+        success: function (result) {
+            console.log(result.data);
+            var cityOption = "";
+            var cityDropdown = document.getElementById("cityid");
+            if (result.data.length == 0) {
+
+                cityOption += `<option>No cities Found</option>`
+            }
+            else {
+                for (let i = 0; i < result.data.length; i++) {
+                    cityOption += `<option value="${result.data[i].cityId}">${result.data[i].name}</option>`
+                }
+            }
+           
+
+            cityDropdown.innerHTML = cityOption;
+        }
+    });
+}
+  function countryEditByCity(countryId) {
+  
     $.ajax({
 
 
@@ -933,7 +994,11 @@ $("#btnsubmit").click(function (e) {
                   }
                         $('#missionId').val(mission.missionId); $('#title').val(mission.title); $('#sdescription').val(mission.shortDescription);
                         CKEDITOR.instances['CKeditor'].setData(mission.description);
-                        $('#countryid').val(mission.countryId); $('#cityid').val(mission.cityId); $('#odetail').val(mission.organizationDetalis);
+                        $('#countryid').val(mission.countryId);
+                        
+                        $('#cityid').val(mission.cityId); 
+                        countryEditByCity(mission.countryId);
+                        $('#odetail').val(mission.organizationDetalis);
                         var sdate = new Date(mission.startDate);
                         var startDate = sdate.getFullYear() + "-" + (sdate.getMonth() + 1).toString().padStart(2, '0') + "-" + sdate.getDate().toString().padStart(2, '0');
                         $('#sdate').val(startDate); $('#oname').val(mission.organizationName);

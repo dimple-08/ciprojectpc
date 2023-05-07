@@ -244,7 +244,14 @@
                             <div class="d-flex flex-row align-items-center">
                                 <img src="~/lib/images/Seats-left.png" alt="" class="" height="30px" width="30px">
                                 <div class="d-flex flex-column ms-2">
-                                    <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>
+                                        @if(@Model.progressBar==100){
+                                            <p class="d-inline mb-0 pt-2">0</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="d-inline mb-0 pt-2">@Model.SeatAvailable</p>    
+                                        }
+                                        
                                     <p class="seat">Seats Left</p>
                                 </div>
                             </div>

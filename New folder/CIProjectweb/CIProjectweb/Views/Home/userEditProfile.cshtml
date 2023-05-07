@@ -435,7 +435,7 @@ saveBtn.addEventListener('click', () => {
     // Get all the skill names in the addedskill div
     const addedSkills = addedskill.querySelectorAll('p');
     const skillNames = Array.from(addedSkills).map(skill => skill.textContent); // Get an array of skill names
-
+     var modalskill = document.getElementById("myModalskill");
     // Make an AJAX call with the data
     $.ajax({
         url: '/Home/UserEdit', // Replace with your endpoint URL
@@ -445,6 +445,7 @@ saveBtn.addEventListener('click', () => {
             // Handle success
            
            $('.skilldiv').html($(result).find('.skilldiv').html());
+           modalskill.style.display="none";
 
         },
         error: function () {

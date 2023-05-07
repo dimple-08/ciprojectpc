@@ -49,6 +49,8 @@ public partial class CIDbContext : DbContext
 
     public virtual DbSet<MissionTheme> MissionThemes { get; set; }
 
+    public virtual DbSet<Notification> Notifications { get; set; }
+
     public virtual DbSet<PasswordReset> PasswordResets { get; set; }
 
     public virtual DbSet<Skill> Skills { get; set; }
@@ -58,6 +60,8 @@ public partial class CIDbContext : DbContext
     public virtual DbSet<StoryInvite> StoryInvites { get; set; }
 
     public virtual DbSet<StoryMedium> StoryMedia { get; set; }
+
+    public virtual DbSet<StoryView> StoryViews { get; set; }
 
     public virtual DbSet<Timesheet> Timesheets { get; set; }
 
@@ -625,6 +629,17 @@ public partial class CIDbContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.ToTable("Notification");
+
+            entity.Property(e => e.NotificationId).HasColumnName("notification_id");
+            entity.Property(e => e.NotificationText)
+                .HasColumnType("text")
+                .HasColumnName("notification_text");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
         modelBuilder.Entity<PasswordReset>(entity =>
         {
             entity.HasKey(e => e.Token).HasName("PK_password_reset_1");
@@ -764,6 +779,15 @@ public partial class CIDbContext : DbContext
                 .HasConstraintName("FK_story_media_story");
         });
 
+        modelBuilder.Entity<StoryView>(entity =>
+        {
+            entity.ToTable("storyView");
+
+            entity.Property(e => e.StoryviewId).HasColumnName("storyview_id");
+            entity.Property(e => e.StoryId).HasColumnName("story_id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+        });
+
         modelBuilder.Entity<Timesheet>(entity =>
         {
             entity.ToTable("timesheet");
@@ -828,7 +852,7 @@ public partial class CIDbContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Department)
-                .HasMaxLength(16)
+                .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("department");
             entity.Property(e => e.Email)
@@ -852,7 +876,7 @@ public partial class CIDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("linked_in_url");
             entity.Property(e => e.ManagerDetail)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("manager_detail");
             entity.Property(e => e.Password)

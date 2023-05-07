@@ -1,4 +1,11 @@
-﻿function shareStory(userId,value) {
+﻿function shareStory(userId, value) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-orange rounded-pill ms-2',
+            cancelButton: 'btn btn-secondary rounded-pill'
+        },
+        buttonsStyling: false
+    })
 
     var dataUrls = FILE_LIST.map(file => file.url);
     
@@ -52,7 +59,11 @@
 
                         }
                         else {
-                            Swal.fire("You alreay share the story");
+                            swalWithBootstrapButtons.fire(
+                                'Shared!',
+                                'You alreay share the story.',
+                                'info'
+                            )
 
 
                         }
@@ -60,12 +71,20 @@
                 });
             }
             else {
-                Swal.fire("You have to fill every fields..");
+                swalWithBootstrapButtons.fire(
+                    'Warning!',
+                    'You have to fill every fields..',
+                    'warning'
+               )
             }
         }
     }
     else {
-        Swal.fire("You have to fill every fields..");
+        swalWithBootstrapButtons.fire(
+            'Warning!',
+            'You have to fill every fields..',
+            'warning'
+        )
     }
     
 
@@ -138,14 +157,24 @@ function shareStorySubmit(userId) {
 
                     }
                     else {
-                        Swal.fire("You alreay share the story");
+                        swalWithBootstrapButtons.fire(
+                            'Shared!',
+                            'You alreay share the story.',
+                            'info'
+                        )
+                        /*Swal.fire("You alreay share the story");*/
 
                     }
                 }
             });
         }
         else {
-            Swal.fire("You have to fill every fields..");
+            swalWithBootstrapButtons.fire(
+                'Warning!',
+                'You alreay share the story.',
+                'warning'
+            )
+           
         }
     }
 
@@ -288,8 +317,8 @@ removeFile();
 function searchStoryByMission() {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
-            confirmButton: 'btn btn-success ms-2',
-            cancelButton: 'btn btn-danger'
+            confirmButton: 'btn btn-orange rounded-pill ms-2',
+            cancelButton: 'btn btn-secondary rounded-pill'
         },
         buttonsStyling: false
     })

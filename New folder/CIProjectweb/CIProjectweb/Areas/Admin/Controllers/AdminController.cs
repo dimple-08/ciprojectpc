@@ -125,14 +125,14 @@ namespace CIProjectweb.Areas.Admin.Controllers
             }
             HttpContext.Session.SetInt32("Nav", 7);
             ViewBag.nav = HttpContext.Session.GetInt32("Nav");
-            List<StoryView> storyViews = new List<StoryView>();
+            List<Entities.ViewModels.StoryView> storyViews = new List<Entities.ViewModels.StoryView>();
             List<Mission> missions = _objIAdmin.allmission();
             List<User> users = _objIAdmin.alluser();
             List<Story> stories = _objIAdmin.allstory();
             var storyrecord = (from st in stories join u in users on st.UserId equals u.UserId join ms in missions on st.MissionId equals ms.MissionId select new { StoryTitle = st.Title, FirstName = u.FirstName, LastName = u.LastName, MissionTitle = ms.Title, MissionId = st.MissionId, UserId = st.UserId, StoryId = st.StoryId }).ToList();
             foreach (var item in storyrecord)
             {
-                StoryView storyView = new StoryView();
+                Entities.ViewModels.StoryView storyView = new Entities.ViewModels.StoryView();
                 storyView.MissionTitle = item.MissionTitle;
                 storyView.StoryTitle = item.StoryTitle;
                 storyView.StoryId = item.StoryId;
@@ -551,11 +551,23 @@ namespace CIProjectweb.Areas.Admin.Controllers
             bool success = _objIAdmin.ThemeExists(Title, Theme);
             return Json(new { success = success });
         }
-
+        [HttpPost]
+        public IActionResult CheckMission(long Mission, string Title)
+        {
+            bool success = _objIAdmin.MissionExists(Title, Mission);
+            return Json(new { success = success });
+        }
         [HttpPost]
         public IActionResult CheckBanner(long banner, int order)
         {
             bool success = _objIAdmin.BannerExists(order, banner);
+            return Json(new { success = success });
+        }
+
+        [HttpPost]
+        public IActionResult CheckEmail(long User,string Email)
+        {
+            bool success = _objIAdmin.EmailExists(Email, User);
             return Json(new { success = success });
         }
     }

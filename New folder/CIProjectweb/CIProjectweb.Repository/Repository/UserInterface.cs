@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 using System.Net.Http;
 
 using Microsoft.AspNetCore.Http;
-
-
+using Microsoft.Extensions.Logging;
+using StoryView = CIProjectweb.Entities.DataModels.StoryView;
 
 namespace CIProjectweb.Repository.Repository
 {
@@ -21,170 +21,684 @@ namespace CIProjectweb.Repository.Repository
     {
         private readonly CIDbContext _objdb;
 
-       
-       
-        public UserInterface(CIDbContext objdb)
+        private readonly ILogger<UserInterface> _logger;
+
+        public UserInterface(CIDbContext objdb, ILogger<UserInterface> logger)
         {
             _objdb = objdb;
+            _logger = logger;
            
         }
         public bool AddUser(RegistrationViewModel objuser)
         {
-           var userexsists= _objdb.Users.Where(a => a.Email.Equals(objuser.Email)&& a.DeletedAt==null && a.Status==true).FirstOrDefault();
-            if (userexsists == null)
+            try
             {
-                var user = new User()
+                var userexsists = _objdb.Users.Where(a => a.Email.Equals(objuser.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
+                if (userexsists == null)
                 {
-                    FirstName = objuser.FirstName,
-                    LastName = objuser.LastName,
-                    PhoneNumber = objuser.PhoneNumber,
-                    Email = objuser.Email,
-                    Password = objuser.Password,
+                    var user = new User()
+                    {
+                        FirstName = objuser.FirstName,
+                        LastName = objuser.LastName,
+                        PhoneNumber = objuser.PhoneNumber,
+                        Email = objuser.Email,
+                        Password = objuser.Password,
 
-                };
-                _objdb.Users.Add(user);
-                _objdb.SaveChanges();
-                return true;
+                    };
+                    _objdb.Users.Add(user);
+                    _objdb.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                return false;
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
+           
         }
         public bool ValideUserEmail(ForgotPasswordViewModel objFpvm,string token)
         {
-            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objFpvm.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
-            if (userexsists != null)
+            try
             {
-                
-                // Store the token in the password resets table with the user's email
-                var passwordReset_ = new PasswordReset()
+                var userexsists = _objdb.Users.Where(a => a.Email.Equals(objFpvm.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
+                if (userexsists != null)
                 {
-                    Email = objFpvm.Email,
-                    Token = token
-                };
-                _objdb.PasswordResets.Add(passwordReset_);
-                _objdb.SaveChanges();
+
+                    // Store the token in the password resets table with the user's email
+                    var passwordReset_ = new PasswordReset()
+                    {
+                        Email = objFpvm.Email,
+                        Token = token
+                    };
+                    _objdb.PasswordResets.Add(passwordReset_);
+                    _objdb.SaveChanges();
 
 
-                return true;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                return false;
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
+           
         }
 
         public bool ResetPassword(string email,string token)
         {
-            var userexsists = _objdb.PasswordResets.Where(a => a.Email.Equals(email)&&a.Token.Equals(token)).FirstOrDefault();
-            
-            if (userexsists == null)
+            try
             {
-                return false;
+                var userexsists = _objdb.PasswordResets.Where(a => a.Email.Equals(email) && a.Token.Equals(token)).FirstOrDefault();
+
+                if (userexsists == null)
+                {
+                    return false;
+                }
+                else
+                {
+
+                    return true;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-              
-                return true;
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
+           
 
         }
 
         public bool updatePassword(ResetPAsswordViewModel objreset)
         {
-            var userexsists = _objdb.Users.Where(a => a.Email.Equals(objreset.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
-            if (userexsists == null)
+            try
             {
-                return false;
+                var userexsists = _objdb.Users.Where(a => a.Email.Equals(objreset.Email) && a.DeletedAt == null && a.Status == true).FirstOrDefault();
+                if (userexsists == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    userexsists.Password = objreset.Password;
+                    _objdb.Users.Update(userexsists);
+                    _objdb.SaveChanges();
+                    return true;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                userexsists.Password=objreset.Password; 
-                _objdb.Users.Update(userexsists);
-                _objdb.SaveChanges();
-                return true;
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
+           
         }
 
         public LandingPAgeViewModel GetCustomers(int currentPage,int u_id)
         {
-            int maxRows = 6;
-            LandingPAgeViewModel customerModel = new LandingPAgeViewModel();
+            try
+            {
+                int maxRows = 6;
+                LandingPAgeViewModel customerModel = new LandingPAgeViewModel();
 
-            customerModel.UsersList = _objdb.Users.Where(a => a.UserId == u_id).FirstOrDefault();
+                customerModel.UsersList = _objdb.Users.Where(a => a.UserId == u_id).FirstOrDefault();
 
-            customerModel.MissionList = _objdb.Missions.ToList();
-            double pageCount = (double)((decimal)_objdb.Missions.Count() / Convert.ToDecimal(maxRows));
-            customerModel.PageCount = (int)Math.Ceiling(pageCount);
+                customerModel.MissionList = _objdb.Missions.ToList();
+                double pageCount = (double)((decimal)_objdb.Missions.Count() / Convert.ToDecimal(maxRows));
+                customerModel.PageCount = (int)Math.Ceiling(pageCount);
 
-            customerModel.CurrentPageIndex = currentPage;
+                customerModel.CurrentPageIndex = currentPage;
 
-            return customerModel;
+                return customerModel;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+            
         }
 
         public List<Mission> getmission(string missionName)
         {
-            List<Mission> MissionList = (from mission in _objdb.Missions
-                                  where mission.Title.Contains(missionName)
-                                  select mission).ToList();
-            return MissionList;
+            try
+            {
+                List<Mission> MissionList = (from mission in _objdb.Missions
+                                             where mission.Title.Contains(missionName)
+                                             select mission).ToList();
+                return MissionList;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public List<CountryViewModel> CountryList()
         {
-            List<Country> countryList = _objdb.Countries.ToList();
-            List<CountryViewModel> countryViews = new List<CountryViewModel>();
-            foreach (var country in countryList)
+            try
             {
-                CountryViewModel countryview=new CountryViewModel();
-               
-                var countryname= _objdb.Countries.SingleOrDefault(c => c.CountryId == country.CountryId);
-                countryview.CountryId = countryname.CountryId;
-                countryview.Name = countryname.Name;
-                countryViews.Add(countryview);
+                List<Country> countryList = _objdb.Countries.ToList();
+                List<CountryViewModel> countryViews = new List<CountryViewModel>();
+                foreach (var country in countryList)
+                {
+                    CountryViewModel countryview = new CountryViewModel();
 
+                    var countryname = _objdb.Countries.SingleOrDefault(c => c.CountryId == country.CountryId);
+                    countryview.CountryId = countryname.CountryId;
+                    countryview.Name = countryname.Name;
+                    countryViews.Add(countryview);
+
+                }
+                return countryViews;
             }
-            return countryViews;
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public List<ThemeViewModel> ThemeList()
         {
-            List<MissionTheme> ThemeList = _objdb.MissionThemes.ToList();
-            List<ThemeViewModel> themeViews = new List<ThemeViewModel>();
-            foreach (var cities in ThemeList)
+            try
             {
-                ThemeViewModel themeview = new ThemeViewModel();
-                
-                var themename = _objdb.MissionThemes.SingleOrDefault(c => c.MissionThemeId == cities.MissionThemeId);
-                themeview.Title = themename.Title;
-                themeview.MissionThemeId = themename.MissionThemeId;
-                themeViews.Add(themeview);
+                List<MissionTheme> ThemeList = _objdb.MissionThemes.ToList();
+                List<ThemeViewModel> themeViews = new List<ThemeViewModel>();
+                foreach (var cities in ThemeList)
+                {
+                    ThemeViewModel themeview = new ThemeViewModel();
 
+                    var themename = _objdb.MissionThemes.SingleOrDefault(c => c.MissionThemeId == cities.MissionThemeId);
+                    themeview.Title = themename.Title;
+                    themeview.MissionThemeId = themename.MissionThemeId;
+                    themeViews.Add(themeview);
+
+                }
+                return themeViews;
             }
-            return themeViews;
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public List<CityViewModel> CityList()
         {
-            List<City> CityList = _objdb.Cities.ToList();
-            List<CityViewModel> CityViews = new List<CityViewModel>();
-            foreach (var cities in CityList)
+            try
             {
-                CityViewModel cityview = new CityViewModel();
-                
-                var countryname = _objdb.Cities.SingleOrDefault(c => c.CityId == cities.CityId);
-                cityview.CityId = cities.CityId;
-                cityview.Name = countryname.Name;
-                CityViews.Add(cityview);
+                List<City> CityList = _objdb.Cities.ToList();
+                List<CityViewModel> CityViews = new List<CityViewModel>();
+                foreach (var cities in CityList)
+                {
+                    CityViewModel cityview = new CityViewModel();
 
+                    var countryname = _objdb.Cities.SingleOrDefault(c => c.CityId == cities.CityId);
+                    cityview.CityId = cities.CityId;
+                    cityview.Name = countryname.Name;
+                    CityViews.Add(cityview);
+
+                }
+                return CityViews;
             }
-            return CityViews;
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public List<MissionViewModel> getmissions(int u_id)
         {
-           
-            List<Mission> MissionList = _objdb.Missions.ToList();
-            List<MissionViewModel> missionViews = new List<MissionViewModel>();
-            foreach (var mission in MissionList)
+            try
             {
+                List<Mission> MissionList = _objdb.Missions.ToList();
+                List<MissionViewModel> missionViews = new List<MissionViewModel>();
+                foreach (var mission in MissionList)
+                {
+                    MissionViewModel missionView = new MissionViewModel();
+                    missionView.Availability = mission.Availability;
+                    missionView.Title = mission.Title;
+                    var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
+                    if (city != null)
+                    {
+                        missionView.City = city.Name;
+                    }
+
+                    var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
+                    if (country != null)
+                    {
+                        missionView.Country = country.Name;
+                    }
+                    var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
+                    if (Theme != null)
+                    {
+                        missionView.Theme = Theme.Title;
+                    }
+                    var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
+                    if (image != null)
+                    {
+                        missionView.MediaPath = image.MediaPath;
+                    }
+
+                    var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                    if (goalvalue != null)
+                    {
+                        missionView.GoalValue = goalvalue.GoalValue;
+                    }
+                    var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                    if (goalvalue != null)
+                    {
+                        missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
+                    }
+
+                    var favourite = _objdb.FavouriteMissions.Where(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.DeletedAt == null).ToList();
+                    if (favourite.Count > 0)
+                    {
+                        missionView.isFavrouite = true;
+                    }
+                    else
+                    {
+                        missionView.isFavrouite = false;
+                    }
+                    var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
+                    var rating = 0;
+                    var sum = 0;
+                    foreach (var entry in ratings)
+                    {
+                        sum = sum + int.Parse(entry.Rating);
+
+                    }
+                    rating = sum / ratings.Count;
+                    if (rating != null)
+                    {
+                        missionView.Rating = rating;
+                    }
+                    missionView.deadline = mission.Deadline;
+                    missionView.Description = mission.Description;
+                    missionView.CityId = mission.CityId;
+                    missionView.CountryId = mission.CountryId;
+                    missionView.CreatedAt = mission.CreatedAt;
+                    missionView.UpdatedAt = mission.UpdatedAt;
+                    missionView.DeletedAt = mission.DeletedAt;
+                    missionView.ShortDescription = mission.ShortDescription;
+                    missionView.MissionId = mission.MissionId;
+                    missionView.StartDate = mission.StartDate;
+                    missionView.EndDate = mission.EndDate;
+                    missionView.SeatAvailable = mission.SeatAvailable;
+                    missionView.ThemeId = mission.ThemeId;
+                    missionView.Status = mission.Status;
+                    missionView.MissionType = mission.MissionType;
+                    missionView.OrganizationDetail = mission.OrganizationDetail;
+                    missionView.OrganizationName = mission.OrganizationName;
+                    missionViews.Add(missionView);
+                }
+                return missionViews;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+
+         
+        }
+
+        public List<MissionViewModel> getmissions()
+        {
+            try
+            {
+                List<Mission> MissionList = _objdb.Missions.ToList();
+                List<MissionViewModel> missionViews = new List<MissionViewModel>();
+                foreach (var mission in MissionList)
+                {
+                    MissionViewModel missionView = new MissionViewModel();
+                    missionView.Availability = mission.Availability;
+                    missionView.Title = mission.Title;
+                    var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
+                    if (city != null)
+                    {
+                        missionView.City = city.Name;
+                    }
+
+                    var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
+                    if (country != null)
+                    {
+                        missionView.Country = country.Name;
+                    }
+                    var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
+                    if (Theme != null)
+                    {
+                        missionView.Theme = Theme.Title;
+                    }
+                    var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
+                    if (image != null)
+                    {
+                        missionView.MediaPath = image.MediaPath;
+                    }
+                    var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                    if (goalvalue != null)
+                    {
+                        missionView.GoalValue = goalvalue.GoalValue;
+                    }
+                    var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                    if (goalvalue != null)
+                    {
+                        missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
+                    }
+
+                    missionView.isFavrouite = false;
+
+                    var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
+                    var rating = 0;
+                    var sum = 0;
+                    foreach (var entry in ratings)
+                    {
+                        sum = sum + int.Parse(entry.Rating);
+
+                    }
+                    rating = sum / ratings.Count;
+                    if (rating != null)
+                    {
+                        missionView.Rating = rating;
+                    }
+                    missionView.Description = mission.Description;
+                    missionView.CityId = mission.CityId;
+                    missionView.CountryId = mission.CountryId;
+                    missionView.CreatedAt = mission.CreatedAt;
+                    missionView.UpdatedAt = mission.UpdatedAt;
+                    missionView.DeletedAt = mission.DeletedAt;
+                    missionView.ShortDescription = mission.ShortDescription;
+                    missionView.MissionId = mission.MissionId;
+                    missionView.StartDate = mission.StartDate;
+                    missionView.EndDate = mission.EndDate;
+                    missionView.SeatAvailable = mission.SeatAvailable;
+                    missionView.ThemeId = mission.ThemeId;
+                    missionView.Status = mission.Status;
+                    missionView.MissionType = mission.MissionType;
+                    missionView.OrganizationDetail = mission.OrganizationDetail;
+                    missionView.OrganizationName = mission.OrganizationName;
+                    missionViews.Add(missionView);
+                }
+                return missionViews;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
+        }
+      
+
+        public MissionViewModel getmission(int id,int u_id)
+        {
+            try
+            {
+                Mission mission = (Mission)_objdb.Missions.Where(m => m.MissionId == id).FirstOrDefault();
+
+
+                MissionViewModel missionView = new MissionViewModel();
+                missionView.Availability = mission.Availability == null ? "Daily" : mission.Availability;
+                missionView.Title = mission.Title;
+                var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
+                if (city != null)
+                {
+                    missionView.City = city.Name;
+                }
+
+                var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
+                if (country != null)
+                {
+                    missionView.Country = country.Name;
+                }
+                var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
+                if (Theme != null)
+                {
+                    missionView.Theme = Theme.Title;
+                }
+                var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
+                if (image != null)
+                {
+                    missionView.MediaPath = image.MediaPath;
+                }
+                var images = _objdb.MissionMedia.Where(t => t.MissionId == mission.MissionId).ToList();
+                if (images != null)
+                {
+                    var mediaPaths = new List<string>();
+                    foreach (var image1 in images)
+                    {
+                        mediaPaths.Add(image1.MediaPath);
+                    }
+                    missionView.MediaPaths = mediaPaths;
+                }
+                var skill = _objdb.MissionSkills.Where(t => t.MissionId == mission.MissionId).ToList();
+                if (skill != null)
+                {
+                    var name = new List<string>();
+                    foreach (var skills in skill)
+                    {
+                        var skill_name = _objdb.Skills.FirstOrDefault(t => t.SkillId == skills.SkillId);
+                        if (skill_name != null)
+                        {
+                            name.Add(skill_name.SkillName);
+                        }
+                    }
+                    missionView.skill = name;
+
+                }
+                var UserName = _objdb.MissionApplications.Where(t => t.MissionId == mission.MissionId).ToList();
+                if (UserName != null)
+                {
+
+                    var names = new List<string>();
+                    foreach (var image1 in UserName)
+                    {
+                        var user = _objdb.Users.Where(t => t.UserId == image1.UserId).FirstOrDefault();
+                        names.Add(user.FirstName);
+                    }
+                    missionView.UserNames = names;
+                }
+
+                var Applided = _objdb.MissionApplications.Where(e => e.MissionId == mission.MissionId && e.UserId == u_id).ToList();
+                var Pending = _objdb.MissionApplications.Where(e => e.MissionId == mission.MissionId && e.UserId == u_id && e.ApprovalStatus == "PENDING").ToList();
+                if (Applided.Count > 0)
+                {
+                    missionView.isApplied = true;
+                }
+                else
+                {
+                    missionView.isApplied = false;
+                }
+                if (Pending.Count > 0)
+                {
+                    missionView.isPending = true;
+                }
+                else
+                {
+                    missionView.isPending = false;
+                }
+                var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                if (goalvalue != null)
+                {
+                    float action = (float)(_objdb.Timesheets.Where(x => x.MissionId == mission.MissionId && x.DeletedAt == null).Select(x => x.Action).Sum());
+                    float totalGoal = goalvalue.GoalValue;
+                    missionView.progressBar = action * 100 / totalGoal;
+                    missionView.GoalValue = goalvalue.GoalValue;
+                }
+                missionView.Media = _objdb.MissionMedia.Where(m => m.MissionId == mission.MissionId).ToList();
+
+                var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
+                if (goalvalue != null)
+                {
+                    missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
+                }
+                var ratingUser = _objdb.MissionRatings.SingleOrDefault(t => t.MissionId == mission.MissionId && t.UserId == u_id);
+                if (ratingUser != null)
+                {
+                    missionView.UserPrevRating = int.Parse(ratingUser.Rating);
+
+                }
+                else
+                {
+                    missionView.UserPrevRating = 0;
+                }
+
+                var favourite = _objdb.FavouriteMissions.Where(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.DeletedAt == null).ToList();
+                if (favourite.Count > 0)
+                {
+                    missionView.isFavrouite = true;
+                }
+                else
+                {
+                    missionView.isFavrouite = false;
+                }
+
+                var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
+                var count = ratings.Count;
+                missionView.ratingCount = count;
+                var rating = 0;
+                var sum = 0;
+                foreach (var entry in ratings)
+                {
+                    sum = sum + int.Parse(entry.Rating);
+
+                }
+                if (ratings.Count > 0)
+                {
+                    rating = sum / ratings.Count;
+                }
+                else
+                {
+                    rating = 5;
+                }
+
+                if (rating != null)
+                {
+                    missionView.Rating = rating;
+                }
+
+                var ratings1 = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
+
+                float rating1 = 0;
+                float sum1 = 0;
+                foreach (var entry in ratings1)
+                {
+                    sum1 = sum1 + int.Parse(entry.Rating);
+
+                }
+                rating1 = sum1 / ratings1.Count;
+                if (rating != null)
+                {
+                    missionView.avgRating = rating1;
+                }
+                missionView.deadline = mission.Deadline;
+                missionView.Description = mission.Description;
+                missionView.CityId = mission.CityId;
+                missionView.CountryId = mission.CountryId;
+                missionView.CreatedAt = mission.CreatedAt;
+                missionView.UpdatedAt = mission.UpdatedAt;
+                missionView.DeletedAt = mission.DeletedAt;
+                missionView.ShortDescription = mission.ShortDescription;
+                missionView.MissionId = mission.MissionId;
+                missionView.StartDate = mission.StartDate;
+                missionView.EndDate = mission.EndDate;
+                var seats = (int.Parse(mission.SeatAvailable) - (_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus == "ACCEPT").Count()));
+
+                if (int.Parse(mission.SeatAvailable) > 0)
+                {
+                    missionView.SeatAvailable = seats.ToString();
+                }
+                else
+                {
+                    missionView.SeatAvailable = mission.SeatAvailable;
+                }
+                missionView.alreadyVolunteered = (_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus == "ACCEPT").Count());
+                missionView.ThemeId = mission.ThemeId;
+                missionView.Status = mission.Status;
+                missionView.MissionType = mission.MissionType;
+                missionView.OrganizationDetail = mission.OrganizationDetail;
+                missionView.OrganizationName = mission.OrganizationName;
+
+
+                return missionView;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+
+          
+        }
+
+        public MissionViewModel getmission(int id)
+        {
+            try
+            {
+                Mission mission = (Mission)_objdb.Missions.Where(m => m.MissionId == id).FirstOrDefault();
+
+
                 MissionViewModel missionView = new MissionViewModel();
                 missionView.Availability = mission.Availability;
                 missionView.Title = mission.Title;
@@ -209,6 +723,30 @@ namespace CIProjectweb.Repository.Repository
                 {
                     missionView.MediaPath = image.MediaPath;
                 }
+                var images = _objdb.MissionMedia.Where(t => t.MissionId == mission.MissionId).ToList();
+                if (images != null)
+                {
+                    var mediaPaths = new List<string>();
+                    foreach (var image1 in images)
+                    {
+                        mediaPaths.Add(image1.MediaPath);
+                    }
+                    missionView.MediaPaths = mediaPaths;
+                }
+
+                var UserName = _objdb.MissionApplications.Where(t => t.MissionId == mission.MissionId).ToList();
+                if (UserName != null)
+                {
+
+                    var names = new List<string>();
+                    foreach (var image1 in UserName)
+                    {
+                        var user = _objdb.Users.Where(t => t.UserId == image1.UserId).FirstOrDefault();
+                        names.Add(user.FirstName);
+                    }
+                    missionView.UserNames = names;
+                }
+
 
                 var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
                 if (goalvalue != null)
@@ -221,15 +759,8 @@ namespace CIProjectweb.Repository.Repository
                     missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
                 }
 
-                var favourite = _objdb.FavouriteMissions.Where(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.DeletedAt == null).ToList();
-                if (favourite.Count>0)
-                {
-                    missionView.isFavrouite = true;
-                }
-                else
-                {
-                    missionView.isFavrouite = false;
-                }
+                missionView.isFavrouite = false;
+
                 var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
                 var rating = 0;
                 var sum = 0;
@@ -242,6 +773,20 @@ namespace CIProjectweb.Repository.Repository
                 if (rating != null)
                 {
                     missionView.Rating = rating;
+                }
+                var ratings1 = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
+
+                float rating1 = 0;
+                float sum1 = 0;
+                foreach (var entry in ratings1)
+                {
+                    sum = sum + int.Parse(entry.Rating);
+
+                }
+                rating1 = sum / ratings1.Count;
+                if (rating != null)
+                {
+                    missionView.avgRating = rating1;
                 }
                 missionView.deadline = mission.Deadline;
                 missionView.Description = mission.Description;
@@ -260,504 +805,270 @@ namespace CIProjectweb.Repository.Repository
                 missionView.MissionType = mission.MissionType;
                 missionView.OrganizationDetail = mission.OrganizationDetail;
                 missionView.OrganizationName = mission.OrganizationName;
-                missionViews.Add(missionView);
-            }
-            return missionViews;
-        }
-
-        public List<MissionViewModel> getmissions()
-        {
-
-            List<Mission> MissionList = _objdb.Missions.ToList();
-            List<MissionViewModel> missionViews = new List<MissionViewModel>();
-            foreach (var mission in MissionList)
-            {
-                MissionViewModel missionView = new MissionViewModel();
-                missionView.Availability = mission.Availability;
-                missionView.Title = mission.Title;
-                var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
-                if (city != null)
-                {
-                    missionView.City = city.Name;
-                }
-
-                var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
-                if (country != null)
-                {
-                    missionView.Country = country.Name;
-                }
-                var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
-                if (Theme != null)
-                {
-                    missionView.Theme = Theme.Title;
-                }
-                var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
-                if (image != null)
-                {
-                    missionView.MediaPath = image.MediaPath;
-                }
-                var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-                if (goalvalue != null)
-                {
-                    missionView.GoalValue = goalvalue.GoalValue;
-                }
-                var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-                if (goalvalue != null)
-                {
-                    missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
-                }
-
-                missionView.isFavrouite = false;
-                
-                var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
-                var rating = 0;
-                var sum = 0;
-                foreach (var entry in ratings)
-                {
-                    sum = sum + int.Parse(entry.Rating);
-
-                }
-                rating = sum / ratings.Count;
-                if (rating != null)
-                {
-                    missionView.Rating = rating;
-                }
-                missionView.Description = mission.Description;
-                missionView.CityId = mission.CityId;
-                missionView.CountryId = mission.CountryId;
-                missionView.CreatedAt = mission.CreatedAt;
-                missionView.UpdatedAt = mission.UpdatedAt;
-                missionView.DeletedAt = mission.DeletedAt;
-                missionView.ShortDescription = mission.ShortDescription;
-                missionView.MissionId = mission.MissionId;
-                missionView.StartDate = mission.StartDate;
-                missionView.EndDate = mission.EndDate;
-                missionView.SeatAvailable = mission.SeatAvailable;
-                missionView.ThemeId = mission.ThemeId;
-                missionView.Status = mission.Status;
-                missionView.MissionType = mission.MissionType;
-                missionView.OrganizationDetail = mission.OrganizationDetail;
-                missionView.OrganizationName = mission.OrganizationName;
-                missionViews.Add(missionView);
-            }
-            return missionViews;
-        }
-      
-
-        public MissionViewModel getmission(int id,int u_id)
-        {
-
-            Mission mission = (Mission)_objdb.Missions.Where(m=>m.MissionId==id).FirstOrDefault();
-           
-           
-                MissionViewModel missionView = new MissionViewModel();
-                missionView.Availability = mission.Availability == null? "Daily":mission.Availability;
-                missionView.Title = mission.Title;
-                var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
-                if (city != null)
-                {
-                    missionView.City = city.Name;
-                }
-
-                var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
-                if (country != null)
-                {
-                    missionView.Country = country.Name;
-                }
-                var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
-                if (Theme != null)
-                {
-                    missionView.Theme = Theme.Title;
-                }
-                var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
-                if (image != null)
-                {
-                    missionView.MediaPath = image.MediaPath;
-                }
-            var images = _objdb.MissionMedia.Where(t => t.MissionId == mission.MissionId).ToList();
-            if (images != null)
-            {
-                var mediaPaths = new List<string>();
-                foreach (var image1 in images)
-                {
-                    mediaPaths.Add(image1.MediaPath);
-                }
-                missionView.MediaPaths = mediaPaths;
-            }
-            var skill = _objdb.MissionSkills.Where(t => t.MissionId == mission.MissionId).ToList();
-            if (skill!=null)
-            {    var name=new List<string>();
-                foreach (var skills in skill)
-                {
-                    var skill_name = _objdb.Skills.FirstOrDefault(t => t.SkillId == skills.SkillId);
-                    if (skill_name != null)
-                    {
-                        name.Add(skill_name.SkillName);
-                    }
-                }
-                missionView.skill = name;
-                
-            }
-            var UserName = _objdb.MissionApplications.Where(t => t.MissionId == mission.MissionId).ToList();
-            if (UserName != null)
-            {
-
-                var names = new List<string>();
-                foreach (var image1 in UserName)
-                {
-                    var user = _objdb.Users.Where(t => t.UserId == image1.UserId).FirstOrDefault();
-                    names.Add(user.FirstName);
-                }
-                missionView.UserNames = names;
-            }
-           
-            var Applided = _objdb.MissionApplications.Where(e => e.MissionId == mission.MissionId && e.UserId == u_id ).ToList();
-            var Pending = _objdb.MissionApplications.Where(e => e.MissionId == mission.MissionId && e.UserId == u_id && e.ApprovalStatus=="PENDING").ToList();
-            if (Applided.Count > 0)
-            {
-                missionView.isApplied = true;
-            }
-            else
-            {
-                missionView.isApplied = false;
-            }
-            if (Pending.Count > 0)
-            {
-                missionView.isPending = true;
-            }
-            else
-            {
-                missionView.isPending = false;
-            }
-            var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-            if (goalvalue != null)
-            {
-               float action = (float)(_objdb.Timesheets.Where(x => x.MissionId == mission.MissionId && x.DeletedAt == null).Select(x => x.Action).Sum());
-            float totalGoal = goalvalue.GoalValue;
-            missionView.progressBar = action * 100 / totalGoal;
-                missionView.GoalValue = goalvalue.GoalValue;
-            }
-           missionView.Media=_objdb.MissionMedia.Where(m=>m.MissionId==mission.MissionId).ToList();
-           
-            var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-            if (goalvalue != null)
-            {
-                missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
-            }
-            var ratingUser = _objdb.MissionRatings.SingleOrDefault(t => t.MissionId == mission.MissionId && t.UserId == u_id);
-            if (ratingUser!=null)
-            {
-                missionView.UserPrevRating = int.Parse(ratingUser.Rating);
-
-            }
-            else
-            {
-                missionView.UserPrevRating=0;
-            }
-
-            var favourite = _objdb.FavouriteMissions.Where(x => x.MissionId == mission.MissionId && x.UserId == u_id && x.DeletedAt == null).ToList();
-            if (favourite.Count > 0)
-            {
-                missionView.isFavrouite = true;
-            }
-            else
-            {
-                missionView.isFavrouite = false;
-            }
-
-            var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
-            var count=ratings.Count;
-            missionView.ratingCount= count;
-                var rating = 0;
-                var sum = 0;
-                foreach (var entry in ratings)
-                {
-                    sum = sum + int.Parse(entry.Rating);
-
-                }
-            if (ratings.Count>0)
-            {
-                rating = sum / ratings.Count;
-            }
-            else
-            {
-                rating=5;
-            }
-                
-                if (rating != null)
-                {
-                    missionView.Rating = rating;
-                }
-
-            var ratings1 = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
-           
-            float rating1 = 0;
-            float sum1 = 0;
-            foreach (var entry in ratings1)
-            {
-                sum1 = sum1 + int.Parse(entry.Rating);
-
-            }
-            rating1 = sum1 / ratings1.Count;
-            if (rating != null)
-            {
-                missionView.avgRating = rating1;
-            }
-            missionView.deadline = mission.Deadline;
-            missionView.Description = mission.Description;
-                missionView.CityId = mission.CityId;
-                missionView.CountryId = mission.CountryId;
-                missionView.CreatedAt = mission.CreatedAt;
-                missionView.UpdatedAt = mission.UpdatedAt;
-                missionView.DeletedAt = mission.DeletedAt;
-                missionView.ShortDescription = mission.ShortDescription;
-                missionView.MissionId = mission.MissionId;
-                missionView.StartDate = mission.StartDate;
-                missionView.EndDate = mission.EndDate;
-            var seats = (int.Parse(mission.SeatAvailable) - (_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus=="ACCEPT").Count()));
-            
-            if (int.Parse(mission.SeatAvailable) > 0)
-            {
-                missionView.SeatAvailable = seats.ToString();
-            }
-            else
-            {
-                missionView.SeatAvailable=mission.SeatAvailable;
-            }
-            missionView.alreadyVolunteered=(_objdb.MissionApplications.Where(x => x.MissionId == mission.MissionId && x.ApprovalStatus == "ACCEPT").Count());
-            missionView.ThemeId = mission.ThemeId;
-                missionView.Status = mission.Status;
-                missionView.MissionType = mission.MissionType;
-                missionView.OrganizationDetail = mission.OrganizationDetail;
-                missionView.OrganizationName = mission.OrganizationName;
-                
-            
-            return missionView;
-        }
-
-        public MissionViewModel getmission(int id)
-        {
-
-            Mission mission = (Mission)_objdb.Missions.Where(m => m.MissionId == id).FirstOrDefault();
 
 
-            MissionViewModel missionView = new MissionViewModel();
-            missionView.Availability = mission.Availability;
-            missionView.Title = mission.Title;
-            var city = _objdb.Cities.SingleOrDefault(c => c.CityId == mission.CityId);
-            if (city != null)
-            {
-                missionView.City = city.Name;
+                return missionView;
             }
 
-            var country = _objdb.Countries.SingleOrDefault(c => c.CountryId == mission.CountryId);
-            if (country != null)
+            catch (Exception ex)
             {
-                missionView.Country = country.Name;
-            }
-            var Theme = _objdb.MissionThemes.SingleOrDefault(t => t.MissionThemeId == mission.ThemeId);
-            if (Theme != null)
-            {
-                missionView.Theme = Theme.Title;
-            }
-            var image = _objdb.MissionMedia.FirstOrDefault(t => t.MissionId == mission.MissionId);
-            if (image != null)
-            {
-                missionView.MediaPath = image.MediaPath;
-            }
-            var images = _objdb.MissionMedia.Where(t => t.MissionId == mission.MissionId).ToList();
-            if (images != null)
-            {
-                var mediaPaths = new List<string>();
-                foreach (var image1 in images)
-                {
-                    mediaPaths.Add(image1.MediaPath);
-                }
-                missionView.MediaPaths = mediaPaths;
-            }
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
 
-            var UserName = _objdb.MissionApplications.Where(t => t.MissionId == mission.MissionId).ToList();
-            if (UserName != null)
-            {
-
-                var names = new List<string>();
-                foreach (var image1 in UserName)
-                {
-                    var user = _objdb.Users.Where(t => t.UserId == image1.UserId).FirstOrDefault();
-                    names.Add(user.FirstName);
-                }
-                missionView.UserNames = names;
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
-
-           
-            var goalvalue = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-            if (goalvalue != null)
-            {
-                missionView.GoalValue = goalvalue.GoalValue;
-            }
-            var goaltext = _objdb.GoalMissions.SingleOrDefault(t => t.MissionId == mission.MissionId);
-            if (goalvalue != null)
-            {
-                missionView.GoalObjectiveText = goalvalue.GoalObjectiveText;
-            }
-
-            missionView.isFavrouite = false;
-
-            var ratings = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
-            var rating = 0;
-            var sum = 0;
-            foreach (var entry in ratings)
-            {
-                sum = sum + int.Parse(entry.Rating);
-
-            }
-            rating = sum / ratings.Count;
-            if (rating != null)
-            {
-                missionView.Rating = rating;
-            }
-            var ratings1 = _objdb.MissionRatings.Where(t => t.MissionId == mission.MissionId).ToList();
-
-            float rating1 = 0;
-            float sum1 = 0;
-            foreach (var entry in ratings1)
-            {
-                sum = sum + int.Parse(entry.Rating);
-
-            }
-            rating1 = sum / ratings1.Count;
-            if (rating != null)
-            {
-                missionView.avgRating = rating1;
-            }
-            missionView.deadline = mission.Deadline;
-            missionView.Description = mission.Description;
-            missionView.CityId = mission.CityId;
-            missionView.CountryId = mission.CountryId;
-            missionView.CreatedAt = mission.CreatedAt;
-            missionView.UpdatedAt = mission.UpdatedAt;
-            missionView.DeletedAt = mission.DeletedAt;
-            missionView.ShortDescription = mission.ShortDescription;
-            missionView.MissionId = mission.MissionId;
-            missionView.StartDate = mission.StartDate;
-            missionView.EndDate = mission.EndDate;
-            missionView.SeatAvailable = mission.SeatAvailable;
-            missionView.ThemeId = mission.ThemeId;
-            missionView.Status = mission.Status;
-            missionView.MissionType = mission.MissionType;
-            missionView.OrganizationDetail = mission.OrganizationDetail;
-            missionView.OrganizationName = mission.OrganizationName;
-
-
-            return missionView;
+          
         }
         public FavouriteMission FavouriteMission(int id, long missionId)
         {
-            FavouriteMission favoriteMission = _objdb.FavouriteMissions
-                .FirstOrDefault(fm => fm.UserId == id && fm.MissionId == missionId);
-            return favoriteMission;
+            try
+            {
+                FavouriteMission favoriteMission = _objdb.FavouriteMissions.FirstOrDefault(fm => fm.UserId == id && fm.MissionId == missionId);
+                return favoriteMission;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+            
         }
         public MissionRating Rating(int id, long missionId)
         {
-            MissionRating ratingExists =  _objdb.MissionRatings.FirstOrDefault(fm => fm.UserId == id && fm.MissionId == missionId);
-            return ratingExists;
+            try
+            {
+                MissionRating ratingExists = _objdb.MissionRatings.FirstOrDefault(fm => fm.UserId == id && fm.MissionId == missionId);
+                return ratingExists;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
 
         public MissionInvite missionInviteExists(int fromUserid,int ToUserId,long missionId)
         {
-            MissionInvite missionInviteExists = _objdb.MissionInvites.FirstOrDefault(t => t.FromUserId == fromUserid && t.ToUserId == ToUserId && t.MissionId == missionId);
-            return missionInviteExists;
+            try
+            {
+                MissionInvite missionInviteExists = _objdb.MissionInvites.FirstOrDefault(t => t.FromUserId == fromUserid && t.ToUserId == ToUserId && t.MissionId == missionId);
+                return missionInviteExists;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
 
         public StoryInvite storyInviteExists(int fromUserid, int ToUserId, long storyId)
         {
-            StoryInvite storyInviteExists = _objdb.StoryInvites.FirstOrDefault(t => t.FromUserId == fromUserid && t.ToUserId == ToUserId && t.StoryId == storyId);
-            return storyInviteExists;
+            try
+            {
+                StoryInvite storyInviteExists = _objdb.StoryInvites.FirstOrDefault(t => t.FromUserId == fromUserid && t.ToUserId == ToUserId && t.StoryId == storyId);
+                return storyInviteExists;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+            
         }
 
         public bool ADDstoryInvite(StoryInvite InviteExixts, int fomUserId, int ToUserId, long storyId)
         {
-            if (InviteExixts != null)
+            try
             {
-                InviteExixts.StoryId = storyId;
-                InviteExixts.UpdatedAt = DateTime.Now;
+                if (InviteExixts != null)
+                {
+                    InviteExixts.StoryId = storyId;
+                    InviteExixts.UpdatedAt = DateTime.Now;
 
-                _objdb.StoryInvites.Update(InviteExixts);
-                _objdb.SaveChanges();
-                return true;
+                    _objdb.StoryInvites.Update(InviteExixts);
+                    _objdb.SaveChanges();
+                    return true;
 
+                }
+                else
+                {
+                    StoryInvite Story_Invite = new StoryInvite();
+                    Story_Invite.StoryId = storyId;
+                    Story_Invite.FromUserId = fomUserId;
+                    Story_Invite.ToUserId = ToUserId;
+                    _objdb.StoryInvites.Add(Story_Invite);
+                    _objdb.SaveChanges();
+                    return true;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
-                StoryInvite Story_Invite = new StoryInvite();
-                Story_Invite.StoryId = storyId;
-                Story_Invite.FromUserId = fomUserId;
-                Story_Invite.ToUserId = ToUserId;
-                _objdb.StoryInvites.Add(Story_Invite);
-                _objdb.SaveChanges();
-                return true;
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
             }
+           
         }
 
 
         public List<City> cities()
         {
-            List<City> cities = _objdb.Cities.ToList();
-            return cities;
+            try
+            {
+                List<City> cities = _objdb.Cities.ToList();
+                return cities;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
 
         public List<City> cities(long countryId)
         {
-            List<City> cities = _objdb.Cities.Where(ct=>ct.CountryId==countryId).ToList();
-            return cities;
+            try
+            {
+                List<City> cities = _objdb.Cities.Where(ct => ct.CountryId == countryId).ToList();
+                return cities;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+            
         }
         public List<Country> countries()
         {
-            List<Country> countries = _objdb.Countries.ToList();
-            return countries;
+            try
+            {
+                List<Country> countries = _objdb.Countries.ToList();
+                return countries;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+          
         }
 
         public List<Skill> skills(int userid)
         {
-            List<Skill> skill = new List<Skill>();
-            var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
-            List<Skill> skills=_objdb.Skills.Where(s=>s.Status==1 && s.DeletedAt==null).ToList();  
-            foreach(var i in skills)
-           {
-                if (userskill.Find(x=>x.SkillId==i.SkillId)==null)
+            try
+            {
+                List<Skill> skill = new List<Skill>();
+                var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
+                List<Skill> skills = _objdb.Skills.Where(s => s.Status == 1 && s.DeletedAt == null).ToList();
+                foreach (var i in skills)
                 {
-                    skill.Add(i);
+                    if (userskill.Find(x => x.SkillId == i.SkillId) == null)
+                    {
+                        skill.Add(i);
 
+                    }
                 }
+                skills = skill;
+                return skills;
             }
-            skills = skill;
-            return skills;
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+            
         }
         public List<Skill> oneuserskill(int userid)
         {
-            var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
-            List<Skill> skills = _objdb.Skills.Where(s => s.Status == 1 && s.DeletedAt == null).ToList();
-            var oneuserskill = (from u in userskill join s in skills on u.SkillId equals s.SkillId select s).ToList();
-            return oneuserskill;
+            try
+            {
+                var userskill = _objdb.UserSkills.Where(us => us.UserId == userid).ToList();
+                List<Skill> skills = _objdb.Skills.Where(s => s.Status == 1 && s.DeletedAt == null).ToList();
+                var oneuserskill = (from u in userskill join s in skills on u.SkillId equals s.SkillId select s).ToList();
+                return oneuserskill;
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public void adduser(Userviewmodel userViewModel, int userid)
         {
-            User user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
-            user.FirstName = userViewModel.FirstName == null ? user.FirstName : userViewModel.FirstName;
-            user.LastName = userViewModel.LastName;
-            user.Avatar = userViewModel.Avatar == null ? user.Avatar : userViewModel.Avatar;
-            user.EmployeeId = userViewModel.EmployeeId == null ? user.EmployeeId : userViewModel.EmployeeId;
-            user.Department = userViewModel.Department == null ? user.Department : userViewModel.Department;
-            user.ManagerDetail = userViewModel.ManagerDetail == null ? user.ManagerDetail : userViewModel.ManagerDetail;
-            user.Title = userViewModel.Title == null ? user.Title : userViewModel.Title;
-            user.ProfileText = userViewModel.ProfileText == null ? user.ProfileText : userViewModel.ProfileText;
-            user.WhyIVolunteer = userViewModel.WhyIVolunteer == null ? user.WhyIVolunteer : userViewModel.WhyIVolunteer;
-            user.CityId = userViewModel.CityId == null ? user.CityId : userViewModel.CityId;
-            user.CountryId = userViewModel.CountryId == null ? user.CountryId : userViewModel.CountryId;
-            user.Availability = userViewModel.Availability == null ? user.Availability : userViewModel.Availability;
-            user.LinkedInUrl = userViewModel.LinkedInUrl == null ? user.LinkedInUrl : userViewModel.LinkedInUrl;
-            _objdb.Users.Update(user);
-            _objdb.SaveChanges();
+            try
+            {
+                User user = _objdb.Users.FirstOrDefault(u => u.UserId == userid);
+                user.FirstName = userViewModel.FirstName == null ? user.FirstName : userViewModel.FirstName;
+                user.LastName = userViewModel.LastName;
+                user.Avatar = userViewModel.Avatar == null ? user.Avatar : userViewModel.Avatar;
+                user.EmployeeId = userViewModel.EmployeeId == null ? user.EmployeeId : userViewModel.EmployeeId;
+                user.Department = userViewModel.Department == null ? user.Department : userViewModel.Department;
+                user.ManagerDetail = userViewModel.ManagerDetail == null ? user.ManagerDetail : userViewModel.ManagerDetail;
+                user.Title = userViewModel.Title == null ? user.Title : userViewModel.Title;
+                user.ProfileText = userViewModel.ProfileText == null ? user.ProfileText : userViewModel.ProfileText;
+                user.WhyIVolunteer = userViewModel.WhyIVolunteer == null ? user.WhyIVolunteer : userViewModel.WhyIVolunteer;
+                user.CityId = userViewModel.CityId == null ? user.CityId : userViewModel.CityId;
+                user.CountryId = userViewModel.CountryId == null ? user.CountryId : userViewModel.CountryId;
+                user.Availability = userViewModel.Availability == null ? user.Availability : userViewModel.Availability;
+                user.LinkedInUrl = userViewModel.LinkedInUrl == null ? user.LinkedInUrl : userViewModel.LinkedInUrl;
+                _objdb.Users.Update(user);
+                _objdb.SaveChanges();
+            }
+
+            catch (Exception ex)
+            {
+                // Log the error
+                _logger.LogError(ex, "An error occurred in YourMethod.");
+
+                // Display a friendly message to the user
+                throw new ApplicationException("An error occurred while processing your request. Please try again later.");
+            }
+           
         }
         public void saveskill(string[] skill, int userid)
         {
@@ -1656,6 +1967,25 @@ namespace CIProjectweb.Repository.Repository
 
 
            
+        }
+
+        public long getviewcount(int userId, int storyId)
+        {
+            var view = _objdb.StoryViews.Where(u => u.UserId == userId && u.StoryId == storyId).FirstOrDefault();
+            List<StoryView> views = _objdb.StoryViews.Where(s => s.StoryId == storyId).ToList();
+            if (view != null)
+            {
+                return views.Count;
+            }
+            else
+            {
+                StoryView storyView = new StoryView();
+                storyView.UserId = userId;
+                storyView.StoryId = storyId;
+                _objdb.StoryViews.Add(storyView);
+                _objdb.SaveChanges();
+                return views.Count;
+            }
         }
     }
 }

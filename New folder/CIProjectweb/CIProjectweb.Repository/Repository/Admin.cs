@@ -206,6 +206,11 @@ namespace CIProjectweb.Repository.Repository
             mission.UpdatedAt = DateTime.Now;
             _objdb.MissionApplications.Update(mission);
             _objdb.SaveChanges();
+            Notification addnotification = new Notification();
+            addnotification.UserId = mission.UserId;
+            addnotification.NotificationText = "Your Mission Application is Accepted.";
+            _objdb.Notifications.Add(addnotification);
+            _objdb.SaveChanges();
             return true;
         }
         public bool Decline(long applicationId)
@@ -214,6 +219,11 @@ namespace CIProjectweb.Repository.Repository
             mission.ApprovalStatus = "DECLINE";
             mission.UpdatedAt = DateTime.Now;
             _objdb.MissionApplications.Update(mission);
+            _objdb.SaveChanges();
+            Notification addnotification = new Notification();
+            addnotification.UserId = mission.UserId;
+            addnotification.NotificationText = "Your Mission Application is Declined.";
+            _objdb.Notifications.Add(addnotification);
             _objdb.SaveChanges();
             return true;
         }
@@ -285,6 +295,11 @@ namespace CIProjectweb.Repository.Repository
                 story.UpdatedAt = DateTime.Now;
                 _objdb.Stories.Update(story);
                 _objdb.SaveChanges();
+                Notification addnotification = new Notification();
+                addnotification.UserId = story.UserId;
+                addnotification.NotificationText = "Your Story is approved";
+                _objdb.Notifications.Add(addnotification);
+                _objdb.SaveChanges();
             }
         }
         public void reject(long storyId)
@@ -292,9 +307,14 @@ namespace CIProjectweb.Repository.Repository
             var story = _objdb.Stories.FirstOrDefault(st => st.StoryId == storyId);
             if (story != null)
             {
-                story.DeletedAt = DateTime.Now;
+                story.Status = "DECLINE";
                 story.UpdatedAt = DateTime.Now;
                 _objdb.Stories.Update(story);
+                _objdb.SaveChanges();
+                Notification addnotification = new Notification();
+                addnotification.UserId = story.UserId;
+                addnotification.NotificationText = "Your Story is Rejected.";
+                _objdb.Notifications.Add(addnotification);
                 _objdb.SaveChanges();
             }
         }
@@ -901,6 +921,17 @@ namespace CIProjectweb.Repository.Repository
         {
             var banner = _objdb.Banners.Any(t => t.SortOrder == order&& t.DeletedAt==null);
             return banner;
+        }
+        public bool MissionExists(string Title, long missionID)
+        {
+            var banner = _objdb.Missions.Any(t => t.Title == Title && t.DeletedAt == null);
+            return banner;
+        }
+
+        public bool EmailExists(string Email, long User)
+        {
+            var Users = _objdb.Users.Any(t => t.Email == Email && t.DeletedAt == null);
+            return Users;
         }
     }
 }
